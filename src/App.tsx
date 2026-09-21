@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { Intro } from './components/Intro';
 import { PaintballGun } from './components/PaintballGun';
 import { PaintballSplats } from './components/PaintballSplats';
+import { PageTransition } from './components/PageTransition';
 import { Home } from './pages/Home';
 import { Dashboard } from './pages/Dashboard';
 import { About } from './pages/About';
@@ -54,24 +55,30 @@ export const App: React.FC = () => {
     const handlePopState = () => {
       const path = window.location.pathname || '/';
       setCurrentPath(path);
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo(0, 0);
-      }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigate = (path: string) => {
-    setCurrentPath(path);
-    window.history.pushState({}, '', path);
+  const handleContentSwap = () => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);
     }
+  };
+
+  const navigate = (path: string) => {
+    if (path === currentPath) {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { duration: 0.6 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+    setCurrentPath(path);
+    window.history.pushState({}, '', path);
   };
 
   const toggleTheme = () => {
@@ -110,13 +117,15 @@ export const App: React.FC = () => {
       {/* Paintball Splats & Audio Effects */}
       <PaintballSplats isActive={paintballActive} />
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full relative transition-transform duration-75">
-        {currentPath === '/' && <Home onNavigate={navigate} isLight={isLight} />}
-        {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} />}
-        {currentPath === '/about' && <About onNavigate={navigate} />}
-        {currentPath === '/hypeboard' && <Hypeboard onNavigate={navigate} />}
-        {currentPath === '/contact' && <Contact />}
+      {/* Main Content Area with Smooth Page Transition */}
+      <main className="flex-1 w-full relative">
+        <PageTransition routeKey={currentPath} onContentSwap={handleContentSwap}>
+          {currentPath === '/' && <Home onNavigate={navigate} isLight={isLight} />}
+          {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} />}
+          {currentPath === '/about' && <About onNavigate={navigate} />}
+          {currentPath === '/hypeboard' && <Hypeboard onNavigate={navigate} />}
+          {currentPath === '/contact' && <Contact />}
+        </PageTransition>
       </main>
 
       {/* Global Footer */}
