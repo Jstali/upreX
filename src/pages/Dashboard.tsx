@@ -1,17 +1,72 @@
 import React, { useState } from 'react';
-import { getFolders, getFolderItems, getWallpapers, getStickyNotes } from '../utils/sanity';
+import { getWallpapers } from '../utils/sanity';
 
 interface DashboardProps {
   onNavigate: (path: string) => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
-  const folders = getFolders();
-  const allItems = getFolderItems();
-  const wallpapers = getWallpapers();
-  const stickyNotes = getStickyNotes();
+const UPERX_FOLDERS = [
+  {
+    id: 'ai-agents',
+    title: 'Autonomous AI Agents',
+    icon: '🤖',
+    items: [
+      { id: '1', title: 'AgentSwarm-Alpha', type: 'Multi-Agent Framework', desc: 'Autonomous multi-agent orchestration for asynchronous task decomposition, self-correction, and tool execution.', url: 'https://github.com/uperx/swarm-alpha' },
+      { id: '2', title: 'CognitiveRAG-v3', type: 'Vector Search & Knowledge Base', desc: 'High-speed hybrid semantic retrieval pipeline combining Milvus vector embeddings with graph knowledge trees.', url: 'https://github.com/uperx/cognitive-rag' },
+      { id: '3', title: 'CodeSynth-Engine', type: 'LLM Code Generator', desc: 'Automated code review, unit test synthesis, and pull request refactoring bot integrated with GitHub Actions.', url: 'https://github.com/uperx/codesynth' },
+    ],
+  },
+  {
+    id: 'software',
+    title: 'Full-Stack Software',
+    icon: '⚡',
+    items: [
+      { id: '4', title: 'CorePlatform API', type: 'High-Throughput Microservice', desc: 'Rust + Go distributed event broker handling 50,000+ operations/second with sub-5ms latency.', url: 'https://uperx.dev' },
+      { id: '5', title: 'OmniStream Broker', type: 'Real-Time WebSockets', desc: 'Scalable distributed state synchronization engine for multi-user collaborative interfaces.', url: 'https://uperx.dev' },
+    ],
+  },
+  {
+    id: 'web3d',
+    title: '3D WebGL Experiences',
+    icon: '🌐',
+    items: [
+      { id: '6', title: 'Spatial Studio Engine', type: 'Three.js & Shaders', desc: 'Production-ready WebGL runtime with ACESFilmic tonemapping, physics cloth simulation, and 60FPS fluid motion.', url: 'https://uperx.dev' },
+      { id: '7', title: 'Neon Kinetic Shaders', type: 'GLSL Post-Processing', desc: 'Bespoke chromatic aberration and blooming shader pipelines for ultra-modern digital brands.', url: 'https://uperx.dev' },
+    ],
+  },
+  {
+    id: 'saas',
+    title: 'SaaS Platforms',
+    icon: '📦',
+    items: [
+      { id: '8', title: 'HyperScale Billing', type: 'Multi-Tenant Billing', desc: 'Automated tiered subscription engine, usage-based metering, and customer invoice automation.', url: 'https://uperx.dev' },
+      { id: '9', title: 'Agentic CRM Portal', type: 'Enterprise Dashboard', desc: 'Intelligent customer relationship portal where AI agents automatically draft responses and schedule workflows.', url: 'https://uperx.dev' },
+    ],
+  },
+  {
+    id: 'growth',
+    title: 'Growth & Marketing',
+    icon: '📈',
+    items: [
+      { id: '10', title: 'Algorithmic Funnels', type: 'CRO & Experimentation', desc: 'Real-time multi-armed bandit A/B testing engine optimizing landing page conversion dynamically.', url: 'https://uperx.dev' },
+      { id: '11', title: 'Viral Distribution Model', type: 'Brand Acquisition Strategy', desc: 'Engineering cult-level brand narratives that achieve organic user adoption through interactive digital stunts.', url: 'https://uperx.dev' },
+    ],
+  },
+  {
+    id: 'cloud',
+    title: 'Cloud & DevOps IT',
+    icon: '🛡️',
+    items: [
+      { id: '12', title: 'ZeroTrust Kubernetes', type: 'Cloud Infrastructure', desc: 'Automated multi-region cluster deployment with automated canary rollouts and automated failover.', url: 'https://uperx.dev' },
+      { id: '13', title: 'Edge Shield Firewall', type: 'Cybersecurity Hardening', desc: 'DDoS mitigation layer, automated SSL rotation, and secret vault orchestration.', url: 'https://uperx.dev' },
+    ],
+  },
+];
 
-  const [activeFolderId, setActiveFolderId] = useState<string | null>(folders[0]?.id || null);
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
+  const wallpapers = getWallpapers();
+
+  const [activeFolderId, setActiveFolderId] = useState<string>(UPERX_FOLDERS[0].id);
   const [windowOpen, setWindowOpen] = useState(true);
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
   const [activeWallpaper, setActiveWallpaper] = useState<string>(
@@ -19,35 +74,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   );
   const [wallpaperModalOpen, setWallpaperModalOpen] = useState(false);
 
-  const currentFolder = folders.find((f) => f.id === activeFolderId) || folders[0];
-  const currentItems = currentFolder?.itemRefs?.length
-    ? allItems.filter((item) => currentFolder.itemRefs.includes(item.id))
-    : allItems;
+  const currentFolder = UPERX_FOLDERS.find((f) => f.id === activeFolderId) || UPERX_FOLDERS[0];
+
+  const stickyMemos = [
+    { title: 'ENGINEERING LAW #1', text: 'Never ship boring software. If it does not spark awe, refine the craft.', color: '#dcfce7', rot: -2 },
+    { title: 'AGENT DIRECTIVE', text: 'Autonomous multi-agent swarms > static deterministic scripts.', color: '#e0e7ff', rot: 3 },
+    { title: 'PERFORMANCE TARGET', text: '60FPS fluid physics across all spatial viewports.', color: '#fef3c7', rot: -1 },
+  ];
 
   return (
     <div
-      className="relative w-full min-h-[92vh] pt-20 px-6 pb-20 select-none overflow-hidden"
+      className="relative w-full min-h-[92vh] pt-24 px-6 pb-20 select-none overflow-hidden"
       style={{
         backgroundImage: activeWallpaper ? `url(${activeWallpaper})` : 'none',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {/* Background Overlay if wallpaper is set */}
-      {activeWallpaper && <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-0" />}
+      {/* Background Overlay */}
+      {activeWallpaper && <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] z-0" />}
 
       {/* Desktop Header Info */}
       <div className="relative z-10 flex justify-between items-center mb-8 text-xs font-mono text-neutral-400">
         <div className="flex items-center space-x-2">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
-          <span className="uppercase tracking-wider text-neutral-200">DGB HQ Desktop OS v2.4</span>
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="uppercase tracking-wider text-neutral-200">
+            uperX OS v3.0 // Neural Command Center
+          </span>
         </div>
         <div className="flex items-center space-x-4">
           <button
             onClick={() => setWallpaperModalOpen(true)}
-            className="hover:text-white transition-colors underline"
+            className="hover:text-cyan-400 transition-colors underline font-mono text-xs"
           >
-            [ Change Wallpaper ]
+            [ Change Desktop Wallpaper ]
           </button>
         </div>
       </div>
@@ -55,8 +115,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       {/* DESKTOP ICONS GRID (Left Side) */}
       <div className="relative z-10 flex flex-col md:flex-row gap-8">
         {/* Desktop Folder Icons */}
-        <div className="grid grid-cols-2 md:grid-cols-1 gap-6 w-full md:w-36">
-          {folders.map((folder) => {
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-5 w-full md:w-44">
+          {UPERX_FOLDERS.map((folder) => {
             const isSelected = activeFolderId === folder.id;
             return (
               <div
@@ -66,41 +126,25 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   setWindowOpen(true);
                 }}
                 className={`flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer transition-all duration-200 group ${
-                  isSelected ? 'bg-white/20 border border-white/40' : 'hover:bg-white/10'
+                  isSelected ? 'bg-cyan-500/20 border border-cyan-400/50 shadow-[0_0_15px_rgba(0,242,254,0.3)]' : 'hover:bg-white/10'
                 }`}
               >
-                <div className="w-12 h-12 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-                  📁
+                <div className="w-10 h-10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                  {folder.icon}
                 </div>
-                <span className="mt-2 text-center font-mono text-[11px] text-white tracking-tight leading-tight px-1 rounded bg-black/50">
+                <span className="mt-1.5 text-center font-mono text-[11px] text-white tracking-tight leading-tight px-1.5 py-0.5 rounded bg-black/60">
                   {folder.title}
                 </span>
               </div>
             );
           })}
-
-          {/* Trash Icon */}
-          <div
-            onClick={() => {
-              setActiveFolderId(null);
-              setWindowOpen(true);
-            }}
-            className="flex flex-col items-center justify-center p-3 rounded-xl cursor-pointer hover:bg-white/10 transition-all group"
-          >
-            <div className="w-12 h-12 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-              🗑️
-            </div>
-            <span className="mt-2 text-center font-mono text-[11px] text-white tracking-tight leading-tight px-1 rounded bg-black/50">
-              Trash Bin
-            </span>
-          </div>
         </div>
 
         {/* MAIN OS FINDER WINDOW */}
         {windowOpen && (
-          <div className="flex-1 max-w-4xl rounded-xl border border-white/20 bg-neutral-900/90 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300">
+          <div className="flex-1 max-w-4xl rounded-2xl border border-white/20 bg-neutral-950/90 backdrop-blur-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300">
             {/* Window Titlebar */}
-            <div className="h-10 px-4 bg-neutral-800/80 border-b border-white/10 flex items-center justify-between">
+            <div className="h-11 px-5 bg-neutral-900/80 border-b border-white/10 flex items-center justify-between">
               {/* Traffic Lights */}
               <div className="flex items-center space-x-2">
                 <button
@@ -120,73 +164,70 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               </div>
 
               {/* Title */}
-              <div className="font-mono text-xs text-neutral-300 flex items-center space-x-2">
-                <span>📁</span>
-                <span>{currentFolder?.title || 'All Archives'}</span>
-                <span className="text-neutral-500">({currentItems.length} items)</span>
+              <div className="font-mono text-xs text-neutral-200 flex items-center space-x-2">
+                <span>{currentFolder.icon}</span>
+                <span className="font-bold">{currentFolder.title}</span>
+                <span className="text-neutral-500">({currentFolder.items.length} modules)</span>
               </div>
 
               <div className="w-12" />
             </div>
 
             {/* Window Content Grid */}
-            <div className="p-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-h-[550px] overflow-y-auto">
-              {currentItems.length === 0 ? (
-                <div className="col-span-full py-16 text-center text-neutral-500 font-mono text-xs">
-                  This folder is currently empty.
-                </div>
-              ) : (
-                currentItems.map((item) => (
-                  <div
-                    key={item.id}
-                    onClick={() => setSelectedItem(item)}
-                    className="flex flex-col items-center p-3 rounded-lg border border-transparent hover:border-white/20 hover:bg-white/5 cursor-pointer transition-all duration-150 group text-center"
-                  >
-                    <div className="w-24 h-24 rounded-lg overflow-hidden bg-neutral-800 border border-white/10 mb-2 flex items-center justify-center relative">
-                      {item.mediaUrl ? (
-                        <img
-                          src={item.mediaUrl}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <span className="text-3xl">📄</span>
-                      )}
-                    </div>
-                    <span className="font-sans text-xs font-semibold text-neutral-200 truncate w-full">
-                      {item.title}
-                    </span>
-                    <span className="font-mono text-[10px] text-neutral-400 capitalize">
-                      {item.type}
+            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-h-[550px] overflow-y-auto">
+              {currentFolder.items.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className="flex flex-col p-5 rounded-xl border border-white/10 hover:border-cyan-400 hover:bg-cyan-500/5 cursor-pointer transition-all duration-200 group relative"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-2xl">{currentFolder.icon}</span>
+                    <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded bg-white/10 text-cyan-300">
+                      Active
                     </span>
                   </div>
-                ))
-              )}
+
+                  <span className="font-sans text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                    {item.title}
+                  </span>
+                  <span className="font-mono text-[10px] text-neutral-400 mt-0.5 mb-2">
+                    {item.type}
+                  </span>
+                  <p className="font-sans text-xs text-neutral-400 line-clamp-2 leading-relaxed">
+                    {item.desc}
+                  </p>
+
+                  <div className="mt-4 pt-3 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-cyan-400">
+                    <span>Inspect Spec ↗</span>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Window Status Bar */}
-            <div className="h-8 px-4 bg-neutral-800/40 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-neutral-400">
-              <span>{currentItems.length} items selected</span>
-              <span>Available Space: 512 GB</span>
+            <div className="h-9 px-5 bg-neutral-900/60 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-neutral-400">
+              <span>System: Ready • {currentFolder.items.length} items loaded</span>
+              <span>Architecture: Multi-Agent Microkernel</span>
             </div>
           </div>
         )}
 
         {/* STICKY NOTES ON DESKTOP (Right Side) */}
-        <div className="hidden lg:flex flex-col space-y-6 w-64">
-          {stickyNotes.slice(0, 3).map((note, idx) => (
+        <div className="hidden lg:flex flex-col space-y-6 w-72">
+          {stickyMemos.map((memo, idx) => (
             <div
-              key={note.id || idx}
-              className="p-4 rounded-lg shadow-xl font-mono text-xs text-neutral-900 transition-transform duration-300 hover:scale-105"
+              key={idx}
+              className="p-5 rounded-xl shadow-2xl font-mono text-xs text-neutral-900 transition-transform duration-300 hover:scale-105 select-none"
               style={{
-                backgroundColor: note.color || '#fffb91',
-                transform: `rotate(${note.rotation || (idx % 2 === 0 ? -2 : 3)}deg)`,
+                backgroundColor: memo.color,
+                transform: `rotate(${memo.rot}deg)`,
               }}
             >
-              <div className="font-bold text-[10px] uppercase tracking-wider text-neutral-600 mb-1 border-b border-black/10 pb-1">
-                Memo #{idx + 1}
+              <div className="font-bold text-[10px] uppercase tracking-wider text-neutral-700 mb-1 border-b border-black/10 pb-1">
+                {memo.title}
               </div>
-              <p className="leading-snug">{note.text || 'Launch fast. Iterate in public. Keep it unapologetically bold.'}</p>
+              <p className="leading-snug text-neutral-900 font-medium">{memo.text}</p>
             </div>
           ))}
         </div>
@@ -199,46 +240,47 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           onClick={() => setSelectedItem(null)}
         >
           <div
-            className="max-w-2xl w-full bg-neutral-900 border border-white/20 rounded-2xl overflow-hidden shadow-2xl p-6 relative flex flex-col space-y-4"
+            className="max-w-xl w-full bg-neutral-950 border border-cyan-500/30 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,242,254,0.2)] p-8 relative flex flex-col space-y-5"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center border-b border-white/10 pb-3">
-              <h3 className="font-sans font-bold text-lg text-white">
-                {selectedItem.title}
-              </h3>
+            <div className="flex justify-between items-center border-b border-white/10 pb-4">
+              <div>
+                <span className="font-mono text-xs uppercase text-cyan-400 block mb-1">
+                  Module Blueprint
+                </span>
+                <h3 className="font-sans font-black text-2xl text-white">
+                  {selectedItem.title}
+                </h3>
+              </div>
               <button
                 onClick={() => setSelectedItem(null)}
-                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"
               >
                 ✕
               </button>
             </div>
 
-            {selectedItem.mediaUrl && (
-              <div className="w-full aspect-video rounded-xl overflow-hidden bg-black flex items-center justify-center">
-                <img
-                  src={selectedItem.mediaUrl}
-                  alt={selectedItem.title}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            )}
+            <div className="font-mono text-xs text-neutral-300 bg-black/60 p-4 rounded-xl border border-white/10 space-y-2">
+              <div><span className="text-neutral-500">Category:</span> {selectedItem.type}</div>
+              <div><span className="text-neutral-500">Status:</span> Production Verified</div>
+              <div><span className="text-neutral-500">Engine:</span> uperX Core 2026</div>
+            </div>
 
             <p className="font-sans text-sm text-neutral-300 leading-relaxed">
-              {selectedItem.description ||
-                'Confidential brand assets and project blueprints from the Damn Good Brands vault.'}
+              {selectedItem.desc}
             </p>
 
-            {selectedItem.url && (
-              <a
-                href={selectedItem.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block self-start px-5 py-2.5 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-colors"
+            <div className="pt-4 border-t border-white/10 flex justify-between items-center">
+              <button
+                onClick={() => {
+                  setSelectedItem(null);
+                  onNavigate('/contact');
+                }}
+                className="px-6 py-3 rounded-full bg-cyan-400 text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-cyan-300 transition-colors"
               >
-                Visit Project ↗
-              </a>
-            )}
+                Request Custom Deployment →
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -250,11 +292,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           onClick={() => setWallpaperModalOpen(false)}
         >
           <div
-            className="max-w-xl w-full bg-neutral-900 border border-white/20 rounded-2xl overflow-hidden shadow-2xl p-6 relative"
+            className="max-w-xl w-full bg-neutral-950 border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-sans font-bold text-lg text-white">Select Desktop Wallpaper</h3>
+              <h3 className="font-sans font-bold text-lg text-white">Select OS Wallpaper</h3>
               <button
                 onClick={() => setWallpaperModalOpen(false)}
                 className="text-neutral-400 hover:text-white"
@@ -269,11 +311,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   setActiveWallpaper('');
                   setWallpaperModalOpen(false);
                 }}
-                className={`aspect-video rounded-lg border-2 cursor-pointer p-2 flex items-center justify-center font-mono text-xs ${
-                  !activeWallpaper ? 'border-white bg-neutral-800 text-white' : 'border-neutral-700 bg-neutral-950 text-neutral-400'
+                className={`aspect-video rounded-xl border-2 cursor-pointer p-2 flex items-center justify-center font-mono text-xs ${
+                  !activeWallpaper ? 'border-cyan-400 bg-neutral-900 text-white' : 'border-neutral-800 bg-black text-neutral-500'
                 }`}
               >
-                Default Void Black
+                Deep Cyber Void
               </div>
               {wallpapers.map((wp) => (
                 <div
@@ -282,8 +324,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     setActiveWallpaper(wp.image);
                     setWallpaperModalOpen(false);
                   }}
-                  className={`aspect-video rounded-lg border-2 overflow-hidden cursor-pointer relative group ${
-                    activeWallpaper === wp.image ? 'border-white' : 'border-neutral-700 hover:border-white/50'
+                  className={`aspect-video rounded-xl border-2 overflow-hidden cursor-pointer relative group ${
+                    activeWallpaper === wp.image ? 'border-cyan-400' : 'border-neutral-800 hover:border-white/50'
                   }`}
                 >
                   <img src={wp.image} alt={wp.title} className="w-full h-full object-cover" />

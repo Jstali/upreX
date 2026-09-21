@@ -5,21 +5,23 @@ export const Contact: React.FC = () => {
     name: '',
     email: '',
     company: '',
-    service: 'Brand Identity & Strategy',
-    budget: '$50k - $100k',
+    service: 'Autonomous AI Agent Creation',
+    budget: '$25k - $50k',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const services = [
-    'Brand Identity & Strategy',
-    '3D WebGL & Digital Experience',
-    'Product Packaging & Manufacturing',
-    'Venture Co-Investment',
+    'Autonomous AI Agent Creation',
+    'Custom Software Development',
+    'High-End 3D Web & Creative Frontends',
+    'Service-Based App Creation & SaaS',
+    'Growth Marketing & Brand Strategy',
+    'Enterprise IT & Cloud Operations',
   ];
 
-  const budgets = ['< $25k', '$25k - $50k', '$50k - $100k', '$100k+'];
+  const budgets = ['< $15k', '$15k - $30k', '$30k - $75k', '$75k+'];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,27 +29,29 @@ export const Contact: React.FC = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1200);
+    }, 1000);
   };
 
   return (
-    <div className="w-full min-h-screen pt-24 pb-24 px-5 md:px-12 max-w-6xl mx-auto flex flex-col space-y-16">
+    <div className="w-full min-h-screen pt-28 pb-24 px-5 md:px-12 max-w-6xl mx-auto flex flex-col space-y-16 select-none">
       {/* Header Banner */}
-      <section className="text-center md:text-left flex flex-col space-y-4 pt-8">
-        <div className="inline-flex items-center space-x-2 self-center md:self-start px-3 py-1 rounded-full border border-white/10 bg-white/5">
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-300">
-            Let's Work // New Inquiries
+      <section className="text-center md:text-left flex flex-col space-y-4">
+        <div className="inline-flex items-center space-x-2 self-center md:self-start px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="font-mono text-xs uppercase tracking-widest text-cyan-300">
+            Initiate Project // Deployment Portal
           </span>
         </div>
 
-        <h1 className="font-serif text-5xl md:text-8xl tracking-tight text-white font-normal uppercase">
-          Build Something <br />
-          <span className="italic font-light text-neutral-400">Epic With Us.</span>
+        <h1 className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase leading-[0.95]">
+          Let's Build Something <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif font-light italic normal-case">
+            Extraordinary.
+          </span>
         </h1>
 
         <p className="max-w-xl font-sans text-sm md:text-base text-neutral-400 leading-relaxed">
-          Tell us about your company, your vision, and how we can collaborate to disrupt your market.
+          Tell us about your organization, technical bottlenecks, or product vision. Our engineers will scope a tailored deployment plan.
         </p>
       </section>
 
@@ -56,11 +60,11 @@ export const Contact: React.FC = () => {
         {/* Form Column */}
         <div className="lg:col-span-2">
           {isSubmitted ? (
-            <div className="p-10 rounded-3xl bg-neutral-900/60 border border-white/20 flex flex-col items-center justify-center text-center space-y-4 py-20">
+            <div className="p-10 rounded-3xl bg-neutral-950/80 border border-cyan-500/30 flex flex-col items-center justify-center text-center space-y-4 py-20 shadow-[0_0_50px_rgba(0,242,254,0.2)]">
               <span className="text-5xl">⚡</span>
-              <h3 className="font-sans font-bold text-3xl text-white">Transmission Received</h3>
-              <p className="font-sans text-neutral-400 text-sm max-w-md">
-                Thanks for reaching out. The team at Damn Good Brands HQ in Charlotte has received your brief and will review it shortly.
+              <h3 className="font-sans font-black text-3xl text-white uppercase">Project Brief Dispatched</h3>
+              <p className="font-sans text-neutral-300 text-sm max-w-md">
+                Thank you. The uperX engineering and AI team has received your submission and will review requirements within 24 hours.
               </p>
               <button
                 onClick={() => {
@@ -74,15 +78,15 @@ export const Contact: React.FC = () => {
                     message: '',
                   });
                 }}
-                className="mt-4 px-6 py-2.5 rounded-full border border-white/20 font-mono text-xs uppercase text-neutral-300 hover:border-white"
+                className="mt-4 px-6 py-2.5 rounded-full border border-white/20 font-mono text-xs uppercase text-neutral-300 hover:border-cyan-400"
               >
-                Send Another Note
+                Submit Additional Inquiry
               </button>
             </div>
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="p-8 md:p-12 rounded-3xl bg-neutral-900/50 border border-white/10 flex flex-col space-y-8"
+              className="p-8 md:p-12 rounded-3xl bg-neutral-950/70 border border-white/10 flex flex-col space-y-8"
             >
               {/* Inputs */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -95,43 +99,43 @@ export const Contact: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Jane Doe"
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-white transition-colors"
+                    placeholder="Alex Mercer"
+                    className="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                   />
                 </div>
 
                 <div className="flex flex-col space-y-2">
                   <label className="font-mono text-xs uppercase tracking-wider text-neutral-400">
-                    Email Address *
+                    Work Email *
                   </label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="jane@company.com"
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-white transition-colors"
+                    placeholder="alex@company.com"
+                    className="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col space-y-2">
                 <label className="font-mono text-xs uppercase tracking-wider text-neutral-400">
-                  Brand / Organization
+                  Company / Organization
                 </label>
                 <input
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="Apex Studio / Brand Inc."
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-white transition-colors"
+                  placeholder="Apex Technologies / Stealth AI"
+                  className="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                 />
               </div>
 
               {/* Service Selection */}
               <div className="flex flex-col space-y-3">
                 <label className="font-mono text-xs uppercase tracking-wider text-neutral-400">
-                  Focus Area
+                  Core Area of Engagement
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {services.map((srv) => (
@@ -139,9 +143,9 @@ export const Contact: React.FC = () => {
                       type="button"
                       key={srv}
                       onClick={() => setFormData({ ...formData, service: srv })}
-                      className={`px-4 py-3 rounded-xl border text-left font-mono text-xs tracking-tight transition-all duration-200 ${
+                      className={`px-4 py-3.5 rounded-xl border text-left font-mono text-xs tracking-tight transition-all duration-200 ${
                         formData.service === srv
-                          ? 'border-white bg-white/10 text-white font-bold'
+                          ? 'border-cyan-400 bg-cyan-500/20 text-white font-bold shadow-[0_0_15px_rgba(0,242,254,0.3)]'
                           : 'border-white/10 bg-black/40 text-neutral-400 hover:border-white/30'
                       }`}
                     >
@@ -154,7 +158,7 @@ export const Contact: React.FC = () => {
               {/* Budget Range */}
               <div className="flex flex-col space-y-3">
                 <label className="font-mono text-xs uppercase tracking-wider text-neutral-400">
-                  Estimated Capital / Budget
+                  Target Capital / Project Scope
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {budgets.map((b) => (
@@ -162,9 +166,9 @@ export const Contact: React.FC = () => {
                       type="button"
                       key={b}
                       onClick={() => setFormData({ ...formData, budget: b })}
-                      className={`py-2 px-3 rounded-lg border text-center font-mono text-xs transition-all ${
+                      className={`py-2.5 px-3 rounded-xl border text-center font-mono text-xs transition-all ${
                         formData.budget === b
-                          ? 'border-white bg-white text-black font-bold'
+                          ? 'border-cyan-400 bg-cyan-400 text-black font-bold'
                           : 'border-white/10 bg-black/40 text-neutral-400 hover:border-white/30'
                       }`}
                     >
@@ -177,15 +181,15 @@ export const Contact: React.FC = () => {
               {/* Project Brief */}
               <div className="flex flex-col space-y-2">
                 <label className="font-mono text-xs uppercase tracking-wider text-neutral-400">
-                  Project Vision / Details *
+                  Project Description & Key Deliverables *
                 </label>
                 <textarea
                   required
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Tell us about what you want to achieve, timeline, and current stage..."
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-white transition-colors"
+                  placeholder="Describe your current product, timeline, key technical goals, or autonomous agent requirements..."
+                  className="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                 />
               </div>
 
@@ -193,9 +197,9 @@ export const Contact: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                className="w-full py-4 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-mono font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 shadow-[0_0_25px_rgba(0,242,254,0.3)]"
               >
-                {isSubmitting ? 'Transmitting To HQ...' : 'Submit Collaboration Brief →'}
+                {isSubmitting ? 'Transmitting To uperX Core...' : 'Deploy Project Brief →'}
               </button>
             </form>
           )}
@@ -203,47 +207,42 @@ export const Contact: React.FC = () => {
 
         {/* HQ Column */}
         <div className="flex flex-col space-y-8 lg:pl-4">
-          <div className="p-8 rounded-3xl bg-neutral-900/40 border border-white/10 flex flex-col space-y-6 font-mono text-xs text-neutral-400">
+          <div className="p-8 rounded-3xl bg-neutral-950/70 border border-white/10 flex flex-col space-y-6 font-mono text-xs text-neutral-400">
             <div>
-              <span className="text-[10px] uppercase text-neutral-500 block mb-1">
-                Headquarters
+              <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
+                uperX Studio Command
               </span>
-              <p className="text-white font-sans font-bold text-base">Charlotte, North Carolina</p>
-              <p className="text-neutral-500">35.2271° N, 80.8431° W</p>
+              <p className="text-white font-sans font-bold text-lg">Global Digital Labs</p>
+              <p className="text-neutral-500">Autonomous Engineering & Growth</p>
             </div>
 
             <div>
-              <span className="text-[10px] uppercase text-neutral-500 block mb-1">
+              <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
                 Direct Inquiries
               </span>
               <a
-                href="mailto:hello@damngoodbrands.com"
-                className="text-white font-sans font-medium text-sm hover:underline"
+                href="mailto:hello@uperx.dev"
+                className="text-white font-sans font-medium text-sm hover:underline hover:text-cyan-300"
               >
-                hello@damngoodbrands.com
+                hello@uperx.dev
               </a>
             </div>
 
             <div>
-              <span className="text-[10px] uppercase text-neutral-500 block mb-1">
-                Social Radar
+              <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
+                Engagement SLA
               </span>
-              <a
-                href="https://www.instagram.com/damngoodbrands"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white font-sans font-medium text-sm hover:underline block"
-              >
-                Instagram @damngoodbrands ↗
-              </a>
+              <p className="text-neutral-300 leading-snug">
+                Initial technical scoping call and architecture proposal delivered within 24 hours.
+              </p>
             </div>
 
             <div className="pt-4 border-t border-white/10">
-              <span className="text-[10px] uppercase text-neutral-500 block mb-1">
-                Founders & Partners
+              <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
+                Focus Verticals
               </span>
               <p className="text-neutral-300 leading-snug">
-                Always on the lookout for visionary brand builders and category creators.
+                AI Agents • SaaS Platforms • High-Octane 3D Web • Performance Marketing • Cloud DevOps
               </p>
             </div>
           </div>

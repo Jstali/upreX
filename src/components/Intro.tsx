@@ -11,7 +11,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
 
   useEffect(() => {
     let start: number | null = null;
-    const duration = 1400; // 1.4s total counter duration
+    const duration = 1400; // 1.4s progression
     let animId: number;
 
     const tick = (time: number) => {
@@ -38,7 +38,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
       const timer2 = setTimeout(() => {
         setIsHidden(true);
         onComplete();
-      }, 900);
+      }, 850);
 
       return () => {
         clearTimeout(timer1);
@@ -51,7 +51,7 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center pointer-events-auto transition-opacity duration-700 select-none ${
+      className={`fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center pointer-events-auto transition-opacity duration-700 select-none ${
         isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       onClick={() => {
@@ -62,28 +62,34 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
         }, 300);
       }}
     >
-      {/* Center Video Container */}
-      <div className="relative w-[75vw] max-w-[480px] aspect-square flex items-center justify-center overflow-hidden rounded-md opacity-40">
+      {/* Background Glow */}
+      <div className="absolute w-96 h-96 rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none" />
+
+      {/* Video Loop from User Video */}
+      <div className="relative w-64 md:w-80 aspect-[400/440] flex items-center justify-center overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,242,254,0.3)] bg-black mb-6">
         <video
-          src="/videos/intro.mp4"
+          src="/videos/uperx_logo.mp4"
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
       </div>
 
-      {/* Large Counter Centered */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="font-serif text-[clamp(48px,8vw,140px)] text-white tracking-tighter tabular-nums drop-shadow-lg">
-          {progress}
+      {/* Counter & System Status */}
+      <div className="flex flex-col items-center space-y-2 z-10">
+        <span className="font-mono font-bold text-4xl md:text-5xl text-white tracking-widest tabular-nums">
+          {progress}%
+        </span>
+        <span className="font-mono text-xs text-cyan-400 uppercase tracking-[0.3em] animate-pulse">
+          uperX // Initializing Autonomous Core
         </span>
       </div>
 
       {/* Skip indicator */}
       <div className="absolute bottom-10 text-[11px] font-mono text-neutral-500 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">
-        [ Click to Skip ]
+        [ Click Anywhere to Skip ]
       </div>
     </div>
   );

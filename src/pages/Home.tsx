@@ -2,7 +2,8 @@ import React from 'react';
 import { HeroIcons } from '../components/HeroIcons';
 import { HomeGallery } from '../components/HomeGallery';
 import { WebglPorsche911 } from '../components/WebglPorsche911';
-import { getHomeItems } from '../utils/sanity';
+import { ServicesGrid } from '../components/ServicesGrid';
+import { AiAgentSandbox } from '../components/AiAgentSandbox';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
@@ -10,117 +11,97 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
-  const homeItems = getHomeItems();
-
   return (
     <div className="w-full flex flex-col items-center">
       {/* HERO SECTION */}
-      <section className="relative w-full min-h-[92vh] flex flex-col items-center justify-center text-center px-5 pt-20 overflow-hidden select-none">
+      <section className="relative w-full min-h-[92vh] flex flex-col items-center justify-center text-center px-5 pt-24 pb-12 overflow-hidden select-none">
         {/* Floating physics sticker icons */}
         <HeroIcons isLight={isLight} />
 
-        {/* Subtitle tag */}
-        <div className="z-10 mb-4 inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-mono text-[11px] uppercase tracking-widest text-neutral-300">
-            Creative Agency & (Ad)venture™ Fund
+        {/* Brand Tag Pill */}
+        <div className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="font-mono text-xs uppercase tracking-widest text-cyan-300 font-semibold">
+            Next-Gen Digital Engineering Studio
           </span>
         </div>
 
         {/* Main Massive Headline */}
-        <h1 className="z-10 font-serif text-[clamp(48px,11vw,160px)] leading-[0.9] tracking-tighter text-white font-normal uppercase max-w-6xl">
-          Damn Good <br />
-          <span className="italic font-light text-neutral-300">Brands</span>
+        <h1 className="z-10 font-sans font-black text-[clamp(44px,9vw,140px)] leading-[0.92] tracking-tighter text-white uppercase max-w-6xl">
+          SUPERCHARGED <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif font-light italic normal-case">
+            By Intelligence.
+          </span>
         </h1>
 
         {/* Strapline */}
-        <p className="z-10 mt-6 max-w-xl font-sans text-sm md:text-base text-neutral-400 font-normal leading-relaxed px-4">
-          We build, launch, and invest in unapologetically bold brands across the digital landscape and retail world.
+        <p className="z-10 mt-6 max-w-2xl font-sans text-sm md:text-lg text-neutral-300 font-normal leading-relaxed px-4">
+          <strong className="text-white font-semibold">uperX</strong> architects autonomous AI agents, enterprise-grade software, high-octane 3D web experiences, and algorithmic growth engines that scale companies globally.
         </p>
 
         {/* Action Buttons */}
-        <div className="z-10 mt-8 flex items-center space-x-4">
+        <div className="z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => onNavigate('/dashboard')}
-            className="px-6 py-3 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all duration-200 hover:scale-105"
+            className="px-8 py-4 rounded-full bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-cyan-400 transition-all duration-200 hover:scale-105 shadow-[0_0_25px_rgba(255,255,255,0.3)]"
           >
-            Explore Dashboard
+            Launch OS Lab ↗
           </button>
           <button
             onClick={() => onNavigate('/contact')}
-            className="px-6 py-3 rounded-full border border-white/20 bg-transparent text-white font-sans font-medium text-xs uppercase tracking-wider hover:border-white transition-all duration-200"
+            className="px-8 py-4 rounded-full border border-white/20 bg-black/40 text-white font-mono font-medium text-xs uppercase tracking-wider hover:border-cyan-400 hover:text-cyan-300 transition-all duration-200"
           >
-            Let's Work
+            Initiate Project Brief
           </button>
         </div>
 
+        {/* Capabilities Ticker */}
+        <div className="z-10 mt-12 flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-neutral-500 uppercase tracking-widest">
+          <span>• AI Agent Creation</span>
+          <span>• Software Engineering</span>
+          <span>• 3D WebGL Web</span>
+          <span>• SaaS Platforms</span>
+          <span>• Growth Marketing</span>
+          <span>• Cloud IT</span>
+        </div>
+
         {/* Bottom indicator */}
-        <div className="absolute bottom-6 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
-          [ Scroll to explore archive ]
+        <div className="absolute bottom-4 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
+          [ Scroll to explore engineering archive ]
         </div>
       </section>
+
+      {/* CORE 6 OFFERINGS GRID */}
+      <ServicesGrid onSelectService={() => onNavigate('/contact')} />
+
+      {/* INTERACTIVE AI AGENT TERMINAL */}
+      <AiAgentSandbox />
 
       {/* INFINITE DUAL-ROW MARQUEE ARCHIVE */}
       <HomeGallery />
 
-      {/* EDITORIAL CONTENT SECTIONS FROM SANITY */}
-      <section className="w-full max-w-6xl mx-auto px-5 md:px-10 py-20 flex flex-col space-y-24">
-        {homeItems.map((item, idx) => {
-          const isReversed = idx % 2 === 1;
-          return (
-            <div
-              key={item.id || idx}
-              className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 ${
-                isReversed ? 'md:flex-row-reverse' : ''
-              }`}
-            >
-              {/* Media */}
-              {item.mediaUrl && (
-                <div className="w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-900 border border-white/10 relative group">
-                  <img
-                    src={item.mediaUrl}
-                    alt={item.title}
-                    className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-
-              {/* Text */}
-              <div className="w-full md:w-1/2 flex flex-col space-y-4">
-                <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">
-                  0{idx + 1} // Archive Focus
-                </span>
-                <h2 className="font-sans font-bold text-3xl md:text-4xl text-white tracking-tight">
-                  {item.title}
-                </h2>
-                <p className="font-sans text-neutral-400 text-sm md:text-base leading-relaxed">
-                  {item.text ||
-                    'Pushing creative limits through disruptive product positioning, culture-first narrative design, and high-octane executions.'}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
-      {/* 3D PORSCHE 911 WRAP STUDIO */}
+      {/* 3D CONCEPT VEHICLE WRAP STUDIO */}
       <WebglPorsche911 />
 
       {/* BIG CTA FOOTER BANNER */}
       <section className="w-full max-w-6xl mx-auto px-5 my-24 text-center">
-        <div className="p-12 md:p-20 rounded-3xl bg-neutral-900/40 border border-white/10 flex flex-col items-center">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 mb-2">
-            New Business
+        <div className="p-12 md:p-20 rounded-3xl bg-neutral-900/40 border border-white/10 flex flex-col items-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-pink-500/10 to-transparent pointer-events-none" />
+
+          <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 mb-2">
+            uperX Global Lab
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl text-white italic font-light mb-6">
-            Ready to build something <span className="font-sans font-bold not-italic">unforgettable?</span>
+          <h2 className="font-sans font-black text-3xl md:text-6xl text-white uppercase tracking-tight mb-6 max-w-3xl">
+            Have an audacious software or AI vision?
           </h2>
+          <p className="font-sans text-sm md:text-base text-neutral-400 max-w-xl mb-8 leading-relaxed">
+            From zero to autonomous deployment, we turn complex engineering problems into market-defining digital products.
+          </p>
           <button
             onClick={() => onNavigate('/contact')}
-            className="px-8 py-4 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all duration-200 hover:scale-105"
+            className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-mono font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-all duration-200 hover:scale-105 shadow-[0_0_30px_rgba(0,242,254,0.4)]"
           >
-            Let's Collaborate
+            Deploy With uperX →
           </button>
         </div>
       </section>
