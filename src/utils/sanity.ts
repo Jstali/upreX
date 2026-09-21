@@ -50,13 +50,18 @@ export function getHeroIcons() {
 export function getHomeGalleryItems() {
   return sanityData
     .filter((d: any) => d._type === 'homeGalleryItem')
-    .map((d: any) => ({
-      id: d._id,
-      title: d.title || '',
-      image: urlForImage(d.image),
-      aspectRatio: d.aspectRatio || '1/1',
-      order: d.order ?? 0,
-    }))
+    .map((d: any) => {
+      const rawUrl = urlForImage(d.image);
+      const optimizedUrl = rawUrl ? `${rawUrl}?w=500&auto=format&q=80` : '';
+      return {
+        id: d._id,
+        title: d.title || '',
+        image: optimizedUrl,
+        aspectRatio: d.aspectRatio || '1/1',
+        order: d.order ?? 0,
+      };
+    })
+    .filter((d) => Boolean(d.image))
     .sort((a, b) => a.order - b.order);
 }
 

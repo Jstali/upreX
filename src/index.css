@@ -151,26 +151,48 @@ body {
   animation: splatPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-/* Custom marquee */
-@keyframes marqueeLeft {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+/* GPU-Accelerated Silky Smooth Marquee */
+@keyframes marqueeScrollLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
 }
 
-@keyframes marqueeRight {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+@keyframes marqueeScrollRight {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.animate-marquee-left {
-  animation: marqueeLeft 30s linear infinite;
+.marquee-track-left {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.5rem;
+  animation: marqueeScrollLeft 42s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.animate-marquee-right {
-  animation: marqueeRight 30s linear infinite;
+.marquee-track-right {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.5rem;
+  animation: marqueeScrollRight 42s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.animate-marquee-left:hover,
-.animate-marquee-right:hover {
+.marquee-track-left:hover,
+.marquee-track-right:hover {
   animation-play-state: paused;
 }
