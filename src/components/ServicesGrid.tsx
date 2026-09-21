@@ -86,7 +86,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
           <div
             key={srv.id}
             onClick={() => onSelectService && onSelectService(srv.title)}
-            className="group relative p-8 rounded-3xl bg-neutral-950/60 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,242,254,0.15)]"
+            className="group relative p-8 rounded-3xl bg-neutral-950/80 border border-white/10 hover:border-cyan-500/50 transition-transform transition-colors duration-200 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1.5"
+            style={{ contain: 'content', transform: 'translate3d(0, 0, 0)' }}
           >
             {/* Top gradient highlight */}
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${srv.accent} opacity-60 group-hover:opacity-100 transition-opacity`} />

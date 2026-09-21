@@ -19,7 +19,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         <HeroIcons isLight={isLight} />
 
         {/* Brand Tag Pill */}
-        <div className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md">
+        <div className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span className="font-mono text-xs uppercase tracking-widest text-cyan-300 font-semibold">
             Next-Gen Digital Engineering Studio

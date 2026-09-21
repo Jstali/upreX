@@ -16,8 +16,6 @@ interface HeroIconsProps {
 export const HeroIcons: React.FC<HeroIconsProps> = ({ isLight }) => {
   const [allIcons, setAllIcons] = useState<HeroIconItem[]>([]);
   const [activeIcons, setActiveIcons] = useState<HeroIconItem[]>([]);
-  const lastMousePos = useRef({ x: 0, y: 0 });
-  const mouseVelocity = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const icons = getHeroIcons();
@@ -27,19 +25,6 @@ export const HeroIcons: React.FC<HeroIconsProps> = ({ isLight }) => {
       const shuffled = [...icons].sort(() => 0.5 - Math.random());
       setActiveIcons(shuffled.slice(0, 4));
     }
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseVelocity.current = {
-        x: e.clientX - lastMousePos.current.x,
-        y: e.clientY - lastMousePos.current.y,
-      };
-      lastMousePos.current = { x: e.clientX, y: e.clientY };
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleIconHover = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -88,6 +73,7 @@ export const HeroIcons: React.FC<HeroIconsProps> = ({ isLight }) => {
           onClick={() => handleIconClick(idx)}
           onMouseEnter={handleIconHover}
           className={`absolute pointer-events-auto cursor-pointer transition-transform duration-300 select-none ${positions[idx]}`}
+          style={{ willChange: 'transform', transform: 'translate3d(0, 0, 0)' }}
           title="Click to swap sticker"
         >
           <div className="w-24 h-24 md:w-36 md:h-36 relative group">

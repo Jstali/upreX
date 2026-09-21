@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 transition-colors duration-300 backdrop-blur-md bg-black/60 border-b border-white/10">
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b border-white/10 ${isLight ? 'bg-white/95 text-black' : 'bg-black/95 text-white'}`}>
       <nav className="flex items-center justify-between px-5 md:px-10 py-3.5">
         {/* Left: Brand Logo */}
         <div

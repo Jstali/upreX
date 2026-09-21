@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
   }, []);
 
   return (
-    <footer className="w-full py-8 px-5 md:px-12 flex flex-col md:flex-row items-center justify-between text-xs tracking-tight select-none border-t border-white/10 transition-colors z-40 relative backdrop-blur-md bg-black/40">
+    <footer className="w-full py-8 px-5 md:px-12 flex flex-col md:flex-row items-center justify-between text-xs tracking-tight select-none border-t border-white/10 transition-colors z-40 relative bg-neutral-950/90">
       {/* Left: Easter Egg / Interactive Splat Mode */}
       <div className="flex items-center space-x-4 mb-6 md:mb-0">
         <button

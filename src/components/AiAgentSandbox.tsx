@@ -67,10 +67,16 @@ export const AiAgentSandbox: React.FC = () => {
 
   return (
     <section className="w-full max-w-7xl mx-auto px-5 md:px-12 my-24 select-none">
-      <div className="relative rounded-3xl border border-white/20 bg-neutral-950/90 backdrop-blur-xl p-6 md:p-12 shadow-[0_0_50px_rgba(0,242,254,0.1)] overflow-hidden">
-        {/* Glow ambient */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="relative rounded-3xl border border-white/20 bg-neutral-950/95 p-6 md:p-12 shadow-[0_0_50px_rgba(0,242,254,0.1)] overflow-hidden">
+        {/* Glow ambient via hardware-accelerated radial gradients */}
+        <div
+          className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(0,242,254,0.08) 0%, transparent 70%)' }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-96 h-96 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)' }}
+        />
 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-white/10 pb-6">

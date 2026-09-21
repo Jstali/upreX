@@ -37,9 +37,13 @@ export const WebglPorsche911: React.FC = () => {
     // Renderer
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance',
+      });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.1;
       containerRef.current.appendChild(renderer.domElement);
@@ -216,7 +220,7 @@ export const WebglPorsche911: React.FC = () => {
   return (
     <section className="relative w-full max-w-7xl mx-auto my-24 px-5 md:px-10">
       {/* Container Box with corner crosshairs */}
-      <div className="relative border border-white/10 rounded-2xl p-6 md:p-10 bg-neutral-950/60 backdrop-blur-sm overflow-hidden">
+      <div className="relative border border-white/10 rounded-2xl p-6 md:p-10 bg-neutral-950/80 overflow-hidden">
         {/* Subtle crosshairs in corners */}
         <div className="absolute top-4 left-4 font-mono text-[10px] text-neutral-600">+</div>
         <div className="absolute top-4 right-4 font-mono text-[10px] text-neutral-600">+</div>
@@ -244,7 +248,7 @@ export const WebglPorsche911: React.FC = () => {
           className="w-full h-[400px] md:h-[550px] relative cursor-grab active:cursor-grabbing flex items-center justify-center"
         >
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-20">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
               <span className="font-mono text-xs uppercase tracking-widest text-neutral-300 animate-pulse">
                 Loading 3D Studio...
               </span>
