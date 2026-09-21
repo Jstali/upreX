@@ -87,6 +87,7 @@ export const App: React.FC = () => {
         onTogglePaintball={() => setPaintballActive((prev) => !prev)}
         isLight={isLight}
         onToggleTheme={toggleTheme}
+        onNavigate={navigate}
       />
     </div>
   );

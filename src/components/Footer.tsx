@@ -6,6 +6,7 @@ interface FooterProps {
   onTogglePaintball: () => void;
   isLight: boolean;
   onToggleTheme: () => void;
+  onNavigate?: (path: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -13,6 +14,7 @@ export const Footer: React.FC<FooterProps> = ({
   onTogglePaintball,
   isLight,
   onToggleTheme,
+  onNavigate,
 }) => {
   const [localTime, setLocalTime] = useState('');
 
@@ -67,11 +69,19 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
       </div>
 
-      {/* Right: Capabilities, Socials, Theme Toggle */}
-      <div className="flex items-center space-x-6 font-mono text-[11px]">
-        <span className="text-neutral-500 hidden sm:inline">
-          AI Agents • Full-Stack • 3D Web • Cloud
-        </span>
+      {/* Right: Quick Page Navigation Links & Theme Toggle */}
+      <div className="flex items-center space-x-5 font-sans text-xs">
+        {onNavigate && (
+          <div className="hidden lg:flex items-center space-x-4 text-neutral-400">
+            <button onClick={() => onNavigate('/')} className="hover:text-white transition-colors">Home</button>
+            <span>•</span>
+            <button onClick={() => onNavigate('/dashboard')} className="hover:text-white transition-colors">Services & Work</button>
+            <span>•</span>
+            <button onClick={() => onNavigate('/about')} className="hover:text-white transition-colors">About Us</button>
+            <span>•</span>
+            <button onClick={() => onNavigate('/contact')} className="hover:text-cyan-400 font-semibold transition-colors">Contact Us</button>
+          </div>
+        )}
 
         {/* Theme Toggle Button */}
         <button

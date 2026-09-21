@@ -43,15 +43,15 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         <div className="z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => onNavigate('/dashboard')}
-            className="px-8 py-4 rounded-full bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-cyan-400 transition-all duration-200 hover:scale-105 shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+            className="px-8 py-4 rounded-full bg-cyan-400 text-black font-sans font-bold text-sm tracking-wide hover:bg-cyan-300 transition-all duration-200 hover:scale-105 shadow-[0_0_25px_rgba(0,242,254,0.35)]"
           >
-            Launch OS Lab ↗
+            Explore Our Services →
           </button>
           <button
             onClick={() => onNavigate('/contact')}
-            className="px-8 py-4 rounded-full border border-white/20 bg-black/40 text-white font-mono font-medium text-xs uppercase tracking-wider hover:border-cyan-400 hover:text-cyan-300 transition-all duration-200"
+            className="px-8 py-4 rounded-full border border-white/30 bg-black/60 text-white font-sans font-medium text-sm tracking-wide hover:border-white hover:bg-white/10 transition-all duration-200"
           >
-            Initiate Project Brief
+            Contact Us
           </button>
         </div>
 
@@ -99,9 +99,9 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
           </p>
           <button
             onClick={() => onNavigate('/contact')}
-            className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-mono font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-all duration-200 hover:scale-105 shadow-[0_0_30px_rgba(0,242,254,0.4)]"
+            className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-sans font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-all duration-200 hover:scale-105 shadow-[0_0_30px_rgba(0,242,254,0.4)]"
           >
-            Deploy With uperX →
+            Contact Our Team →
           </button>
         </div>
       </section>

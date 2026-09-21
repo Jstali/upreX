@@ -11,42 +11,52 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Clear, intuitive names that any visitor instantly understands
   const navLinks = [
-    { name: 'OS Lab', path: '/dashboard' },
-    { name: 'Expertise', path: '/about' },
-    { name: 'Tech Pulse', path: '/hypeboard' },
-    { name: "Initiate Project", path: '/contact' },
+    { name: 'Home', path: '/' },
+    { name: 'Services & Work', path: '/dashboard' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Insights & Blog', path: '/hypeboard' },
+    { name: 'Contact Us', path: '/contact' },
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 transition-colors duration-300 backdrop-blur-md bg-black/40 border-b border-white/5">
-      <nav className="flex items-center justify-between px-5 md:px-12 py-4">
-        {/* Left: Nav Links with animated SVG underline */}
-        <div className="hidden md:flex items-center space-x-8">
+    <header className="fixed top-0 left-0 w-full z-50 transition-colors duration-300 backdrop-blur-md bg-black/60 border-b border-white/10">
+      <nav className="flex items-center justify-between px-5 md:px-10 py-3.5">
+        {/* Left: Brand Logo */}
+        <div
+          onClick={() => onNavigate('/')}
+          className="cursor-pointer transition-transform duration-300 hover:scale-105"
+        >
+          <UperXLogo size={38} showText={true} />
+        </div>
+
+        {/* Center: Clear, Simple Navigation Links */}
+        <div className="hidden lg:flex items-center space-x-7">
           {navLinks.map((link) => {
             const isActive = currentPath === link.path;
             const isHovered = hoveredNav === link.path;
             return (
               <div
                 key={link.path}
-                className="relative pb-1 cursor-pointer group"
+                className="relative py-1 cursor-pointer group"
                 onMouseEnter={() => setHoveredNav(link.path)}
                 onMouseLeave={() => setHoveredNav(null)}
                 onClick={() => onNavigate(link.path)}
               >
                 <span
-                  className={`text-[14px] tracking-tight transition-colors font-medium font-mono uppercase ${
+                  className={`text-[14px] font-sans font-medium tracking-wide transition-colors ${
                     isActive
                       ? isLight ? 'text-black font-bold' : 'text-cyan-400 font-bold'
-                      : isLight ? 'text-neutral-600 hover:text-black' : 'text-neutral-400 hover:text-white'
+                      : isLight ? 'text-neutral-600 hover:text-black' : 'text-neutral-300 hover:text-white'
                   }`}
                 >
                   {link.name}
                 </span>
 
-                {/* Animated SVG underline effect */}
+                {/* Animated SVG underline indicator */}
                 <div
-                  className={`absolute -bottom-1 left-0 w-full h-[6px] overflow-hidden pointer-events-none transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-0 w-full h-[5px] overflow-hidden pointer-events-none transition-all duration-300 ${
                     isActive || isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                   }`}
                 >
@@ -69,28 +79,20 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
           })}
         </div>
 
-        {/* Center: uperX Logo */}
-        <div
-          onClick={() => onNavigate('/')}
-          className="cursor-pointer transition-transform duration-300 hover:scale-105"
-        >
-          <UperXLogo size={42} showText={true} />
-        </div>
-
-        {/* Right: Quick Action button */}
+        {/* Right: Prominent "Get In Touch" Button */}
         <div className="flex items-center space-x-4">
           <button
             onClick={() => onNavigate('/contact')}
-            className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 font-mono text-xs uppercase tracking-wider hover:bg-cyan-500 hover:text-black transition-all duration-200"
+            className="hidden sm:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-cyan-300 hover:scale-105 transition-all duration-200 shadow-[0_0_20px_rgba(0,242,254,0.3)]"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            <span>Deploy AI</span>
+            <span>Get in Touch</span>
+            <span>→</span>
           </button>
 
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-current focus:outline-none"
+            className="lg:hidden p-2 text-current focus:outline-none"
             aria-label="Toggle Menu"
           >
             <div className="w-6 flex flex-col space-y-1.5">
@@ -105,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div
-          className={`md:hidden fixed inset-0 top-[70px] z-40 p-8 flex flex-col justify-start space-y-8 backdrop-blur-xl ${
+          className={`lg:hidden fixed inset-0 top-[65px] z-40 p-8 flex flex-col justify-start space-y-6 backdrop-blur-2xl ${
             isLight ? 'bg-neutral-100/95 text-black' : 'bg-black/95 text-white'
           }`}
         >
@@ -116,7 +118,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
                 onNavigate(link.path);
                 setMobileMenuOpen(false);
               }}
-              className="text-2xl font-bold font-mono uppercase cursor-pointer hover:text-cyan-400"
+              className={`text-2xl font-bold font-sans cursor-pointer transition-colors ${
+                currentPath === link.path ? 'text-cyan-400' : 'text-neutral-300 hover:text-white'
+              }`}
             >
               {link.name}
             </div>
@@ -126,9 +130,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
               onNavigate('/contact');
               setMobileMenuOpen(false);
             }}
-            className="w-full py-4 rounded-xl bg-cyan-400 text-black font-mono font-bold text-sm uppercase tracking-wider"
+            className="w-full py-4 rounded-2xl bg-cyan-400 text-black font-sans font-bold text-sm uppercase tracking-wider mt-4 shadow-lg shadow-cyan-500/20"
           >
-            Deploy AI Agent Now
+            Contact Us Now →
           </button>
         </div>
       )}
