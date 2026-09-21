@@ -16,7 +16,7 @@ export const PaintballGun: React.FC<PaintballGunProps> = ({ isActive }) => {
   const recoilRef = useRef(0);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!isActive || !containerRef.current) return;
 
     // Scene setup
     const scene = new THREE.Scene();

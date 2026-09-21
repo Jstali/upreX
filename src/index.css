@@ -83,6 +83,19 @@
   }
 }
 
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 body {
   background-color: var(--body-background);
   color: var(--body-color);
@@ -90,6 +103,8 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scroll Indicator */

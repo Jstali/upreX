@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Intro } from './components/Intro';
@@ -20,11 +22,45 @@ export const App: React.FC = () => {
   const [paintballActive, setPaintballActive] = useState<boolean>(false);
   const [isLight, setIsLight] = useState<boolean>(false);
   const [introFinished, setIntroFinished] = useState<boolean>(false);
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Initialize Lenis smooth inertial scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
+    lenisRef.current = lenis;
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   // Sync route with browser history
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
+      const path = window.location.pathname || '/';
+      setCurrentPath(path);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -33,7 +69,11 @@ export const App: React.FC = () => {
   const navigate = (path: string) => {
     setCurrentPath(path);
     window.history.pushState({}, '', path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
   };
 
   const toggleTheme = () => {

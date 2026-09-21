@@ -132,17 +132,51 @@ export const WebglPorsche911: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
 
-    // Auto slow rotation when idle
-    let animationFrameId: number;
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
+    // Auto slow rotation when idle - paused when off-screen
+    let animationFrameId: number | null = null;
+    let isVisible = false;
+
+    const render = () => {
+      if (!isVisible) return;
+      animationFrameId = requestAnimationFrame(render);
       if (carGroupRef.current && !isDraggingRef.current) {
         carGroupRef.current.rotation.y += 0.002;
       }
       camera.lookAt(0, 0.3, 0);
       renderer.render(scene, camera);
     };
-    animate();
+
+    const startRendering = () => {
+      if (isVisible) return;
+      isVisible = true;
+      if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopRendering = () => {
+      isVisible = false;
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    // IntersectionObserver to prevent GPU rendering when scrolled out of view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startRendering();
+        } else {
+          stopRendering();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     const handleResize = () => {
       if (!containerRef.current) return;
@@ -156,7 +190,8 @@ export const WebglPorsche911: React.FC = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopRendering();
+      observer.disconnect();
       domElement.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
