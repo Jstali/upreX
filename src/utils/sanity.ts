@@ -125,7 +125,12 @@ export function getFolderItems() {
 
 export function getWallpapers() {
   return sanityData
-    .filter((d: any) => d._type === 'wallpaper')
+    .filter(
+      (d: any) =>
+        d._type === 'wallpaper' &&
+        !d.title?.toLowerCase().includes('chihuahua') &&
+        !d.title?.toLowerCase().includes('dog')
+    )
     .map((d: any) => ({
       id: d._id,
       title: d.title || '',

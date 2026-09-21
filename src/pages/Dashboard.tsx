@@ -69,9 +69,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [activeFolderId, setActiveFolderId] = useState<string>(UPERX_FOLDERS[0].id);
   const [windowOpen, setWindowOpen] = useState(true);
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
-  const [activeWallpaper, setActiveWallpaper] = useState<string>(
-    wallpapers[0]?.image || ''
-  );
+  const [activeWallpaper, setActiveWallpaper] = useState<string>('');
   const [wallpaperModalOpen, setWallpaperModalOpen] = useState(false);
 
   const currentFolder = UPERX_FOLDERS.find((f) => f.id === activeFolderId) || UPERX_FOLDERS[0];
@@ -86,13 +84,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     <div
       className="relative w-full min-h-[92vh] pt-24 px-6 pb-20 select-none overflow-hidden"
       style={{
-        backgroundImage: activeWallpaper ? `url(${activeWallpaper})` : 'none',
-        backgroundSize: 'cover',
+        backgroundColor: '#050508',
+        backgroundImage: activeWallpaper
+          ? `url(${activeWallpaper})`
+          : 'radial-gradient(circle at 50% 15%, rgba(0, 242, 254, 0.05) 0%, transparent 60%), linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
+        backgroundSize: activeWallpaper ? 'cover' : '100% 100%, 40px 40px, 40px 40px',
         backgroundPosition: 'center',
       }}
     >
       {/* Background Overlay */}
-      {activeWallpaper && <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] z-0" />}
+      {activeWallpaper && <div className="absolute inset-0 bg-black/60 z-0" />}
 
       {/* Desktop Header Info */}
       <div className="relative z-10 flex justify-between items-center mb-8 text-xs font-mono text-neutral-400">
