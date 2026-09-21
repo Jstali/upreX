@@ -1,4 +1,5 @@
 {
+  "name": "uperx",
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
