@@ -60,8 +60,8 @@ export const Footer: React.FC<FooterProps> = ({
         <UperXLogo size={32} showText={false} />
 
         <div className="font-mono text-[11px] leading-tight space-y-0.5">
-          <p className="font-sans font-bold uppercase tracking-wider text-[12px] text-white">
-            uperX Global Engineering Studio
+          <p className="font-sans font-bold tracking-wider text-[12px] text-white">
+            uperX <span className="uppercase text-neutral-300">Global Engineering Studio</span>
           </p>
           <p className="text-neutral-400">
             Node: Active <span className="mx-1.5">•</span> UTC+5:30 <span className="mx-1.5">•</span> {localTime || '00:00:00'} <span className="mx-1.5">•</span> 99.99% Core Uptime

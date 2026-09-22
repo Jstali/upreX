@@ -96,7 +96,7 @@ export const UperXLogo: React.FC<UperXLogoProps> = ({
 
       {showText && (
         <div className="flex flex-col">
-          <span className="font-sans font-black text-2xl tracking-tighter uppercase text-white leading-none">
+          <span className="font-sans font-black text-2xl tracking-tighter text-white leading-none">
             uper<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300">X</span>
           </span>
           <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-neutral-400">

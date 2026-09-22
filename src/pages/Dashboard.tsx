@@ -99,8 +99,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       <div className="relative z-10 flex justify-between items-center mb-8 text-xs font-mono text-neutral-400">
         <div className="flex items-center space-x-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="uppercase tracking-wider text-neutral-200">
-            uperX OS v3.0 // Neural Command Center
+          <span className="tracking-wider text-neutral-200">
+            uperX <span className="uppercase">OS v3.0 // Neural Command Center</span>
           </span>
         </div>
         <div className="flex items-center space-x-4">

@@ -209,8 +209,8 @@ export const Contact: React.FC = () => {
         <div className="flex flex-col space-y-8 lg:pl-4">
           <div className="p-8 rounded-3xl bg-neutral-950/70 border border-white/10 flex flex-col space-y-6 font-mono text-xs text-neutral-400">
             <div>
-              <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
-                uperX Studio Command
+              <span className="text-[10px] text-cyan-400 block mb-1 font-bold">
+                uperX <span className="uppercase">Studio Command</span>
               </span>
               <p className="text-white font-sans font-bold text-lg">Global Digital Labs</p>
               <p className="text-neutral-500">Autonomous Engineering & Growth</p>

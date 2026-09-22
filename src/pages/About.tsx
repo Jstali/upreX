@@ -18,8 +18,8 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
       <section className="text-center md:text-left flex flex-col space-y-6 border-b border-white/10 pb-16">
         <div className="inline-flex items-center space-x-2 self-center md:self-start px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-300">
-            About uperX // Engineering DNA
+          <span className="font-mono text-xs tracking-widest text-cyan-300">
+            <span className="uppercase">About</span> uperX <span className="uppercase">// Engineering DNA</span>
           </span>
         </div>
 

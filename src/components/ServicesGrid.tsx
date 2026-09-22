@@ -66,8 +66,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
     <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 select-none">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-white/10 pb-8">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 block mb-2">
-            uperX // Core Capabilities
+          <span className="font-mono text-xs tracking-widest text-cyan-400 block mb-2">
+            uperX <span className="uppercase">// Core Capabilities</span>
           </span>
           <h2 className="font-sans font-black text-4xl md:text-6xl text-white tracking-tight uppercase">
             Engineering The <br />

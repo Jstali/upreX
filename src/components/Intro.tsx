@@ -82,8 +82,8 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
         <span className="font-mono font-bold text-4xl md:text-5xl text-white tracking-widest tabular-nums">
           {progress}%
         </span>
-        <span className="font-mono text-xs text-cyan-400 uppercase tracking-[0.3em] animate-pulse">
-          uperX // Initializing Autonomous Core
+        <span className="font-mono text-xs text-cyan-400 tracking-[0.3em] animate-pulse">
+          uperX <span className="uppercase">// Initializing Autonomous Core</span>
         </span>
       </div>
 

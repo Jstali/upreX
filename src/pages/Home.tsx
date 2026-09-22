@@ -88,8 +88,8 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         <div className="p-12 md:p-20 rounded-3xl bg-neutral-900/40 border border-white/10 flex flex-col items-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-pink-500/10 to-transparent pointer-events-none" />
 
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 mb-2">
-            uperX Global Lab
+          <span className="font-mono text-xs tracking-widest text-cyan-400 mb-2">
+            uperX <span className="uppercase">Global Lab</span>
           </span>
           <h2 className="font-sans font-black text-3xl md:text-6xl text-white uppercase tracking-tight mb-6 max-w-3xl">
             Have an audacious software or AI vision?
