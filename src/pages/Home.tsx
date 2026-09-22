@@ -1,5 +1,4 @@
 import React from 'react';
-import { HeroIcons } from '../components/HeroIcons';
 import { HomeGallery } from '../components/HomeGallery';
 import { WebglPorsche911 } from '../components/WebglPorsche911';
 import { ServicesGrid } from '../components/ServicesGrid';
@@ -15,9 +14,6 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
     <div className="w-full flex flex-col items-center">
       {/* HERO SECTION */}
       <section className="relative w-full min-h-[92vh] flex flex-col items-center justify-center text-center px-5 pt-24 pb-12 overflow-hidden select-none">
-        {/* Floating physics sticker icons */}
-        <HeroIcons isLight={isLight} />
-
         {/* Brand Tag Pill */}
         <div data-reveal="scale" className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
