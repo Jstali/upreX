@@ -12,6 +12,7 @@ import { Dashboard } from './pages/Dashboard';
 import { About } from './pages/About';
 import { Hypeboard } from './pages/Hypeboard';
 import { Contact } from './pages/Contact';
+import { initAllScrollEffects } from './utils/scrollEffects';
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
   const [isLight, setIsLight] = useState<boolean>(false);
   const [introFinished, setIntroFinished] = useState<boolean>(false);
   const lenisRef = useRef<Lenis | null>(null);
+  const scrollCleanupRef = useRef<(() => void) | null>(null);
 
   // Initialize Lenis smooth inertial scrolling
   useEffect(() => {
@@ -50,6 +52,24 @@ export const App: React.FC = () => {
     };
   }, []);
 
+  // Initialize and attach Cappella-style scroll reveals, exponential counters, and 3D tilts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (scrollCleanupRef.current) {
+        scrollCleanupRef.current();
+      }
+      scrollCleanupRef.current = initAllScrollEffects();
+    }, 70);
+
+    return () => {
+      clearTimeout(timer);
+      if (scrollCleanupRef.current) {
+        scrollCleanupRef.current();
+        scrollCleanupRef.current = null;
+      }
+    };
+  }, [currentPath]);
+
   // Sync route with browser history
   useEffect(() => {
     const handlePopState = () => {
@@ -66,6 +86,14 @@ export const App: React.FC = () => {
     } else {
       window.scrollTo(0, 0);
     }
+
+    // Refresh scroll reveals and 3D tilts after transition swap
+    setTimeout(() => {
+      if (scrollCleanupRef.current) {
+        scrollCleanupRef.current();
+      }
+      scrollCleanupRef.current = initAllScrollEffects();
+    }, 90);
   };
 
   const navigate = (path: string) => {

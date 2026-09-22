@@ -83,6 +83,216 @@
   }
 }
 
+:root {
+  --cap-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =====================================================================
+   CAPPELLA SCROLL REVEAL & 3D PERSPECTIVE ENGINE
+   ===================================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s var(--cap-ease-expo),
+    transform 0.75s var(--cap-ease-expo);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay steps */
+[data-reveal][data-reveal-delay='1'] { transition-delay: 0.1s; }
+[data-reveal][data-reveal-delay='2'] { transition-delay: 0.2s; }
+[data-reveal][data-reveal-delay='3'] { transition-delay: 0.3s; }
+[data-reveal][data-reveal-delay='4'] { transition-delay: 0.4s; }
+[data-reveal][data-reveal-delay='5'] { transition-delay: 0.5s; }
+
+/* Variant: scale */
+[data-reveal='scale'] {
+  transform: scale(0.96);
+  transition:
+    opacity 0.75s var(--cap-ease-expo),
+    transform 0.75s var(--cap-ease-expo);
+}
+
+[data-reveal='scale'].is-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Variant: plain fade */
+[data-reveal='fade'] {
+  transform: none;
+}
+
+/* 3D Tilt Card Grid Language */
+[data-tilt] {
+  perspective: 1200px;
+}
+
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  --tx: 0;
+  --ty: 0;
+  --mx: 50%;
+  --my: 50%;
+  transform: rotateY(calc(var(--tx) * 6deg)) rotateX(calc(var(--ty) * -6deg));
+  transition: transform 0.45s var(--cap-ease-expo), box-shadow 0.4s var(--cap-ease-expo), border-color 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-card.is-tilting {
+  transition: transform 0.08s linear, box-shadow 0.3s var(--cap-ease-expo);
+}
+
+.tilt-card:hover {
+  box-shadow: 0 30px 70px -30px rgba(0, 242, 254, 0.25);
+}
+
+.tilt-card .tilt-badge {
+  transform: translateZ(36px);
+  will-change: transform;
+}
+
+.tilt-card .tilt-head {
+  transform: translateZ(24px);
+  will-change: transform;
+}
+
+.tilt-card .tilt-body {
+  transform: translateZ(14px);
+  will-change: transform;
+}
+
+/* Pointer-following specular sheen */
+.tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 50%
+  );
+  transition: opacity 0.35s ease;
+  z-index: 15;
+}
+
+.tilt-card:hover .tilt-shine {
+  opacity: 1;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .tilt-card,
+  .tilt-card .tilt-badge,
+  .tilt-card .tilt-head,
+  .tilt-card .tilt-body {
+    transform: none !important;
+  }
+  .tilt-shine {
+    display: none;
+  }
+}
+
+/* =====================================================================
+   CAPPELLA PINNED STICKY MASK-REVEAL SHOWCASE
+   ===================================================================== */
+.pinned-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 56px);
+  position: relative;
+  width: 100%;
+}
+
+.pinned-reveal__text,
+.pinned-reveal__media,
+.pinned-reveal__pin {
+  display: contents;
+}
+
+.pinned-reveal__img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Mobile unrolled order fallback: text 0 -> img 0 -> text 1 -> img 1... */
+.pinned-reveal__text .pinned-module:nth-of-type(1) { order: 0; }
+.pinned-reveal__img[data-pinned-img="0"] { order: 1; }
+.pinned-reveal__text .pinned-module:nth-of-type(2) { order: 2; }
+.pinned-reveal__img[data-pinned-img="1"] { order: 3; }
+.pinned-reveal__text .pinned-module:nth-of-type(3) { order: 4; }
+.pinned-reveal__img[data-pinned-img="2"] { order: 5; }
+
+@media (min-width: 901px) {
+  .pinned-reveal.is-pinned {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: clamp(40px, 6vw, 84px);
+    align-items: start;
+  }
+
+  .pinned-reveal.is-pinned .pinned-reveal__text {
+    display: block;
+  }
+
+  .pinned-reveal.is-pinned .pinned-reveal__media {
+    display: block;
+    position: sticky;
+    top: 96px;
+    height: calc(100vh - 132px);
+  }
+
+  .pinned-reveal.is-pinned .pinned-reveal__pin {
+    display: block;
+    position: relative;
+    height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 40px 90px -40px rgba(0, 242, 254, 0.22);
+    background: #080808;
+  }
+
+  .pinned-reveal.is-pinned .pinned-reveal__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+    order: 0;
+    will-change: clip-path;
+  }
+
+  .pinned-reveal.is-pinned .pinned-reveal__img[data-pinned-img="0"] { z-index: 3; }
+  .pinned-reveal.is-pinned .pinned-reveal__img[data-pinned-img="1"] { z-index: 2; }
+  .pinned-reveal.is-pinned .pinned-reveal__img[data-pinned-img="2"] { z-index: 1; }
+
+  .pinned-reveal.is-pinned .pinned-module {
+    order: 0;
+    min-height: calc(100vh - 132px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity 0.5s var(--cap-ease-expo), transform 0.5s var(--cap-ease-expo);
+  }
+
+  .pinned-reveal.is-pinned .pinned-module.is-dim {
+    opacity: 0.25;
+    transform: scale(0.97);
+  }
+}
+
 html {
   scroll-behavior: auto;
 }

@@ -19,7 +19,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         <HeroIcons isLight={isLight} />
 
         {/* Brand Tag Pill */}
-        <div className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40">
+        <div data-reveal="scale" className="z-10 mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span className="font-mono text-xs uppercase tracking-widest text-cyan-300 font-semibold">
             Next-Gen Digital Engineering Studio
@@ -27,7 +27,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         </div>
 
         {/* Main Massive Headline */}
-        <h1 className="z-10 font-sans font-black text-[clamp(44px,9vw,140px)] leading-[0.92] tracking-tighter text-white uppercase max-w-6xl">
+        <h1 data-reveal="chars" className="z-10 font-sans font-black text-[clamp(44px,9vw,140px)] leading-[0.92] tracking-tighter text-white uppercase max-w-6xl">
           SUPERCHARGED <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif font-light italic normal-case">
             By Intelligence.
@@ -35,12 +35,12 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         </h1>
 
         {/* Strapline */}
-        <p className="z-10 mt-6 max-w-2xl font-sans text-sm md:text-lg text-neutral-300 font-normal leading-relaxed px-4">
+        <p data-reveal="lines" className="z-10 mt-6 max-w-2xl font-sans text-sm md:text-lg text-neutral-300 font-normal leading-relaxed px-4">
           <strong className="text-white font-semibold">uperX</strong> architects autonomous AI agents, enterprise-grade software, high-octane 3D web experiences, and algorithmic growth engines that scale companies globally.
         </p>
 
         {/* Action Buttons */}
-        <div className="z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
+        <div data-reveal data-reveal-delay="2" className="z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => onNavigate('/dashboard')}
             className="px-8 py-4 rounded-full bg-cyan-400 text-black font-sans font-bold text-sm tracking-wide hover:bg-cyan-300 transition-all duration-200 hover:scale-105 shadow-[0_0_25px_rgba(0,242,254,0.35)]"
@@ -56,7 +56,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
         </div>
 
         {/* Capabilities Ticker */}
-        <div className="z-10 mt-12 flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-neutral-500 uppercase tracking-widest">
+        <div data-reveal data-reveal-delay="3" className="z-10 mt-12 flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-neutral-500 uppercase tracking-widest">
           <span>• AI Agent Creation</span>
           <span>• Software Engineering</span>
           <span>• 3D WebGL Web</span>
@@ -84,7 +84,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
       <WebglPorsche911 />
 
       {/* BIG CTA FOOTER BANNER */}
-      <section className="w-full max-w-6xl mx-auto px-5 my-24 text-center">
+      <section className="w-full max-w-6xl mx-auto px-5 my-24 text-center" data-reveal>
         <div className="p-12 md:p-20 rounded-3xl bg-neutral-900/40 border border-white/10 flex flex-col items-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-pink-500/10 to-transparent pointer-events-none" />
 

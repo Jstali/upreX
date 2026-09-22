@@ -64,7 +64,7 @@ interface ServicesGridProps {
 export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) => {
   return (
     <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 select-none">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-white/10 pb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-white/10 pb-8" data-reveal>
         <div>
           <span className="font-mono text-xs tracking-widest text-cyan-400 block mb-2">
             uperX <span className="uppercase">// Core Capabilities</span>
@@ -81,19 +81,23 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {SERVICES.map((srv) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-reveal="scale" data-tilt>
+        {SERVICES.map((srv, idx) => (
           <div
             key={srv.id}
+            data-reveal
+            data-reveal-delay={String((idx % 3) + 1)}
             onClick={() => onSelectService && onSelectService(srv.title)}
-            className="group relative p-8 rounded-3xl bg-neutral-950/80 border border-white/10 hover:border-cyan-500/50 transition-transform transition-colors duration-200 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1.5"
-            style={{ contain: 'content', transform: 'translate3d(0, 0, 0)' }}
+            className="tilt-card group relative p-8 rounded-3xl bg-neutral-950/80 border border-white/10 hover:border-cyan-500/50 transition-colors duration-200 flex flex-col justify-between overflow-hidden cursor-pointer"
           >
+            {/* Specular pointer shine */}
+            <span className="tilt-shine" aria-hidden="true" />
+
             {/* Top gradient highlight */}
-            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${srv.accent} opacity-60 group-hover:opacity-100 transition-opacity`} />
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${srv.accent} opacity-60 group-hover:opacity-100 transition-opacity z-10`} />
 
             <div>
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-6 tilt-badge">
                 <span className="text-3xl p-3 rounded-2xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
                   {srv.icon}
                 </span>
@@ -102,16 +106,16 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
                 </span>
               </div>
 
-              <h3 className="font-sans font-bold text-2xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              <h3 className="font-sans font-bold text-2xl text-white mb-3 group-hover:text-cyan-300 transition-colors tilt-head">
                 {srv.title}
               </h3>
 
-              <p className="font-sans text-sm text-neutral-400 leading-relaxed mb-6">
+              <p className="font-sans text-sm text-neutral-400 leading-relaxed mb-6 tilt-body">
                 {srv.desc}
               </p>
             </div>
 
-            <div className="pt-6 border-t border-white/5 flex flex-col space-y-2">
+            <div className="pt-6 border-t border-white/5 flex flex-col space-y-2 tilt-body">
               {srv.features.map((feat, fidx) => (
                 <div key={fidx} className="flex items-center space-x-2 text-xs font-mono text-neutral-300">
                   <span className="text-cyan-400">▹</span>
