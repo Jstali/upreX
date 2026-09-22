@@ -5,9 +5,10 @@ interface HeaderProps {
   currentPath: string;
   onNavigate: (path: string) => void;
   isLight: boolean;
+  onToggleTheme?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight }) => {
+export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight, onToggleTheme }) => {
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b border-white/10 ${isLight ? 'bg-white/95 text-black' : 'bg-black/95 text-white'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b ${isLight ? 'bg-white/90 border-black/10 text-black backdrop-blur-xl' : 'bg-black/90 border-white/10 text-white backdrop-blur-xl'}`}>
       <nav className="flex items-center justify-between px-5 md:px-10 py-3.5">
         {/* Left: Brand Logo */}
         <div
@@ -68,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
                     <path
                       d="M 0 4 Q 25 1, 50 4 T 100 4"
                       fill="none"
-                      stroke="#00f2fe"
+                      stroke={isLight ? '#0284c7' : '#00f2fe'}
                       strokeWidth="2.5"
                       strokeLinecap="round"
                     />
@@ -79,11 +80,29 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
           })}
         </div>
 
-        {/* Right: Prominent "Get In Touch" Button */}
-        <div className="flex items-center space-x-4">
+        {/* Right: Theme Universe Switch & "Get In Touch" Button */}
+        <div className="flex items-center space-x-3">
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full border text-xs font-mono font-bold transition-all duration-200 shadow-sm ${
+                isLight
+                  ? 'bg-neutral-900 text-white border-neutral-800 hover:bg-black'
+                  : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
+              }`}
+              title={isLight ? 'Switch to Studio Dark Mode' : 'Switch to Enterprise Light Mode'}
+            >
+              <span>{isLight ? '🌙 Dark' : '☀️ Light'}</span>
+            </button>
+          )}
+
           <button
             onClick={() => onNavigate('/contact')}
-            className="hidden sm:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-cyan-300 hover:scale-105 transition-all duration-200 shadow-[0_0_20px_rgba(0,242,254,0.3)]"
+            className={`hidden sm:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full font-sans font-bold text-xs uppercase tracking-wider hover:scale-105 transition-all duration-200 ${
+              isLight
+                ? 'bg-neutral-900 text-white hover:bg-cyan-600 shadow-[0_4px_14px_rgba(0,0,0,0.15)]'
+                : 'bg-cyan-400 text-black hover:bg-cyan-300 shadow-[0_0_20px_rgba(0,242,254,0.3)]'
+            }`}
           >
             <span>Get in Touch</span>
             <span>→</span>

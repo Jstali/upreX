@@ -8,6 +8,7 @@ import { PaintballGun } from './components/PaintballGun';
 import { PaintballSplats } from './components/PaintballSplats';
 import { PageTransition } from './components/PageTransition';
 import { Home } from './pages/Home';
+import { LightStudio } from './pages/LightStudio';
 import { Dashboard } from './pages/Dashboard';
 import { About } from './pages/About';
 import { Hypeboard } from './pages/Hypeboard';
@@ -68,7 +69,7 @@ export const App: React.FC = () => {
         scrollCleanupRef.current = null;
       }
     };
-  }, [currentPath]);
+  }, [currentPath, isLight]);
 
   // Sync route with browser history
   useEffect(() => {
@@ -114,41 +115,48 @@ export const App: React.FC = () => {
       const next = !prev;
       if (next) {
         document.documentElement.classList.add('light-theme');
-        document.body.classList.add('bg-[#f5f5f5]', 'text-[#111]');
-        document.body.classList.remove('bg-black', 'text-white');
+        document.body.classList.add('bg-[#fafaf9]', 'text-[#0f172a]');
+        document.body.classList.remove('bg-black', 'text-white', 'bg-[#f5f5f5]', 'text-[#111]');
       } else {
         document.documentElement.classList.remove('light-theme');
         document.body.classList.add('bg-black', 'text-white');
-        document.body.classList.remove('bg-[#f5f5f5]', 'text-[#111]');
+        document.body.classList.remove('bg-[#fafaf9]', 'text-[#0f172a]', 'bg-[#f5f5f5]', 'text-[#111]');
       }
       return next;
     });
   };
 
   return (
-    <div className={`relative min-h-screen flex flex-col justify-between transition-colors duration-300 ${isLight ? 'bg-[#f5f5f5] text-[#111]' : 'bg-black text-white'}`}>
+    <div className={`relative min-h-screen flex flex-col justify-between transition-colors duration-500 ${isLight ? 'bg-[#fafaf9] text-[#0f172a]' : 'bg-black text-white'}`}>
       {/* Intro Preloader */}
       {!introFinished && (
         <Intro onComplete={() => setIntroFinished(true)} />
       )}
 
-      {/* Global Navigation Header */}
+      {/* Global Navigation Header with Universe Switch */}
       <Header
         currentPath={currentPath}
         onNavigate={navigate}
         isLight={isLight}
+        onToggleTheme={toggleTheme}
       />
 
-      {/* 3D Paintball Gun Model (Follows cursor, recoils on fire) */}
-      <PaintballGun isActive={paintballActive} />
+      {/* 3D Paintball Gun Model (Only active in dark creative studio mode) */}
+      {!isLight && <PaintballGun isActive={paintballActive} />}
 
       {/* Paintball Splats & Audio Effects */}
-      <PaintballSplats isActive={paintballActive} />
+      {!isLight && <PaintballSplats isActive={paintballActive} />}
 
       {/* Main Content Area with Smooth Page Transition */}
       <main className="flex-1 w-full relative">
-        <PageTransition routeKey={currentPath} onContentSwap={handleContentSwap}>
-          {currentPath === '/' && <Home onNavigate={navigate} isLight={isLight} />}
+        <PageTransition routeKey={`${currentPath}-${isLight ? 'light' : 'dark'}`} onContentSwap={handleContentSwap}>
+          {currentPath === '/' && (
+            isLight ? (
+              <LightStudio onNavigate={navigate} onToggleTheme={toggleTheme} />
+            ) : (
+              <Home onNavigate={navigate} isLight={isLight} />
+            )
+          )}
           {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} />}
           {currentPath === '/about' && <About onNavigate={navigate} />}
           {currentPath === '/hypeboard' && <Hypeboard onNavigate={navigate} />}
