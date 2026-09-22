@@ -85,24 +85,24 @@ export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate }) => {
   return (
     <div className="w-full min-h-screen pt-28 pb-24 px-5 md:px-12 max-w-7xl mx-auto flex flex-col space-y-12 select-none">
       {/* Header Banner */}
-      <section className="text-center flex flex-col items-center space-y-4">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10">
+      <section className="text-center flex flex-col items-center space-y-4" data-reveal>
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10" data-reveal="scale">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span className="font-mono text-xs uppercase tracking-widest text-cyan-300">
             Tech Pulse // Engineering Insights
           </span>
         </div>
 
-        <h1 className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase">
+        <h1 data-reveal="chars" className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase">
           Signals From The <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif italic font-light normal-case">Frontier.</span>
         </h1>
 
-        <p className="max-w-xl font-sans text-sm md:text-base text-neutral-400">
+        <p data-reveal="lines" className="max-w-xl font-sans text-sm md:text-base text-neutral-400">
           Curated paradigms, architectural laws, and strategic insights from the engineers and creators at uperX.
         </p>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-6" data-reveal data-reveal-delay="2">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -120,31 +120,36 @@ export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate }) => {
       </section>
 
       {/* CARD MATRIX GRID */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" data-reveal="scale" data-tilt>
         {filteredCards.map((card, idx) => (
           <div
             key={card.id || idx}
+            data-reveal
+            data-reveal-delay={String((idx % 4) + 1)}
             onClick={() => setActiveCard(card)}
-            className="relative p-7 rounded-3xl bg-neutral-950/70 border border-white/10 hover:border-cyan-400/50 cursor-pointer flex flex-col justify-between min-h-[280px] group transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,242,254,0.15)]"
+            className="tilt-card relative p-7 rounded-3xl bg-neutral-950/70 border border-white/10 hover:border-cyan-400/50 cursor-pointer flex flex-col justify-between min-h-[280px] group overflow-hidden"
           >
+            {/* Specular pointer sheen */}
+            <span className="tilt-shine" aria-hidden="true" />
+
             {/* Top Category Tag */}
-            <div className="flex justify-between items-center text-[10px] font-mono uppercase">
+            <div className="flex justify-between items-center text-[10px] font-mono uppercase tilt-badge">
               <span className="text-cyan-400 font-bold tracking-wider">{card.category}</span>
               <span className="text-neutral-500">#{String(idx + 1).padStart(2, '0')}</span>
             </div>
 
             {/* Title & Quote */}
             <div className="my-4">
-              <h4 className="font-sans font-bold text-sm text-neutral-300 mb-2 group-hover:text-white transition-colors">
+              <h4 className="font-sans font-bold text-sm text-neutral-300 mb-2 group-hover:text-white transition-colors tilt-head">
                 {card.title}
               </h4>
-              <p className="font-sans font-medium text-base text-white/90 leading-snug group-hover:text-cyan-200 transition-colors">
-                "{card.quote}"
+              <p className="font-sans font-medium text-base text-white/90 leading-snug group-hover:text-cyan-200 transition-colors tilt-body">
+                &ldquo;{card.quote}&rdquo;
               </p>
             </div>
 
             {/* Author */}
-            <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs text-neutral-400">
+            <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs text-neutral-400 tilt-body">
               <span>— {card.author}</span>
               <span className="opacity-0 group-hover:opacity-100 transition-opacity text-cyan-400">
                 ↗

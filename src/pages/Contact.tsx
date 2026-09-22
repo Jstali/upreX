@@ -35,28 +35,28 @@ export const Contact: React.FC = () => {
   return (
     <div className="w-full min-h-screen pt-28 pb-24 px-5 md:px-12 max-w-6xl mx-auto flex flex-col space-y-16 select-none">
       {/* Header Banner */}
-      <section className="text-center md:text-left flex flex-col space-y-4">
-        <div className="inline-flex items-center space-x-2 self-center md:self-start px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10">
+      <section className="text-center md:text-left flex flex-col space-y-4" data-reveal>
+        <div className="inline-flex items-center space-x-2 self-center md:self-start px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10" data-reveal="scale">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span className="font-mono text-xs uppercase tracking-widest text-cyan-300">
             Initiate Project // Deployment Portal
           </span>
         </div>
 
-        <h1 className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase leading-[0.95]">
+        <h1 data-reveal="chars" className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase leading-[0.95]">
           Let's Build Something <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif font-light italic normal-case">
             Extraordinary.
           </span>
         </h1>
 
-        <p className="max-w-xl font-sans text-sm md:text-base text-neutral-400 leading-relaxed">
+        <p data-reveal="lines" className="max-w-xl font-sans text-sm md:text-base text-neutral-400 leading-relaxed">
           Tell us about your organization, technical bottlenecks, or product vision. Our engineers will scope a tailored deployment plan.
         </p>
       </section>
 
       {/* Main Grid: Form + HQ Info */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12" data-reveal="scale">
         {/* Form Column */}
         <div className="lg:col-span-2">
           {isSubmitted ? (
@@ -206,9 +206,11 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* HQ Column */}
-        <div className="flex flex-col space-y-8 lg:pl-4">
-          <div className="p-8 rounded-3xl bg-neutral-950/70 border border-white/10 flex flex-col space-y-6 font-mono text-xs text-neutral-400">
-            <div>
+        <div className="flex flex-col space-y-8 lg:pl-4" data-tilt>
+          <div className="tilt-card p-8 rounded-3xl bg-neutral-950/70 border border-white/10 hover:border-cyan-500/40 flex flex-col space-y-6 font-mono text-xs text-neutral-400 overflow-hidden relative shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
+            <span className="tilt-shine" aria-hidden="true" />
+
+            <div className="tilt-badge">
               <span className="text-[10px] text-cyan-400 block mb-1 font-bold">
                 uperX <span className="uppercase">Studio Command</span>
               </span>
@@ -216,7 +218,7 @@ export const Contact: React.FC = () => {
               <p className="text-neutral-500">Autonomous Engineering & Growth</p>
             </div>
 
-            <div>
+            <div className="tilt-body">
               <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
                 Direct Inquiries
               </span>
@@ -228,7 +230,7 @@ export const Contact: React.FC = () => {
               </a>
             </div>
 
-            <div>
+            <div className="tilt-body">
               <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
                 Engagement SLA
               </span>
@@ -237,7 +239,7 @@ export const Contact: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-4 border-t border-white/10">
+            <div className="tilt-body pt-4 border-t border-white/10">
               <span className="text-[10px] uppercase text-cyan-400 block mb-1 font-bold">
                 Focus Verticals
               </span>
