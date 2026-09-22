@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon3D } from './ThreeDIcons';
 
 export const SERVICES = [
   {
@@ -6,7 +7,6 @@ export const SERVICES = [
     tag: '01 // Autonomous Systems',
     title: 'AI Agent Creation & Workflows',
     desc: 'Autonomous multi-agent swarms, customized LLM reasoning pipelines, cognitive automation, and enterprise RAG architectures that execute complex operations without human intervention.',
-    icon: '🤖',
     accent: 'from-cyan-500 to-blue-600',
     features: ['Multi-Agent Swarm Orchestration', 'Custom Tool-Calling & Fine-Tuning', 'Automated Research & Ops Bots'],
   },
@@ -15,7 +15,6 @@ export const SERVICES = [
     tag: '02 // Core Engineering',
     title: 'Custom Software Development',
     desc: 'Mission-critical distributed architectures, robust backend microservices, resilient APIs, and full-stack software built to handle high throughput with zero downtime.',
-    icon: '⚡',
     accent: 'from-purple-500 to-indigo-600',
     features: ['Distributed Cloud Microservices', 'High-Frequency Data Pipelines', 'Custom Enterprise Portals'],
   },
@@ -24,7 +23,6 @@ export const SERVICES = [
     tag: '03 // Digital Experience',
     title: 'High-End 3D Web & Creative Frontends',
     desc: 'Bespoke web applications that fuse Three.js WebGL spatial graphics, GSAP physics micro-interactions, responsive architectures, and ultra-fast Next.js/React performance.',
-    icon: '🌐',
     accent: 'from-pink-500 to-rose-600',
     features: ['Interactive Three.js / WebGL', 'Fluid GSAP Motion Systems', 'Ultra-Optimized Headless Stacks'],
   },
@@ -33,7 +31,6 @@ export const SERVICES = [
     tag: '04 // Scalable Platforms',
     title: 'Service-Based App Creation & SaaS',
     desc: 'End-to-end digital service platforms, on-demand marketplaces, and multi-tenant SaaS products engineered with automated billing, user roles, and real-time messaging.',
-    icon: '📦',
     accent: 'from-amber-500 to-orange-600',
     features: ['Multi-Tenant SaaS Architecture', 'Stripe Billing & Subscription Engines', 'Real-Time WebSockets & Queues'],
   },
@@ -42,7 +39,6 @@ export const SERVICES = [
     tag: '05 // Velocity & Scale',
     title: 'Growth Marketing & Brand Strategy',
     desc: 'Algorithmic customer acquisition, conversion rate optimization, data-backed funnel experimentation, and high-impact digital narratives that turn users into cult followers.',
-    icon: '📈',
     accent: 'from-emerald-500 to-teal-600',
     features: ['Full-Funnel Growth Engineering', 'Conversion Rate Optimization (CRO)', 'Viral Product Positioning'],
   },
@@ -51,7 +47,6 @@ export const SERVICES = [
     tag: '06 // Cloud & Reliability',
     title: 'Enterprise IT & Cloud Operations',
     desc: 'Comprehensive cloud architecture (AWS, GCP, Azure), Kubernetes orchestration, automated CI/CD pipelines, cybersecurity hardening, and 24/7 system monitoring.',
-    icon: '🛡️',
     accent: 'from-blue-500 to-cyan-600',
     features: ['Kubernetes & Docker Containerization', 'Automated CI/CD DevOps Pipelines', 'Zero-Trust Security & Cloud Hardening'],
   },
@@ -98,9 +93,9 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
 
             <div>
               <div className="flex items-center justify-between mb-6 tilt-badge">
-                <span className="text-3xl p-3 rounded-2xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                  {srv.icon}
-                </span>
+                <div className="p-2 rounded-2xl bg-white/[0.04] border border-white/10 group-hover:border-cyan-400/40 transition-colors duration-300">
+                  <Icon3D name={srv.id} size={54} />
+                </div>
                 <span className="font-mono text-[10px] uppercase text-neutral-500 tracking-wider">
                   {srv.tag}
                 </span>

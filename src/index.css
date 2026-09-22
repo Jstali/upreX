@@ -421,3 +421,38 @@ body {
 .marquee-track-right:hover {
   animation-play-state: paused;
 }
+
+/* 3D Floating Artifact Keyframes */
+@keyframes floatGentle1 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(3deg);
+  }
+}
+
+@keyframes floatGentle2 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0) rotate(-3deg);
+  }
+}
+
+.animate-float-1 {
+  animation: floatGentle1 6.5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: floatGentle2 7.5s ease-in-out infinite 0.7s;
+}
+
+.animate-float-3 {
+  animation: floatGentle1 8.5s ease-in-out infinite 1.4s;
+}
+
+.animate-float-4 {
+  animation: floatGentle2 7s ease-in-out infinite 2.1s;
+}

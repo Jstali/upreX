@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getWallpapers } from '../utils/sanity';
+import { Icon3D } from '../components/ThreeDIcons';
 
 interface DashboardProps {
   onNavigate: (path: string) => void;
@@ -9,7 +10,6 @@ const UPERX_FOLDERS = [
   {
     id: 'ai-agents',
     title: 'Autonomous AI Agents',
-    icon: '🤖',
     items: [
       { id: '1', title: 'AgentSwarm-Alpha', type: 'Multi-Agent Framework', desc: 'Autonomous multi-agent orchestration for asynchronous task decomposition, self-correction, and tool execution.', url: 'https://github.com/uperx/swarm-alpha' },
       { id: '2', title: 'CognitiveRAG-v3', type: 'Vector Search & Knowledge Base', desc: 'High-speed hybrid semantic retrieval pipeline combining Milvus vector embeddings with graph knowledge trees.', url: 'https://github.com/uperx/cognitive-rag' },
@@ -19,7 +19,6 @@ const UPERX_FOLDERS = [
   {
     id: 'software',
     title: 'Full-Stack Software',
-    icon: '⚡',
     items: [
       { id: '4', title: 'CorePlatform API', type: 'High-Throughput Microservice', desc: 'Rust + Go distributed event broker handling 50,000+ operations/second with sub-5ms latency.', url: 'https://uperx.dev' },
       { id: '5', title: 'OmniStream Broker', type: 'Real-Time WebSockets', desc: 'Scalable distributed state synchronization engine for multi-user collaborative interfaces.', url: 'https://uperx.dev' },
@@ -28,7 +27,6 @@ const UPERX_FOLDERS = [
   {
     id: 'web3d',
     title: '3D WebGL Experiences',
-    icon: '🌐',
     items: [
       { id: '6', title: 'Spatial Studio Engine', type: 'Three.js & Shaders', desc: 'Production-ready WebGL runtime with ACESFilmic tonemapping, physics cloth simulation, and 60FPS fluid motion.', url: 'https://uperx.dev' },
       { id: '7', title: 'Neon Kinetic Shaders', type: 'GLSL Post-Processing', desc: 'Bespoke chromatic aberration and blooming shader pipelines for ultra-modern digital brands.', url: 'https://uperx.dev' },
@@ -37,7 +35,6 @@ const UPERX_FOLDERS = [
   {
     id: 'saas',
     title: 'SaaS Platforms',
-    icon: '📦',
     items: [
       { id: '8', title: 'HyperScale Billing', type: 'Multi-Tenant Billing', desc: 'Automated tiered subscription engine, usage-based metering, and customer invoice automation.', url: 'https://uperx.dev' },
       { id: '9', title: 'Agentic CRM Portal', type: 'Enterprise Dashboard', desc: 'Intelligent customer relationship portal where AI agents automatically draft responses and schedule workflows.', url: 'https://uperx.dev' },
@@ -46,7 +43,6 @@ const UPERX_FOLDERS = [
   {
     id: 'growth',
     title: 'Growth & Marketing',
-    icon: '📈',
     items: [
       { id: '10', title: 'Algorithmic Funnels', type: 'CRO & Experimentation', desc: 'Real-time multi-armed bandit A/B testing engine optimizing landing page conversion dynamically.', url: 'https://uperx.dev' },
       { id: '11', title: 'Viral Distribution Model', type: 'Brand Acquisition Strategy', desc: 'Engineering cult-level brand narratives that achieve organic user adoption through interactive digital stunts.', url: 'https://uperx.dev' },
@@ -55,7 +51,6 @@ const UPERX_FOLDERS = [
   {
     id: 'cloud',
     title: 'Cloud & DevOps IT',
-    icon: '🛡️',
     items: [
       { id: '12', title: 'ZeroTrust Kubernetes', type: 'Cloud Infrastructure', desc: 'Automated multi-region cluster deployment with automated canary rollouts and automated failover.', url: 'https://uperx.dev' },
       { id: '13', title: 'Edge Shield Firewall', type: 'Cybersecurity Hardening', desc: 'DDoS mitigation layer, automated SSL rotation, and secret vault orchestration.', url: 'https://uperx.dev' },
@@ -130,8 +125,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   isSelected ? 'bg-cyan-500/20 border border-cyan-400/50 shadow-[0_0_15px_rgba(0,242,254,0.3)]' : 'hover:bg-white/10'
                 }`}
               >
-                <div className="w-10 h-10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                  {folder.icon}
+                <div className="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon3D name={folder.id} size={36} />
                 </div>
                 <span className="mt-1.5 text-center font-mono text-[11px] text-white tracking-tight leading-tight px-1.5 py-0.5 rounded bg-black/60">
                   {folder.title}
@@ -166,7 +161,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
 
               {/* Title */}
               <div className="font-mono text-xs text-neutral-200 flex items-center space-x-2">
-                <span>{currentFolder.icon}</span>
+                <Icon3D name={currentFolder.id} size={22} />
                 <span className="font-bold">{currentFolder.title}</span>
                 <span className="text-neutral-500">({currentFolder.items.length} modules)</span>
               </div>
@@ -183,7 +178,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   className="flex flex-col p-5 rounded-xl border border-white/10 hover:border-cyan-400 hover:bg-cyan-500/5 cursor-pointer transition-all duration-200 group relative"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-2xl">{currentFolder.icon}</span>
+                    <div className="p-1 rounded-lg bg-white/5 border border-white/10 group-hover:border-cyan-400/40 transition-colors">
+                      <Icon3D name={currentFolder.id} size={30} />
+                    </div>
                     <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded bg-white/10 text-cyan-300">
                       Active
                     </span>
