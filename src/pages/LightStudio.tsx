@@ -87,21 +87,39 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
   return (
     <div className="w-full min-h-screen text-[#0f172a] bg-[#fafaf9] selection:bg-cyan-200 selection:text-black select-none overflow-x-hidden relative">
 
-      {/* 4K Luminous Gradient Mesh & Subtle Dot Grid */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 opacity-80"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.12) 0%, transparent 45%),
-            radial-gradient(circle at 85% 25%, rgba(236, 72, 153, 0.08) 0%, transparent 45%),
-            radial-gradient(circle at 50% 75%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
-            radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px)
-          `,
-          backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px',
-        }}
-        aria-hidden="true"
-      />
+      {/* =====================================================================
+          LIVE MOVING CLOUDS 4K SKY THEME BACKGROUND + CELESTIAL VEIL
+          ===================================================================== */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {/* 4K Live Moving Clouds Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-80 filter saturate-125 brightness-105"
+        >
+          <source src="/videos/clouds_4k.webm" type="video/webm" />
+          <source src="/videos/clouds_4k.mp4" type="video/mp4" />
+        </video>
+
+        {/* Multi-layered Celestial Veil Ensuring 100% Legibility & Crystal Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-100/35 via-white/70 to-[#fafaf9]/95 backdrop-blur-[1.5px]" />
+
+        {/* Ambient Chromatic Highlights */}
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 85% 25%, rgba(217, 70, 239, 0.08) 0%, transparent 45%),
+              radial-gradient(circle at 50% 75%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+              radial-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 32px 32px',
+          }}
+        />
+      </div>
 
       {/* =====================================================================
           1. HERO SECTION WITH CURSOR-REACTIVE 3D WEBGL CANVAS
@@ -112,10 +130,10 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div
             data-reveal="scale"
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-black/10 bg-white/70 backdrop-blur-xl shadow-sm"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/90 bg-white/85 backdrop-blur-2xl shadow-sm"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#334155] font-bold">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#070b14] font-bold">
               uperX // Enterprise IT &amp; AI Engineering
             </span>
           </div>
@@ -123,7 +141,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           {/* Quick Universe Switch Button */}
           <button
             onClick={onToggleTheme}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-black/10 bg-white/70 backdrop-blur-xl text-xs font-mono font-bold text-neutral-800 hover:bg-black hover:text-white transition-all shadow-sm"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/90 bg-white/85 backdrop-blur-2xl text-xs font-mono font-bold text-[#070b14] hover:bg-black hover:text-white transition-all shadow-sm"
             title="Switch back to Studio Dark Universe"
           >
             <span>Switch to Studio Dark Mode</span>
@@ -137,27 +155,30 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           <div className="lg:col-span-7 flex flex-col space-y-6">
             <h1
               data-reveal="chars"
-              className="font-sans font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#0f172a] uppercase leading-[0.92]"
+              className="font-sans font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#070b14] uppercase leading-[0.92] drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)]"
             >
               The New <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-pink-600 to-indigo-600 font-serif font-light italic normal-case">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-indigo-600 to-cyan-600 font-serif font-light italic normal-case">
                 Standard In
               </span> <br />
               Autonomous IT.
             </h1>
 
-            <p
+            {/* Frosted Glass Legibility Capsule */}
+            <div
               data-reveal="lines"
-              className="font-sans text-base sm:text-lg md:text-xl text-[#334155] max-w-2xl leading-relaxed font-normal"
+              className="p-5 sm:p-6 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/90 shadow-[0_10px_30px_rgba(0,0,0,0.03)] max-w-2xl"
             >
-              <strong className="text-[#0f172a] font-bold">uperX</strong> architects high-velocity autonomous AI swarms, mission-critical cloud infrastructure, and 60FPS spatial web applications for enterprises scaling into the future.
-            </p>
+              <p className="font-sans text-base sm:text-lg md:text-xl text-[#1e293b] leading-relaxed font-normal">
+                <strong className="text-[#070b14] font-bold">uperX</strong> architects high-velocity autonomous AI swarms, mission-critical cloud infrastructure, and 60FPS spatial web applications for enterprises scaling into the future.
+              </p>
+            </div>
 
             {/* Action Buttons */}
-            <div data-reveal data-reveal-delay="2" className="flex flex-wrap items-center gap-4 pt-4">
+            <div data-reveal data-reveal-delay="2" className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={() => onNavigate('/contact')}
-                className="px-8 py-4 rounded-full bg-[#0f172a] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_12px_30px_rgba(15,23,42,0.25)]"
+                className="px-8 py-4 rounded-full bg-[#070b14] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_12px_30px_rgba(7,11,20,0.25)]"
               >
                 Schedule Architecture Review →
               </button>
@@ -167,7 +188,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                   const el = document.getElementById('solutions-matrix');
                   el?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 rounded-full border border-black/15 bg-white/60 backdrop-blur-xl text-[#0f172a] font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:border-black/30 transition-all duration-200 shadow-sm"
+                className="px-8 py-4 rounded-full border border-black/15 bg-white/80 backdrop-blur-xl text-[#070b14] font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:border-black/30 transition-all duration-200 shadow-sm"
               >
                 Explore Enterprise Solutions ↓
               </button>
@@ -175,7 +196,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           </div>
 
           {/* Right Column: 3D Cursor-Reactive Object Canvas */}
-          <div className="lg:col-span-5 h-[420px] sm:h-[500px] w-full relative rounded-3xl overflow-hidden border border-white/80 bg-white/40 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.06)]">
+          <div className="lg:col-span-5 h-[420px] sm:h-[500px] w-full relative rounded-3xl overflow-hidden border border-white/95 bg-white/50 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.08)]">
             <Light3DCanvas />
           </div>
         </div>
@@ -183,23 +204,23 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
         {/* Live KPI Metric Pill Strip */}
         <div
           data-reveal="scale"
-          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/90 shadow-sm font-mono text-xs"
+          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/85 backdrop-blur-2xl border border-white/95 shadow-[0_15px_40px_rgba(0,0,0,0.05)] font-mono text-xs"
         >
-          <div className="p-2 border-r border-black/5">
-            <span className="text-neutral-500 uppercase block text-[10px]">SLA Uptime</span>
-            <span className="font-bold text-[#0f172a] text-base" data-counter>99.999%</span>
+          <div className="p-3 border-r border-black/5">
+            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">SLA Uptime</span>
+            <span className="font-extrabold text-[#070b14] text-lg" data-counter>99.999%</span>
           </div>
-          <div className="p-2 md:border-r border-black/5">
-            <span className="text-neutral-500 uppercase block text-[10px]">Swarm Latency</span>
-            <span className="font-bold text-cyan-700 text-base" data-counter>&lt; 140ms</span>
+          <div className="p-3 md:border-r border-black/5">
+            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Swarm Latency</span>
+            <span className="font-extrabold text-cyan-700 text-lg" data-counter>&lt; 140ms</span>
           </div>
-          <div className="p-2 border-r border-black/5">
-            <span className="text-neutral-500 uppercase block text-[10px]">Daily Ingestion</span>
-            <span className="font-bold text-[#0f172a] text-base" data-counter>150,000+</span>
+          <div className="p-3 border-r border-black/5">
+            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Daily Ingestion</span>
+            <span className="font-extrabold text-[#070b14] text-lg" data-counter>150,000+</span>
           </div>
-          <div className="p-2">
-            <span className="text-neutral-500 uppercase block text-[10px]">Architecture</span>
-            <span className="font-bold text-emerald-600 text-base">Zero-Trust Verified</span>
+          <div className="p-3">
+            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Architecture</span>
+            <span className="font-extrabold text-emerald-700 text-lg">Zero-Trust Verified</span>
           </div>
         </div>
       </section>
@@ -210,14 +231,14 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       <section id="solutions-matrix" className="w-full max-w-7xl mx-auto px-5 md:px-12 py-28 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8" data-reveal>
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-600 font-bold block mb-2">
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block mb-2">
               Enterprise Offerings // Production Grade
             </span>
-            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#0f172a] uppercase tracking-tight">
+            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               Enterprise Solutions.
             </h2>
           </div>
-          <p className="font-mono text-xs text-[#475569] max-w-sm mt-4 md:mt-0">
+          <p className="font-mono text-xs text-[#334155] font-semibold max-w-sm mt-4 md:mt-0">
             Hover over cards to engage physical 3D perspective tilt and specular reflections.
           </p>
         </div>
@@ -229,32 +250,32 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               data-reveal
               data-reveal-delay={String((idx % 3) + 1)}
               onClick={() => onNavigate('/contact')}
-              className="tilt-card group relative p-8 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/80 hover:border-cyan-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden cursor-pointer"
+              className="tilt-card group relative p-8 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/95 hover:border-cyan-500/60 shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
 
               <div>
                 <div className="flex items-center justify-between mb-6 tilt-badge">
-                  <div className="p-2 rounded-2xl bg-black/[0.03] border border-black/5 group-hover:border-cyan-500/30 transition-colors duration-300">
+                  <div className="p-2.5 rounded-2xl bg-cyan-500/[0.06] border border-cyan-500/15 group-hover:border-cyan-500/40 transition-colors duration-300">
                     <Icon3D name={srv.id} size={54} />
                   </div>
-                  <span className="font-mono text-[10px] uppercase text-neutral-500 tracking-wider">
+                  <span className="font-mono text-[10px] uppercase text-[#070b14] bg-black/[0.04] px-2.5 py-1 rounded-full font-bold tracking-wider">
                     {srv.tag}
                   </span>
                 </div>
 
-                <h3 className="tilt-head font-sans font-bold text-2xl text-[#0f172a] mb-3 group-hover:text-cyan-700 transition-colors">
+                <h3 className="tilt-head font-sans font-black text-2xl text-[#070b14] mb-3 group-hover:text-cyan-700 transition-colors">
                   {srv.title}
                 </h3>
 
-                <p className="tilt-body font-sans text-sm text-[#475569] leading-relaxed mb-6">
+                <p className="tilt-body font-sans text-sm text-[#334155] leading-relaxed mb-6 font-medium">
                   {srv.desc}
                 </p>
               </div>
 
-              <div className="tilt-body pt-6 border-t border-black/5 flex flex-col space-y-2">
+              <div className="tilt-body pt-6 border-t border-black/5 flex flex-col space-y-2.5">
                 {srv.specs.map((spec, sidx) => (
-                  <div key={sidx} className="flex items-center space-x-2 text-xs font-mono text-[#334155]">
+                  <div key={sidx} className="flex items-center space-x-2 text-xs font-mono text-[#070b14] font-medium">
                     <span className="text-cyan-600 font-bold">▹</span>
                     <span>{spec}</span>
                   </div>
@@ -269,40 +290,40 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           3. INTERACTIVE 3D PLAYGROUND & TELEMETRY SECTION
           ===================================================================== */}
       <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
-        <div className="p-8 md:p-14 rounded-3xl bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_30px_70px_rgba(0,0,0,0.06)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
+        <div className="p-8 md:p-14 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/95 shadow-[0_30px_70px_rgba(0,0,0,0.07)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
           
           <div className="lg:col-span-6 flex flex-col space-y-6">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-600 font-bold">
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold">
               Real-Time Hardware Acceleration
             </span>
-            <h3 className="font-sans font-black text-3xl sm:text-5xl text-[#0f172a] uppercase tracking-tight">
+            <h3 className="font-sans font-black text-3xl sm:text-5xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               Interactive Spatial Physics Engine.
             </h3>
-            <p className="font-sans text-sm sm:text-base text-[#475569] leading-relaxed">
-              Every interface engineered by <strong className="text-[#0f172a]">uperX</strong> harnesses GPU-powered WebGL shader pipelines. Moving your cursor physically recalculates specular light transmission, refraction indices, and spatial inertia in real time.
+            <p className="font-sans text-sm sm:text-base text-[#1e293b] leading-relaxed font-normal">
+              Every interface engineered by <strong className="text-[#070b14] font-bold">uperX</strong> harnesses GPU-powered WebGL shader pipelines. Moving your cursor physically recalculates specular light transmission, refraction indices, and spatial inertia in real time.
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs">
-              <div className="p-4 rounded-2xl bg-black/[0.02] border border-black/5">
-                <span className="text-neutral-500 uppercase block text-[10px]">Renderer</span>
-                <span className="font-bold text-[#0f172a]">Three.js ACESFilmic</span>
+              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Renderer</span>
+                <span className="font-extrabold text-[#070b14] text-sm">Three.js ACESFilmic</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.02] border border-black/5">
-                <span className="text-neutral-500 uppercase block text-[10px]">Shader Pipeline</span>
-                <span className="font-bold text-cyan-700">GLSL Physical 2.0</span>
+              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Shader Pipeline</span>
+                <span className="font-extrabold text-cyan-700 text-sm">GLSL Physical 2.0</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.02] border border-black/5">
-                <span className="text-neutral-500 uppercase block text-[10px]">Inertia Damping</span>
-                <span className="font-bold text-[#0f172a]">Spring Easing (Expo)</span>
+              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Inertia Damping</span>
+                <span className="font-extrabold text-[#070b14] text-sm">Spring Easing (Expo)</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.02] border border-black/5">
-                <span className="text-neutral-500 uppercase block text-[10px]">Target Frame Rate</span>
-                <span className="font-bold text-emerald-600">60 - 120 FPS</span>
+              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Target Frame Rate</span>
+                <span className="font-extrabold text-emerald-700 text-sm">60 - 120 FPS</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-6 h-[380px] rounded-2xl overflow-hidden border border-black/5 relative shadow-inner bg-gradient-to-br from-white/90 via-sky-50/40 to-slate-100/50">
+          <div className="lg:col-span-6 h-[380px] rounded-2xl overflow-hidden border border-white/95 relative shadow-inner bg-gradient-to-br from-white/90 via-sky-50/50 to-slate-100/60 backdrop-blur-xl">
             <Light3DCanvas shape="crystal" />
           </div>
         </div>
@@ -314,14 +335,14 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8" data-reveal>
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-600 font-bold block mb-2">
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block mb-2">
               Proven Results // Case Deployments
             </span>
-            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#0f172a] uppercase tracking-tight">
+            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               Enterprise Impact.
             </h2>
           </div>
-          <span className="font-mono text-xs text-neutral-500">
+          <span className="font-mono text-xs text-[#334155] font-semibold">
             Engineered for high-scale enterprise leaders
           </span>
         </div>
@@ -332,27 +353,27 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               key={idx}
               data-reveal
               data-reveal-delay={String(idx + 1)}
-              className="tilt-card p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 hover:border-cyan-500/50 shadow-sm flex flex-col justify-between"
+              className="tilt-card p-8 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/95 hover:border-cyan-500/60 shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex flex-col justify-between transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
               <div>
                 <div className="flex items-center justify-between mb-4 tilt-badge">
-                  <span className="font-mono text-[10px] uppercase text-cyan-700 tracking-wider font-bold">
+                  <span className="font-mono text-[10px] uppercase text-cyan-800 bg-cyan-100/60 border border-cyan-200/80 px-2.5 py-1 rounded-full tracking-wider font-bold">
                     {cs.badge}
                   </span>
-                  <span className="font-mono text-[10px] text-neutral-400 font-semibold">{cs.client}</span>
+                  <span className="font-mono text-xs text-[#070b14] font-bold">{cs.client}</span>
                 </div>
-                <h4 className="tilt-head font-sans font-bold text-xl text-[#0f172a] mb-4">
+                <h4 className="tilt-head font-sans font-bold text-xl text-[#070b14] mb-4">
                   {cs.title}
                 </h4>
-                <p className="tilt-body font-sans text-sm text-[#475569] leading-relaxed mb-6">
+                <p className="tilt-body font-sans text-sm text-[#334155] leading-relaxed mb-6 font-medium">
                   {cs.result}
                 </p>
               </div>
 
               <div className="tilt-body pt-4 border-t border-black/5 flex items-center justify-between">
-                <span className="font-mono text-xs text-neutral-500 uppercase">Throughput</span>
-                <span className="font-mono font-bold text-cyan-700 text-sm">{cs.metric}</span>
+                <span className="font-mono text-xs text-neutral-600 uppercase font-bold">Throughput</span>
+                <span className="font-mono font-extrabold text-cyan-800 text-sm">{cs.metric}</span>
               </div>
             </div>
           ))}
@@ -365,14 +386,14 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
         <div className="border-b border-black/10 pb-6 mb-12 flex justify-between items-end" data-reveal>
           <div>
-            <span className="font-mono text-xs text-cyan-600 uppercase tracking-widest font-bold block mb-1">
+            <span className="font-mono text-xs text-cyan-700 uppercase tracking-widest font-extrabold block mb-1">
               Production Arsenal
             </span>
-            <h2 className="font-sans font-black text-3xl md:text-5xl text-[#0f172a] uppercase tracking-tight">
+            <h2 className="font-sans font-black text-3xl md:text-5xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               Technology Stack.
             </h2>
           </div>
-          <span className="font-mono text-xs text-neutral-500">Zero-Compromise Tools</span>
+          <span className="font-mono text-xs text-[#334155] font-semibold">Zero-Compromise Tools</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal="scale" data-tilt>
@@ -381,16 +402,16 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               key={idx}
               data-reveal
               data-reveal-delay={String((idx % 4) + 1)}
-              className="tilt-card p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-sm flex flex-col justify-between"
+              className="tilt-card p-6 rounded-2xl bg-white/85 backdrop-blur-2xl border border-white/95 shadow-[0_15px_40px_rgba(0,0,0,0.05)] flex flex-col justify-between transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
               <div>
-                <h4 className="tilt-head font-sans font-bold text-base text-[#0f172a] border-b border-black/5 pb-2 mb-4">
+                <h4 className="tilt-head font-sans font-black text-base text-[#070b14] border-b border-black/5 pb-2.5 mb-4">
                   {tech.name}
                 </h4>
                 <ul className="space-y-2 tilt-body">
                   {tech.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="font-mono text-xs text-[#334155] flex items-center space-x-2">
+                    <li key={itemIdx} className="font-mono text-xs text-[#1e293b] font-medium flex items-center space-x-2">
                       <span className="text-cyan-600 font-bold">▹</span>
                       <span>{item}</span>
                     </li>
@@ -406,19 +427,19 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           6. EXECUTIVE CALL TO ACTION & CONSULTATION
           ===================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-5 my-28 text-center relative z-10" data-reveal>
-        <div className="p-12 md:p-20 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/90 shadow-[0_30px_80px_rgba(0,0,0,0.08)] flex flex-col items-center relative overflow-hidden">
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-600 font-bold mb-3">
+        <div className="p-12 md:p-20 rounded-3xl bg-white/90 backdrop-blur-2xl border border-white/95 shadow-[0_30px_80px_rgba(0,0,0,0.08)] flex flex-col items-center relative overflow-hidden">
+          <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold mb-3">
             Initiate Architecture Review
           </span>
-          <h2 className="font-sans font-black text-3xl sm:text-5xl md:text-6xl text-[#0f172a] uppercase tracking-tight mb-6 max-w-3xl">
+          <h2 className="font-sans font-black text-3xl sm:text-5xl md:text-6xl text-[#070b14] uppercase tracking-tight mb-6 max-w-3xl drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
             Ready to architect your enterprise digital future?
           </h2>
-          <p className="font-sans text-sm md:text-base text-[#475569] max-w-xl mb-10 leading-relaxed">
-            Connect directly with <strong className="text-[#0f172a]">uperX</strong> enterprise architects for a comprehensive technical roadmap, autonomous swarm scoping, or cloud migration proposal.
+          <p className="font-sans text-sm md:text-base text-[#1e293b] max-w-xl mb-10 leading-relaxed font-medium">
+            Connect directly with <strong className="text-[#070b14] font-bold">uperX</strong> enterprise architects for a comprehensive technical roadmap, autonomous swarm scoping, or cloud migration proposal.
           </p>
           <button
             onClick={() => onNavigate('/contact')}
-            className="px-10 py-5 rounded-full bg-[#0f172a] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_15px_35px_rgba(15,23,42,0.3)]"
+            className="px-10 py-5 rounded-full bg-[#070b14] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_15px_35px_rgba(7,11,20,0.3)]"
           >
             Consult With uperX Architects →
           </button>
