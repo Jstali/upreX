@@ -1,5 +1,4 @@
 import React from 'react';
-import { Light3DCanvas } from '../components/Light3DCanvas';
 import { Icon3D } from '../components/ThreeDIcons';
 
 interface LightStudioProps {
@@ -26,9 +25,9 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
     {
       id: 'web-development',
       tag: '03 // Digital Experience',
-      title: '60FPS Spatial WebGL & Frontends',
-      desc: 'Bespoke web applications fusing hardware-accelerated Three.js WebGL graphics, custom GLSL shaders, and silky Lenis inertia physics for unforgettable digital authority.',
-      specs: ['Interactive 3D WebGL Canvas', 'GPU Raymarched Shaders', 'Headless Next.js Performance'],
+      title: 'High-Velocity Modern Web Platforms',
+      desc: 'Bespoke web applications fusing responsive modern architecture, silky Lenis smooth physics, and headless high-performance frontends for unforgettable digital authority.',
+      specs: ['Modern React & Next.js Architecture', 'Sub-Second Page Loads', 'Full-Spectrum Accessibility'],
     },
     {
       id: 'service-apps',
@@ -69,18 +68,18 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       badge: 'Autonomous AI',
     },
     {
-      client: 'AeroSpatial 3D',
-      title: 'Spatial WebGL Industrial Digital Twin',
-      metric: '60 FPS Solid',
-      result: 'Rendered 250,000 CAD polygon meshes in real-time browser canvas with custom shaders.',
-      badge: 'Three.js / WebGL',
+      client: 'AeroSpatial Data Systems',
+      title: 'Real-Time Industrial IoT Operations Hub',
+      metric: 'Sub-50ms Sync',
+      result: 'Orchestrated 250,000 real-time telemetry sensors with WebSocket state synchronization.',
+      badge: 'Distributed Cloud',
     },
   ];
 
   const techArsenal = [
     { name: 'Autonomous AI', items: ['PyTorch', 'LangChain', 'LangGraph', 'Claude 3.5 & GPT-4o', 'Milvus Vector DB'] },
     { name: 'Core Microservices', items: ['Rust / Tokio', 'Go (Golang)', 'TypeScript / Node.js', 'PostgreSQL', 'Redis Cluster'] },
-    { name: 'Spatial Web & 3D', items: ['Three.js', 'WebGL 2.0', 'Custom GLSL Shaders', 'GSAP Motion', 'Tailwind CSS'] },
+    { name: 'Modern Web Engineering', items: ['React 18', 'TypeScript', 'Next.js', 'Tailwind CSS', 'WebSocket State'] },
     { name: 'Cloud Infrastructure', items: ['Kubernetes', 'Docker', 'AWS / GCP / Cloudflare', 'Terraform CI/CD', 'OpenTelemetry'] },
   ];
 
@@ -195,9 +194,84 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
             </div>
           </div>
 
-          {/* Right Column: 3D Cursor-Reactive Object Canvas */}
-          <div className="lg:col-span-5 h-[420px] sm:h-[500px] w-full relative rounded-3xl overflow-hidden border border-white/95 bg-white/50 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.08)]">
-            <Light3DCanvas />
+          {/* Right Column: Live Enterprise Architecture & AI Swarm Telemetry Cockpit */}
+          <div
+            data-reveal="scale"
+            className="lg:col-span-5 w-full rounded-3xl overflow-hidden border border-white/95 bg-white/85 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.06)] p-6 sm:p-7 flex flex-col justify-between space-y-5"
+          >
+            {/* Header: Live System Status */}
+            <div className="flex items-center justify-between pb-4 border-b border-black/5">
+              <div className="flex items-center space-x-3">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <div>
+                  <h4 className="font-mono text-xs font-black uppercase text-[#070b14] tracking-wider">
+                    Global Swarm Engine
+                  </h4>
+                  <span className="font-mono text-[10px] text-neutral-500">Active Mesh v4.8.2 // Real-Time</span>
+                </div>
+              </div>
+              <span className="font-mono text-[11px] font-bold text-emerald-800 bg-emerald-100/70 border border-emerald-200/80 px-2.5 py-1 rounded-full">
+                Systems Optimal
+              </span>
+            </div>
+
+            {/* Architecture Node Grid */}
+            <div className="grid grid-cols-2 gap-3 font-mono text-xs">
+              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+                <span className="text-[10px] uppercase text-neutral-500 font-bold">Inference Speed</span>
+                <span className="text-xl font-black text-[#070b14]">142 tok/s</span>
+                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-cyan-600 h-full rounded-full w-[88%]" />
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+                <span className="text-[10px] uppercase text-neutral-500 font-bold">Network Latency</span>
+                <span className="text-xl font-black text-cyan-700">0.82 ms</span>
+                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full w-[94%]" />
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+                <span className="text-[10px] uppercase text-neutral-500 font-bold">Agent Density</span>
+                <span className="text-xl font-black text-[#070b14]">1,024 Nodes</span>
+                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-indigo-600 h-full rounded-full w-[76%]" />
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+                <span className="text-[10px] uppercase text-neutral-500 font-bold">Zero-Trust Auth</span>
+                <span className="text-xl font-black text-emerald-700">100% mTLS</span>
+                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-emerald-600 h-full rounded-full w-full" />
+                </div>
+              </div>
+            </div>
+
+            {/* Live Event Stream Terminal */}
+            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-[11px] space-y-2 shadow-inner">
+              <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800 pb-1.5">
+                <span className="uppercase tracking-wider">Telemetry Event Log</span>
+                <span className="text-emerald-400 font-bold">LIVE STREAM</span>
+              </div>
+              <p className="flex items-center space-x-2 text-slate-300">
+                <span className="text-cyan-400">[12:44:02]</span>
+                <span>Swarm coordinator spawned 64 worker threads</span>
+              </p>
+              <p className="flex items-center space-x-2 text-slate-300">
+                <span className="text-indigo-400">[12:44:04]</span>
+                <span>Hybrid Vector RAG synchronized (4.8M vectors)</span>
+              </p>
+              <p className="flex items-center space-x-2 text-slate-300">
+                <span className="text-emerald-400">[12:44:06]</span>
+                <span>Sub-millisecond broker routed 180k req/s</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -287,44 +361,111 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       </section>
 
       {/* =====================================================================
-          3. INTERACTIVE 3D PLAYGROUND & TELEMETRY SECTION
+          3. HIGH-PERFORMANCE CLOUD INFRASTRUCTURE & TELEMETRY SECTION
           ===================================================================== */}
       <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
         <div className="p-8 md:p-14 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/95 shadow-[0_30px_70px_rgba(0,0,0,0.07)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
           
           <div className="lg:col-span-6 flex flex-col space-y-6">
             <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold">
-              Real-Time Hardware Acceleration
+              Global Multi-Region Mesh
             </span>
             <h3 className="font-sans font-black text-3xl sm:text-5xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              Interactive Spatial Physics Engine.
+              High-Velocity Cloud Architecture.
             </h3>
             <p className="font-sans text-sm sm:text-base text-[#1e293b] leading-relaxed font-normal">
-              Every interface engineered by <strong className="text-[#070b14] font-bold">uperX</strong> harnesses GPU-powered WebGL shader pipelines. Moving your cursor physically recalculates specular light transmission, refraction indices, and spatial inertia in real time.
+              Every system architected by <strong className="text-[#070b14] font-bold">uperX</strong> runs on active-active multi-region Kubernetes clusters. Automated health probes, zero-trust mTLS encryption, and sub-millisecond event buses ensure 99.999% availability at enterprise scale.
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs">
               <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Renderer</span>
-                <span className="font-extrabold text-[#070b14] text-sm">Three.js ACESFilmic</span>
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Cluster Engine</span>
+                <span className="font-extrabold text-[#070b14] text-sm">Kubernetes 1.30+</span>
               </div>
               <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Shader Pipeline</span>
-                <span className="font-extrabold text-cyan-700 text-sm">GLSL Physical 2.0</span>
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Network Security</span>
+                <span className="font-extrabold text-cyan-700 text-sm">mTLS Zero-Trust</span>
               </div>
               <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Inertia Damping</span>
-                <span className="font-extrabold text-[#070b14] text-sm">Spring Easing (Expo)</span>
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Failover Recovery</span>
+                <span className="font-extrabold text-[#070b14] text-sm">&lt; 250ms Auto</span>
               </div>
               <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Target Frame Rate</span>
-                <span className="font-extrabold text-emerald-700 text-sm">60 - 120 FPS</span>
+                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Global Throughput</span>
+                <span className="font-extrabold text-emerald-700 text-sm">180,000+ req/s</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-6 h-[380px] rounded-2xl overflow-hidden border border-white/95 relative shadow-inner bg-gradient-to-br from-white/90 via-sky-50/50 to-slate-100/60 backdrop-blur-xl">
-            <Light3DCanvas shape="crystal" />
+          {/* Right Column: Global Edge Regions Topology Card (No 3D Models) */}
+          <div className="lg:col-span-6 rounded-3xl p-6 sm:p-8 border border-white/95 relative shadow-inner bg-gradient-to-br from-white/95 via-sky-50/60 to-slate-100/70 backdrop-blur-xl flex flex-col justify-between space-y-6">
+            <div className="flex items-center justify-between border-b border-black/5 pb-4">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block">
+                  Distributed Cloud Mesh
+                </span>
+                <h4 className="font-sans font-black text-xl text-[#070b14]">
+                  Active Edge Datacenters
+                </h4>
+              </div>
+              <span className="font-mono text-[10px] uppercase font-bold text-neutral-600 bg-black/5 px-2.5 py-1 rounded-full">
+                Active-Active Multi-Region
+              </span>
+            </div>
+
+            {/* Region Health Cards */}
+            <div className="space-y-3 font-mono text-xs">
+              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+                <div className="flex items-center space-x-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div>
+                    <span className="font-bold text-[#070b14] block">us-east-1 (N. Virginia)</span>
+                    <span className="text-[10px] text-neutral-500">Autonomous Core Swarm</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="font-bold text-cyan-700">0.4 ms</span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+                <div className="flex items-center space-x-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div>
+                    <span className="font-bold text-[#070b14] block">eu-central-1 (Frankfurt)</span>
+                    <span className="text-[10px] text-neutral-500">Secure Vector Knowledge Mesh</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="font-bold text-cyan-700">0.9 ms</span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+                <div className="flex items-center space-x-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div>
+                    <span className="font-bold text-[#070b14] block">ap-northeast-1 (Tokyo)</span>
+                    <span className="text-[10px] text-neutral-500">Sub-Millisecond Edge Ingestion</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="font-bold text-cyan-700">1.2 ms</span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between">
+              <span className="font-mono text-xs text-emerald-900 font-bold">
+                ✓ Automated Failover Replicated in &lt; 250ms
+              </span>
+              <span className="font-mono text-[10px] text-emerald-800 font-extrabold uppercase">
+                Kubernetes Mesh
+              </span>
+            </div>
           </div>
         </div>
       </section>
