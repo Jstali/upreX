@@ -1,5 +1,4 @@
-import React from 'react';
-import { Icon3D } from '../components/ThreeDIcons';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface LightStudioProps {
   onNavigate: (path: string) => void;
@@ -7,574 +6,565 @@ interface LightStudioProps {
 }
 
 export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTheme }) => {
-  const enterpriseServices = [
-    {
-      id: 'ai-agents',
-      tag: '01 // Autonomous Systems',
-      title: 'Autonomous AI Agent Swarms',
-      desc: 'Self-governing multi-agent networks equipped with recursive reasoning, persistent vector memory indexing, and automated tool dispatch without human latency.',
-      specs: ['Multi-Agent Swarm Orchestration', 'Hybrid Graph-Vector RAG', 'Automated QA & Self-Correction'],
-    },
-    {
-      id: 'software-dev',
-      tag: '02 // Core Engineering',
-      title: 'Distributed Cloud Microservices',
-      desc: 'Mission-critical distributed architectures engineered in Rust, Go, and TypeScript. Designed for 150,000+ operations/sec with sub-millisecond network latency.',
-      specs: ['Sub-Millisecond Message Brokers', 'Active-Active Multi-Region Mesh', 'Zero-Downtime CI/CD Pipelines'],
-    },
-    {
-      id: 'web-development',
-      tag: '03 // Digital Experience',
-      title: 'High-Velocity Modern Web Platforms',
-      desc: 'Bespoke web applications fusing responsive modern architecture, silky Lenis smooth physics, and headless high-performance frontends for unforgettable digital authority.',
-      specs: ['Modern React & Next.js Architecture', 'Sub-Second Page Loads', 'Full-Spectrum Accessibility'],
-    },
-    {
-      id: 'service-apps',
-      tag: '04 // Scalable Platforms',
-      title: 'Multi-Tenant SaaS Architecture',
-      desc: 'End-to-end digital service platforms engineered with automated tiered subscription billing, usage metering, granular RBAC, and real-time WebSocket state synchronization.',
-      specs: ['Stripe Enterprise Metering', 'High-Scale Multi-Tenancy', 'Real-Time Event Streams'],
-    },
-    {
-      id: 'growth-marketing',
-      tag: '05 // Algorithmic Growth',
-      title: 'Growth Marketing & Data Engines',
-      desc: 'Algorithmic customer acquisition pipelines, real-time multi-armed bandit CRO experimentation, and viral digital mechanics that transform enterprise products into market leaders.',
-      specs: ['Programmatic SEO Automation', 'Dynamic A/B Funnel Optimization', 'Viral Retention Loops'],
-    },
-    {
-      id: 'it-infrastructure',
-      tag: '06 // Cloud & Reliability',
-      title: 'Zero-Trust Cloud & DevOps IT',
-      desc: 'Comprehensive cloud architecture across AWS, GCP, and Azure. Kubernetes container orchestration, automated canary deployments, and 24/7 automated telemetry.',
-      specs: ['Kubernetes Cluster Hardening', 'Zero-Trust mTLS Architecture', 'Automated Disaster Recovery'],
-    },
-  ];
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const targetTimeRef = useRef<number>(0);
+  const animFrameRef = useRef<number>(0);
+  const [activeSection, setActiveSection] = useState<'story' | 'mission' | 'advantages' | 'success'>('story');
+  const [solutionLabOpen, setSolutionLabOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [autoTourPlaying, setAutoTourPlaying] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
-  const caseStudies = [
-    {
-      client: 'Apex FinTech Global',
-      title: 'Sub-Millisecond Distributed Trading Mesh',
-      metric: '180k req/s',
-      result: 'Processed 50M+ daily transactions with 99.999% uptime and zero latency spikes.',
-      badge: 'Rust & Go',
-    },
-    {
-      client: 'Synthetix BioHealth',
-      title: 'Autonomous Clinical Intelligence Swarm',
-      metric: '99.94% accuracy',
-      result: 'Automated 12,000 weekly clinical case reviews using multi-agent hybrid vector RAG.',
-      badge: 'Autonomous AI',
-    },
-    {
-      client: 'AeroSpatial Data Systems',
-      title: 'Real-Time Industrial IoT Operations Hub',
-      metric: 'Sub-50ms Sync',
-      result: 'Orchestrated 250,000 real-time telemetry sensors with WebSocket state synchronization.',
-      badge: 'Distributed Cloud',
-    },
-  ];
+  // Sync scroll position with video currentTime
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-  const techArsenal = [
-    { name: 'Autonomous AI', items: ['PyTorch', 'LangChain', 'LangGraph', 'Claude 3.5 & GPT-4o', 'Milvus Vector DB'] },
-    { name: 'Core Microservices', items: ['Rust / Tokio', 'Go (Golang)', 'TypeScript / Node.js', 'PostgreSQL', 'Redis Cluster'] },
-    { name: 'Modern Web Engineering', items: ['React 18', 'TypeScript', 'Next.js', 'Tailwind CSS', 'WebSocket State'] },
-    { name: 'Cloud Infrastructure', items: ['Kubernetes', 'Docker', 'AWS / GCP / Cloudflare', 'Terraform CI/CD', 'OpenTelemetry'] },
-  ];
+    const handleScroll = () => {
+      if (autoTourPlaying) return;
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      // 0.0s is Hero, 10.2s is the bottom of the descent
+      targetTimeRef.current = progress * 10.2;
+
+      // Update active section indicator
+      if (progress < 0.22) {
+        setActiveSection('story');
+      } else if (progress < 0.52) {
+        setActiveSection('mission');
+      } else if (progress < 0.78) {
+        setActiveSection('advantages');
+      } else {
+        setActiveSection('success');
+      }
+    };
+
+    const smoothVideoLoop = () => {
+      if (video && !autoTourPlaying && video.readyState >= 2) {
+        const diff = targetTimeRef.current - video.currentTime;
+        if (Math.abs(diff) > 0.03) {
+          // Lerp for butter-smooth continuous tracking
+          video.currentTime += diff * 0.35;
+        }
+      }
+      animFrameRef.current = requestAnimationFrame(smoothVideoLoop);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    animFrameRef.current = requestAnimationFrame(smoothVideoLoop);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animFrameRef.current);
+    };
+  }, [autoTourPlaying]);
+
+  // Smooth scroll helper
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Toggle Auto Tour playback
+  const toggleAutoTour = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (autoTourPlaying) {
+      video.pause();
+      setAutoTourPlaying(false);
+    } else {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+      setAutoTourPlaying(true);
+    }
+  };
+
+  // Sync scroll if video is playing in auto tour mode
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !autoTourPlaying) return;
+
+    const interval = setInterval(() => {
+      const duration = 10.2;
+      const current = Math.min(video.currentTime, duration);
+      const progress = current / duration;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({
+        top: progress * maxScroll,
+        behavior: 'auto',
+      });
+
+      if (video.currentTime >= 10.2) {
+        video.pause();
+        setAutoTourPlaying(false);
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [autoTourPlaying]);
 
   return (
-    <div className="w-full min-h-screen text-[#0f172a] bg-[#fafaf9] selection:bg-cyan-200 selection:text-black select-none overflow-x-hidden relative">
-
+    <div className="relative w-full bg-[#0d0714] text-white selection:bg-pink-500 selection:text-white font-sans antialiased overflow-x-hidden">
+      
       {/* =====================================================================
-          LUMINOUS SKY THEME AMBIENT COLOR GRADIENTS (FAST CSS, ZERO LAG)
+          1. FIXED SEGESTA ULTRA-HIGH-RESOLUTION BACKGROUND VIDEO & FALLBACKS
           ===================================================================== */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        {/* Sky Theme Color Atmosphere */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.22) 0%, transparent 45%),
-              radial-gradient(circle at 90% 18%, rgba(129, 140, 248, 0.18) 0%, transparent 45%),
-              radial-gradient(circle at 50% 45%, rgba(14, 165, 233, 0.14) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(244, 114, 182, 0.12) 0%, transparent 45%),
-              radial-gradient(circle at 20% 85%, rgba(45, 212, 191, 0.14) 0%, transparent 45%),
-              radial-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px)
-            `,
-            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px',
-          }}
+      <div className="fixed inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+        {/* Fallback Poster (Instant LCP) */}
+        <img
+          src="/images/segesta/hero.jpg"
+          alt="Segesta Scenery"
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
         />
-        {/* Soft Celestial Veil */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-50/20 via-transparent to-[#fafaf9]/80" />
+
+        {/* Interactive Scrubbable Video */}
+        <video
+          ref={videoRef}
+          src="/videos/segesta_optimized.mp4"
+          muted
+          playsInline
+          preload="auto"
+          onLoadedData={() => setVideoLoaded(true)}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+
+        {/* Cinematic Vignette & Ambient Glow Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
       </div>
 
       {/* =====================================================================
-          1. HERO SECTION WITH GLASSMORPHISM
+          2. ICONIC SEGESTA NAVIGATION BAR (PIXEL-PERFECT REPLICA)
           ===================================================================== */}
-      <section className="relative w-full min-h-[96vh] pt-28 pb-16 px-5 md:px-12 max-w-7xl mx-auto flex flex-col justify-between z-10">
-        
-        {/* Top Floating Controls Strip */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          <div
-            data-reveal="scale"
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.95)]"
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 sm:px-12 py-5 flex items-center justify-between text-xs tracking-wide bg-gradient-to-b from-black/70 via-black/30 to-transparent backdrop-blur-[2px]">
+        {/* Left Links */}
+        <div className="flex items-center space-x-6 sm:space-x-10 text-[13px] font-medium text-white/90">
+          <button
+            onClick={() => scrollTo('story')}
+            className={`hover:text-white transition-colors duration-200 cursor-pointer ${activeSection === 'story' ? 'text-white font-bold' : 'text-white/75'}`}
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#070b14] font-bold">
-              uperX // Enterprise IT &amp; AI Engineering
-            </span>
-          </div>
+            Our Story
+          </button>
+          <button
+            onClick={() => setSolutionLabOpen(true)}
+            className="hover:text-white transition-colors duration-200 cursor-pointer text-white/75 hover:scale-105 transform"
+          >
+            SolutionLab
+          </button>
+          <button
+            onClick={() => scrollTo('advantages')}
+            className={`hover:text-white transition-colors duration-200 cursor-pointer ${activeSection === 'advantages' ? 'text-white font-bold' : 'text-white/75'}`}
+          >
+            Clients
+          </button>
+        </div>
 
-          {/* Quick Universe Switch Button */}
+        {/* Center: The Iconic Geometric Triangle / Delta Logo */}
+        <div
+          onClick={() => scrollTo('story')}
+          className="cursor-pointer transform hover:scale-110 transition-transform duration-300 flex items-center justify-center py-1"
+          title="SEGESTA // Return to Top"
+        >
+          <svg viewBox="0 0 36 32" fill="none" className="w-8 h-7 drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]">
+            <path
+              d="M18 2L35 30H1L18 2Z"
+              fill="#ffffff"
+            />
+            {/* Horizontal Split Accent */}
+            <path
+              d="M18 13L26.5 27.5H9.5L18 13Z"
+              fill="#181326"
+            />
+          </svg>
+        </div>
+
+        {/* Right Links & Action Buttons */}
+        <div className="flex items-center space-x-5 sm:space-x-8 text-[13px] font-medium">
+          <button
+            onClick={() => scrollTo('success')}
+            className={`hidden md:block hover:text-white transition-colors duration-200 cursor-pointer ${activeSection === 'success' ? 'text-white font-bold' : 'text-white/75'}`}
+          >
+            Portfolio
+          </button>
+          <button
+            onClick={() => onNavigate('/hypeboard')}
+            className="hidden md:block hover:text-white transition-colors duration-200 cursor-pointer text-white/75"
+          >
+            Blog
+          </button>
+
+          {/* Contact Box Button (Outlined, exact to video) */}
+          <button
+            onClick={() => setContactOpen(true)}
+            className="px-5 py-2 border border-white/80 rounded-md text-white font-sans text-xs font-semibold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-200 shadow-sm cursor-pointer"
+          >
+            Contact
+          </button>
+
+          {/* Dark / Light Universe Switcher */}
           <button
             onClick={onToggleTheme}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl text-xs font-mono font-bold text-[#070b14] hover:bg-black hover:text-white transition-all shadow-[0_4px_20px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.95)]"
-            title="Switch back to Studio Dark Universe"
+            className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-white/30 bg-black/40 backdrop-blur-md text-[11px] font-mono text-white/90 hover:bg-white hover:text-black transition-all"
+            title="Switch back to Studio Dark Mode"
           >
-            <span>Switch to Studio Dark Mode</span>
-            <span>🌙</span>
+            <span>🌙 Dark Mode</span>
           </button>
         </div>
+      </nav>
 
-        {/* Hero Grid: Left Copy + Right Glassmorphic Viewport */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-1 my-auto">
-          {/* Left Column: Headline & Action */}
-          <div className="lg:col-span-7 flex flex-col space-y-6">
-            <h1
-              data-reveal="chars"
-              className="font-sans font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#070b14] uppercase leading-[0.92] drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)]"
-            >
-              The New <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-indigo-600 to-cyan-600 font-serif font-light italic normal-case">
-                Standard In
-              </span> <br />
-              Autonomous IT.
-            </h1>
-
-            {/* Glassmorphic Legibility Capsule */}
-            <div
-              data-reveal="lines"
-              className="p-5 sm:p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_1px_rgba(255,255,255,0.95)] max-w-2xl"
-            >
-              <p className="font-sans text-base sm:text-lg md:text-xl text-[#1e293b] leading-relaxed font-normal">
-                <strong className="text-[#070b14] font-bold">uperX</strong> architects high-velocity autonomous AI swarms, mission-critical cloud infrastructure, and 60FPS spatial web applications for enterprises scaling into the future.
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div data-reveal data-reveal-delay="2" className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => onNavigate('/contact')}
-                className="px-8 py-4 rounded-full bg-[#070b14] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_12px_30px_rgba(7,11,20,0.25)]"
-              >
-                Schedule Architecture Review →
-              </button>
-
-              <button
-                onClick={() => {
-                  const el = document.getElementById('solutions-matrix');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-8 py-4 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl text-[#070b14] font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:border-black/20 transition-all duration-200 shadow-sm"
-              >
-                Explore Enterprise Solutions ↓
-              </button>
-            </div>
-          </div>
-
-          {/* Right Column: Glassmorphic Enterprise Architecture & AI Swarm Telemetry Cockpit */}
-          <div
-            data-reveal="scale"
-            className="lg:col-span-5 w-full rounded-3xl overflow-hidden border border-white/80 bg-white/75 backdrop-blur-xl shadow-[0_20px_50px_rgba(15,23,42,0.07),inset_0_1px_2px_rgba(255,255,255,0.95)] p-6 sm:p-7 flex flex-col justify-between space-y-5"
-          >
-            {/* Header: Live System Status */}
-            <div className="flex items-center justify-between pb-4 border-b border-black/5">
-              <div className="flex items-center space-x-3">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-                <div>
-                  <h4 className="font-mono text-xs font-black uppercase text-[#070b14] tracking-wider">
-                    Global Swarm Engine
-                  </h4>
-                  <span className="font-mono text-[10px] text-neutral-500">Active Mesh v4.8.2 // Real-Time</span>
-                </div>
-              </div>
-              <span className="font-mono text-[11px] font-bold text-emerald-800 bg-emerald-100/70 border border-emerald-200/80 px-2.5 py-1 rounded-full">
-                Systems Optimal
-              </span>
-            </div>
-
-            {/* Architecture Node Grid */}
-            <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold">Inference Speed</span>
-                <span className="text-xl font-black text-[#070b14]">142 tok/s</span>
-                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-cyan-600 h-full rounded-full w-[88%]" />
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold">Network Latency</span>
-                <span className="text-xl font-black text-cyan-700">0.82 ms</span>
-                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-emerald-500 h-full rounded-full w-[94%]" />
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold">Agent Density</span>
-                <span className="text-xl font-black text-[#070b14]">1,024 Nodes</span>
-                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-indigo-600 h-full rounded-full w-[76%]" />
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold">Zero-Trust Auth</span>
-                <span className="text-xl font-black text-emerald-700">100% mTLS</span>
-                <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-emerald-600 h-full rounded-full w-full" />
-                </div>
-              </div>
-            </div>
-
-            {/* Live Event Stream Terminal */}
-            <div className="p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md text-slate-100 font-mono text-[11px] space-y-2 shadow-inner border border-white/10">
-              <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800 pb-1.5">
-                <span className="uppercase tracking-wider">Telemetry Event Log</span>
-                <span className="text-emerald-400 font-bold">LIVE STREAM</span>
-              </div>
-              <p className="flex items-center space-x-2 text-slate-300">
-                <span className="text-cyan-400">[12:44:02]</span>
-                <span>Swarm coordinator spawned 64 worker threads</span>
-              </p>
-              <p className="flex items-center space-x-2 text-slate-300">
-                <span className="text-indigo-400">[12:44:04]</span>
-                <span>Hybrid Vector RAG synchronized (4.8M vectors)</span>
-              </p>
-              <p className="flex items-center space-x-2 text-slate-300">
-                <span className="text-emerald-400">[12:44:06]</span>
-                <span>Sub-millisecond broker routed 180k req/s</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Live KPI Metric Pill Strip */}
-        <div
-          data-reveal="scale"
-          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_1px_rgba(255,255,255,0.95)] font-mono text-xs"
+      {/* Floating Auto-Tour / Scrub Controller */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-center space-x-3">
+        <button
+          onClick={toggleAutoTour}
+          className="px-4 py-2 rounded-full border border-white/40 bg-black/60 backdrop-blur-xl text-white font-mono text-[11px] font-semibold tracking-wider flex items-center space-x-2 hover:bg-white hover:text-black hover:border-white transition-all shadow-xl"
         >
-          <div className="p-3 border-r border-black/5">
-            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">SLA Uptime</span>
-            <span className="font-extrabold text-[#070b14] text-lg" data-counter>99.999%</span>
-          </div>
-          <div className="p-3 md:border-r border-black/5">
-            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Swarm Latency</span>
-            <span className="font-extrabold text-cyan-700 text-lg" data-counter>&lt; 140ms</span>
-          </div>
-          <div className="p-3 border-r border-black/5">
-            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Daily Ingestion</span>
-            <span className="font-extrabold text-[#070b14] text-lg" data-counter>150,000+</span>
-          </div>
-          <div className="p-3">
-            <span className="text-neutral-600 font-semibold uppercase block text-[10px]">Architecture</span>
-            <span className="font-extrabold text-emerald-700 text-lg">Zero-Trust Verified</span>
-          </div>
-        </div>
-      </section>
+          <span className={`w-2 h-2 rounded-full ${autoTourPlaying ? 'bg-emerald-400 animate-ping' : 'bg-white'}`} />
+          <span>{autoTourPlaying ? 'PAUSE FILM' : 'AUTO TOUR'}</span>
+        </button>
+
+        <button
+          onClick={onToggleTheme}
+          className="sm:hidden px-3 py-2 rounded-full border border-white/40 bg-black/60 backdrop-blur-xl text-white text-[11px] font-mono font-bold"
+        >
+          🌙 Dark
+        </button>
+      </div>
+
+      {/* Floating Section Progress Indicator Dots */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center space-y-4">
+        {[
+          { id: 'story', label: '01 / Story' },
+          { id: 'mission', label: '02 / Mission' },
+          { id: 'advantages', label: '03 / Advantages' },
+          { id: 'success', label: '04 / Success' },
+        ].map((s) => (
+          <button
+            key={s.id}
+            onClick={() => scrollTo(s.id)}
+            className="group relative flex items-center justify-end"
+            title={s.label}
+          >
+            <span className="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-[10px] uppercase text-white bg-black/80 px-2 py-0.5 rounded whitespace-nowrap">
+              {s.label}
+            </span>
+            <span
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                activeSection === s.id
+                  ? 'bg-white scale-125 ring-4 ring-white/30'
+                  : 'bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          </button>
+        ))}
+      </div>
 
       {/* =====================================================================
-          2. ENTERPRISE SOLUTIONS MATRIX (Glassmorphic 3D Tilt Cards)
+          3. SCROLLABLE STORY JOURNEY (4 FULL-HEIGHT SECTIONS)
           ===================================================================== */}
-      <section id="solutions-matrix" className="w-full max-w-7xl mx-auto px-5 md:px-12 py-28 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8" data-reveal>
-          <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block mb-2">
-              Enterprise Offerings // Production Grade
-            </span>
-            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              Enterprise Solutions.
-            </h2>
+      <div className="relative z-10 w-full">
+
+        {/* SECTION 1: HERO (S E G E S T A) */}
+        <section
+          id="story"
+          className="w-full min-h-screen flex flex-col justify-between items-center px-6 pt-36 pb-12 relative"
+        >
+          {/* Top spacer */}
+          <div />
+
+          {/* Center Brand Typography (Exact reproduction of video title) */}
+          <div className="text-center flex flex-col items-center select-none">
+            <h1 className="font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[0.22em] text-white uppercase drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)] pl-[0.22em]">
+              SEGESTA
+            </h1>
+            <p className="mt-4 font-sans font-light text-sm sm:text-base md:text-lg tracking-[0.35em] text-white/95 uppercase drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] pl-[0.35em]">
+              INNOVATIVE SOLUTIONS
+            </p>
           </div>
-          <p className="font-mono text-xs text-[#334155] font-semibold max-w-sm mt-4 md:mt-0">
-            Hover over cards to engage physical perspective tilt and specular reflections.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-reveal="scale" data-tilt>
-          {enterpriseServices.map((srv, idx) => (
-            <div
-              key={srv.id}
-              data-reveal
-              data-reveal-delay={String((idx % 3) + 1)}
-              onClick={() => onNavigate('/contact')}
-              className="tilt-card group relative p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 hover:border-cyan-400/60 shadow-[0_15px_40px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300"
-            >
-              <span className="tilt-shine" aria-hidden="true" />
+          {/* Bottom Prompt: Scroll Down */}
+          <div
+            onClick={() => scrollTo('mission')}
+            className="cursor-pointer flex flex-col items-center space-y-2 text-white/75 hover:text-white transition-colors pb-4"
+          >
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em]">Scroll To Explore</span>
+            <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </section>
 
-              <div>
-                <div className="flex items-center justify-between mb-6 tilt-badge">
-                  <div className="p-2.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 group-hover:border-cyan-500/40 transition-colors duration-300 shadow-sm">
-                    <Icon3D name={srv.id} size={54} />
-                  </div>
-                  <span className="font-mono text-[10px] uppercase text-[#070b14] bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full font-bold tracking-wider">
-                    {srv.tag}
-                  </span>
-                </div>
-
-                <h3 className="tilt-head font-sans font-black text-2xl text-[#070b14] mb-3 group-hover:text-cyan-700 transition-colors">
-                  {srv.title}
-                </h3>
-
-                <p className="tilt-body font-sans text-sm text-[#334155] leading-relaxed mb-6 font-medium">
-                  {srv.desc}
-                </p>
-              </div>
-
-              <div className="tilt-body pt-6 border-t border-black/5 flex flex-col space-y-2.5">
-                {srv.specs.map((spec, sidx) => (
-                  <div key={sidx} className="flex items-center space-x-2 text-xs font-mono text-[#070b14] font-medium">
-                    <span className="text-cyan-600 font-bold">▹</span>
-                    <span>{spec}</span>
-                  </div>
-                ))}
-              </div>
+        {/* SECTION 2: OUR MISSION (Descending waterfall & subterranean lab) */}
+        <section
+          id="mission"
+          className="w-full min-h-screen flex items-center px-6 sm:px-16 md:px-24 py-24 relative"
+        >
+          <div className="max-w-xl flex flex-col items-start space-y-7 bg-black/40 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-white/10 shadow-2xl">
+            <div>
+              <h2 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
+                Our Mission
+              </h2>
+              {/* Thin Accent Underline */}
+              <div className="w-full h-[1px] bg-white/30 mt-4" />
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* =====================================================================
-          3. HIGH-PERFORMANCE CLOUD INFRASTRUCTURE & TELEMETRY SECTION
-          ===================================================================== */}
-      <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
-        <div className="p-8 md:p-14 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/80 shadow-[0_20px_60px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
-          
-          <div className="lg:col-span-6 flex flex-col space-y-6">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold">
-              Global Multi-Region Mesh
-            </span>
-            <h3 className="font-sans font-black text-3xl sm:text-5xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              High-Velocity Cloud Architecture.
-            </h3>
-            <p className="font-sans text-sm sm:text-base text-[#1e293b] leading-relaxed font-normal">
-              Every system architected by <strong className="text-[#070b14] font-bold">uperX</strong> runs on active-active multi-region Kubernetes clusters. Automated health probes, zero-trust mTLS encryption, and sub-millisecond event buses ensure 99.999% availability at enterprise scale.
+            <p className="font-sans text-base sm:text-lg text-white/90 leading-relaxed font-normal">
+              At <strong className="text-white font-semibold">uperX // SEGESTA</strong>, our purpose is to empower digital relationships through mobility. By designing and developing custom apps and mobile web-apps, we act as a guide - leading our clients through the process of building complex digital products.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs">
-              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Cluster Engine</span>
-                <span className="font-extrabold text-[#070b14] text-sm">Kubernetes 1.30+</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Network Security</span>
-                <span className="font-extrabold text-cyan-700 text-sm">mTLS Zero-Trust</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Failover Recovery</span>
-                <span className="font-extrabold text-[#070b14] text-sm">&lt; 250ms Auto</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
-                <span className="text-neutral-600 font-bold uppercase block text-[10px]">Global Throughput</span>
-                <span className="font-extrabold text-emerald-700 text-sm">180,000+ req/s</span>
-              </div>
-            </div>
-          </div>
+            <p className="font-sans text-sm sm:text-base text-white/80 leading-relaxed font-normal">
+              By designing and developing custom apps and mobile web-apps, we act as a guide - leading our clients to enduring industry leadership.
+            </p>
 
-          {/* Right Column: Global Edge Regions Topology Card (Glassmorphic) */}
-          <div className="lg:col-span-6 rounded-3xl p-6 sm:p-8 border border-white/80 relative shadow-inner bg-white/60 backdrop-blur-xl flex flex-col justify-between space-y-6">
-            <div className="flex items-center justify-between border-b border-black/5 pb-4">
-              <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block">
-                  Distributed Cloud Mesh
-                </span>
-                <h4 className="font-sans font-black text-xl text-[#070b14]">
-                  Active Edge Datacenters
-                </h4>
-              </div>
-              <span className="font-mono text-[10px] uppercase font-bold text-neutral-600 bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full">
-                Active-Active Multi-Region
-              </span>
-            </div>
-
-            {/* Region Health Cards */}
-            <div className="space-y-3 font-mono text-xs">
-              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
-                <div className="flex items-center space-x-3">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <div>
-                    <span className="font-bold text-[#070b14] block">us-east-1 (N. Virginia)</span>
-                    <span className="text-[10px] text-neutral-500">Autonomous Core Swarm</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-cyan-700">0.4 ms</span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
-                <div className="flex items-center space-x-3">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <div>
-                    <span className="font-bold text-[#070b14] block">eu-central-1 (Frankfurt)</span>
-                    <span className="text-[10px] text-neutral-500">Secure Vector Knowledge Mesh</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-cyan-700">0.9 ms</span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
-                <div className="flex items-center space-x-3">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <div>
-                    <span className="font-bold text-[#070b14] block">ap-northeast-1 (Tokyo)</span>
-                    <span className="text-[10px] text-neutral-500">Sub-Millisecond Edge Ingestion</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-cyan-700">1.2 ms</span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">99.999% SLA</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between">
-              <span className="font-mono text-xs text-emerald-900 font-bold">
-                ✓ Automated Failover Replicated in &lt; 250ms
-              </span>
-              <span className="font-mono text-[10px] text-emerald-800 font-extrabold uppercase">
-                Kubernetes Mesh
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          4. PROVEN ENTERPRISE IMPACT & CASE STUDIES
-          ===================================================================== */}
-      <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8" data-reveal>
-          <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block mb-2">
-              Proven Results // Case Deployments
-            </span>
-            <h2 className="font-sans font-black text-4xl sm:text-6xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              Enterprise Impact.
-            </h2>
-          </div>
-          <span className="font-mono text-xs text-[#334155] font-semibold">
-            Engineered for high-scale enterprise leaders
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-reveal="scale" data-tilt>
-          {caseStudies.map((cs, idx) => (
-            <div
-              key={idx}
-              data-reveal
-              data-reveal-delay={String(idx + 1)}
-              className="tilt-card p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 hover:border-cyan-400/60 shadow-[0_15px_40px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between transition-all duration-300"
+            <button
+              onClick={() => setContactOpen(true)}
+              className="px-8 py-3.5 bg-white text-black font-sans font-bold text-sm tracking-wide rounded-md hover:bg-neutral-200 hover:scale-105 transition-all duration-200 shadow-xl cursor-pointer"
             >
-              <span className="tilt-shine" aria-hidden="true" />
-              <div>
-                <div className="flex items-center justify-between mb-4 tilt-badge">
-                  <span className="font-mono text-[10px] uppercase text-cyan-800 bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full tracking-wider font-bold">
-                    {cs.badge}
-                  </span>
-                  <span className="font-mono text-xs text-[#070b14] font-bold">{cs.client}</span>
-                </div>
-                <h4 className="tilt-head font-sans font-bold text-xl text-[#070b14] mb-4">
-                  {cs.title}
-                </h4>
-                <p className="tilt-body font-sans text-sm text-[#334155] leading-relaxed mb-6 font-medium">
-                  {cs.result}
-                </p>
-              </div>
-
-              <div className="tilt-body pt-4 border-t border-black/5 flex items-center justify-between">
-                <span className="font-mono text-xs text-neutral-600 uppercase font-bold">Throughput</span>
-                <span className="font-mono font-extrabold text-cyan-800 text-sm">{cs.metric}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* =====================================================================
-          5. PRODUCTION TECHNOLOGY ARSENAL
-          ===================================================================== */}
-      <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
-        <div className="border-b border-black/10 pb-6 mb-12 flex justify-between items-end" data-reveal>
-          <div>
-            <span className="font-mono text-xs text-cyan-700 uppercase tracking-widest font-extrabold block mb-1">
-              Production Arsenal
-            </span>
-            <h2 className="font-sans font-black text-3xl md:text-5xl text-[#070b14] uppercase tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              Technology Stack.
-            </h2>
+              Let’s Build!
+            </button>
           </div>
-          <span className="font-mono text-xs text-[#334155] font-semibold">Zero-Compromise Tools</span>
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal="scale" data-tilt>
-          {techArsenal.map((tech, idx) => (
-            <div
-              key={idx}
-              data-reveal
-              data-reveal-delay={String((idx % 4) + 1)}
-              className="tilt-card p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between transition-all duration-300"
-            >
-              <span className="tilt-shine" aria-hidden="true" />
-              <div>
-                <h4 className="tilt-head font-sans font-black text-base text-[#070b14] border-b border-black/5 pb-2.5 mb-4">
-                  {tech.name}
-                </h4>
-                <ul className="space-y-2 tilt-body">
-                  {tech.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="font-mono text-xs text-[#1e293b] font-medium flex items-center space-x-2">
-                      <span className="text-cyan-600 font-bold">▹</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {/* SECTION 3: OUR ADVANTAGES (Hydraulic waterwheel machinery) */}
+        <section
+          id="advantages"
+          className="w-full min-h-screen flex items-center justify-end px-6 sm:px-16 md:px-24 py-24 relative"
+        >
+          <div className="max-w-xl flex flex-col items-start space-y-8 bg-black/40 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-white/10 shadow-2xl">
+            <div className="w-full">
+              <h2 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight">
+                Our Advantages
+              </h2>
+              <div className="w-full h-[1px] bg-white/30 mt-4" />
             </div>
-          ))}
-        </div>
-      </section>
+
+            {/* Block 1 */}
+            <div className="space-y-3">
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-white">
+                We’ve Been There.
+              </h3>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                In just over four years we’ve founded our own start-up, built over 100 app projects for our clients, and created proprietary software to make our own business more efficient.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                So if you need help growing your new venture, or want to lift your existing business to new heights with the help of custom applications, we’re your team.
+              </p>
+            </div>
+
+            {/* Block 2 */}
+            <div className="space-y-3 pt-2">
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-white">
+                Boldly Transparent.
+              </h3>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                We know how easy it is for complex projects like custom applications to go overbudget. We don’t want that to happen to you.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                At uperX, we’ve crafted our development processes for maximum efficiency and transparency, helping you manage your costs and keeping you up to date on your project in case anything may affect the bottom line.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4: A MODEL FOR SUCCESS (Geothermal conduits & holographic HUDs) */}
+        <section
+          id="success"
+          className="w-full min-h-screen flex items-center px-6 sm:px-16 md:px-24 py-24 relative"
+        >
+          <div className="max-w-xl flex flex-col items-start space-y-8 bg-black/40 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-white/10 shadow-2xl">
+            {/* Block 1 */}
+            <div className="space-y-3 w-full">
+              <h2 className="font-sans font-black text-3xl sm:text-4xl text-white tracking-tight">
+                A Model For Success.
+              </h2>
+              <div className="w-full h-[1px] bg-white/30 my-3" />
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                We’ve crafted a modular approach to conceptualizing, designing, implementing, and - most importantly - iterating on custom software projects over time. Our process, which starts with our proprietary SolutionLab roadmapping session, helps us ensure the success of our clients time and time again.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                Don’t leave the success of your digital product to chance. Our team accelerates your learning curve and guides you past the many potholes of building custom software.
+              </p>
+            </div>
+
+            {/* Block 2 */}
+            <div className="space-y-3 pt-2 w-full">
+              <h3 className="font-sans font-bold text-2xl text-white">
+                Attentiveness as a Priority.
+              </h3>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                You and your project are important to us. Once we kick things off, you’ll receive updates on your project in two ways.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                First, your project manager - who knows and understands your businesses’ goals will be available to you whenever you need during each phase of development. Second, we’ll track progress and time input against our structured breakdown of work and expected timeline on a weekly basis. This focuses on creating clarity and honest expectations for everyone involved.
+              </p>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <button
+                onClick={() => setContactOpen(true)}
+                className="px-8 py-3.5 bg-white text-black font-sans font-bold text-sm tracking-wide rounded-md hover:bg-neutral-200 hover:scale-105 transition-all duration-200 shadow-xl cursor-pointer"
+              >
+                Start A Project →
+              </button>
+              <button
+                onClick={() => scrollTo('story')}
+                className="px-6 py-3.5 border border-white/60 text-white font-sans font-medium text-sm rounded-md hover:bg-white hover:text-black transition-all duration-200 cursor-pointer"
+              >
+                Back To Top ↑
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
 
       {/* =====================================================================
-          6. EXECUTIVE CALL TO ACTION & CONSULTATION
+          4. INTERACTIVE SOLUTIONLAB MODAL DRAWER
           ===================================================================== */}
-      <section className="w-full max-w-5xl mx-auto px-5 my-28 text-center relative z-10" data-reveal>
-        <div className="p-12 md:p-20 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/80 shadow-[0_25px_70px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col items-center relative overflow-hidden">
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold mb-3">
-            Initiate Architecture Review
-          </span>
-          <h2 className="font-sans font-black text-3xl sm:text-5xl md:text-6xl text-[#070b14] uppercase tracking-tight mb-6 max-w-3xl drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-            Ready to architect your enterprise digital future?
-          </h2>
-          <p className="font-sans text-sm md:text-base text-[#1e293b] max-w-xl mb-10 leading-relaxed font-medium">
-            Connect directly with <strong className="text-[#070b14] font-bold">uperX</strong> enterprise architects for a comprehensive technical roadmap, autonomous swarm scoping, or cloud migration proposal.
-          </p>
-          <button
-            onClick={() => onNavigate('/contact')}
-            className="px-10 py-5 rounded-full bg-[#070b14] text-white font-mono font-bold text-xs uppercase tracking-widest hover:bg-cyan-600 hover:scale-105 transition-all duration-200 shadow-[0_15px_35px_rgba(7,11,20,0.3)]"
-          >
-            Consult With uperX Architects →
-          </button>
+      {solutionLabOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-fadeIn">
+          <div className="relative w-full max-w-2xl bg-neutral-900 border border-white/20 rounded-3xl p-8 sm:p-10 shadow-2xl text-white">
+            <button
+              onClick={() => setSolutionLabOpen(false)}
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer"
+              aria-label="Close SolutionLab Modal"
+            >
+              ✕
+            </button>
+
+            <span className="font-mono text-xs uppercase tracking-widest text-pink-400 font-bold block mb-2">
+              Proprietary Methodology
+            </span>
+            <h3 className="font-sans font-black text-3xl sm:text-4xl text-white mb-4">
+              The SolutionLab Roadmap
+            </h3>
+            <p className="font-sans text-sm sm:text-base text-neutral-300 leading-relaxed mb-6 font-normal">
+              Before writing a single line of code, our SolutionLab sessions eliminate uncertainty. We blueprint your app architecture, user flows, and sprint milestones to guarantee on-time, on-budget delivery.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 font-mono text-xs">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-pink-400 font-bold block mb-1">Phase 01</span>
+                <span className="font-bold text-white block text-sm">Discovery &amp; Spec</span>
+                <p className="text-neutral-400 text-[11px] mt-1 font-sans">Full feature scope and user story mapping.</p>
+              </div>
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-cyan-400 font-bold block mb-1">Phase 02</span>
+                <span className="font-bold text-white block text-sm">Interactive UI/UX</span>
+                <p className="text-neutral-400 text-[11px] mt-1 font-sans">Clickable Figma prototype tested with real users.</p>
+              </div>
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-emerald-400 font-bold block mb-1">Phase 03</span>
+                <span className="font-bold text-white block text-sm">Agile Sprint Build</span>
+                <p className="text-neutral-400 text-[11px] mt-1 font-sans">Bi-weekly releases with live staging access.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-4 border-t border-white/10">
+              <span className="text-xs text-neutral-400 font-mono">Ready to schedule your session?</span>
+              <button
+                onClick={() => {
+                  setSolutionLabOpen(false);
+                  setContactOpen(true);
+                }}
+                className="px-6 py-2.5 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-colors cursor-pointer"
+              >
+                Schedule SolutionLab →
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
+      )}
+
+      {/* =====================================================================
+          5. INTERACTIVE CONTACT MODAL DRAWER
+          ===================================================================== */}
+      {contactOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-fadeIn">
+          <div className="relative w-full max-w-xl bg-neutral-900 border border-white/20 rounded-3xl p-8 sm:p-10 shadow-2xl text-white">
+            <button
+              onClick={() => setContactOpen(false)}
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer"
+              aria-label="Close Contact Modal"
+            >
+              ✕
+            </button>
+
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-bold block mb-2">
+              Start A Conversation
+            </span>
+            <h3 className="font-sans font-black text-3xl text-white mb-2">
+              Let’s Build Together.
+            </h3>
+            <p className="font-sans text-sm text-neutral-300 leading-relaxed mb-6 font-normal">
+              Tell us about your venture, custom application, or digital product goals. Our engineering leads will respond within 24 hours.
+            </p>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert('Thank you! Your inquiry has been received. Our team will contact you shortly.');
+                setContactOpen(false);
+              }}
+              className="space-y-4 text-xs font-mono"
+            >
+              <div>
+                <label className="block text-neutral-400 mb-1">Your Name</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Alex Morgan"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-neutral-400 mb-1">Work Email</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="alex@enterprise.com"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-neutral-400 mb-1">Project Overview</label>
+                <textarea
+                  rows={3}
+                  required
+                  placeholder="Tell us what you'd like to build..."
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 focus:outline-none focus:border-white transition-colors font-sans text-xs resize-none"
+                />
+              </div>
+
+              <div className="flex items-center space-x-3 pt-2">
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 rounded-xl bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-colors cursor-pointer"
+                >
+                  Send Inquiry Now →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setContactOpen(false);
+                    onNavigate('/contact');
+                  }}
+                  className="px-5 py-3.5 rounded-xl border border-white/20 text-neutral-300 hover:text-white hover:border-white text-xs font-sans transition-colors cursor-pointer"
+                >
+                  Full Page Contact
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -133,13 +133,15 @@ export const App: React.FC = () => {
         <Intro onComplete={() => setIntroFinished(true)} />
       )}
 
-      {/* Global Navigation Header with Universe Switch */}
-      <Header
-        currentPath={currentPath}
-        onNavigate={navigate}
-        isLight={isLight}
-        onToggleTheme={toggleTheme}
-      />
+      {/* Global Navigation Header with Universe Switch (SEGESTA renders its own authentic header) */}
+      {!(isLight && currentPath === '/') && (
+        <Header
+          currentPath={currentPath}
+          onNavigate={navigate}
+          isLight={isLight}
+          onToggleTheme={toggleTheme}
+        />
+      )}
 
       {/* 3D Paintball Gun Model (Only active in dark creative studio mode) */}
       {!isLight && <PaintballGun isActive={paintballActive} />}
