@@ -87,47 +87,30 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
     <div className="w-full min-h-screen text-[#0f172a] bg-[#fafaf9] selection:bg-cyan-200 selection:text-black select-none overflow-x-hidden relative">
 
       {/* =====================================================================
-          LIVE MOVING CLOUDS SKY THEME BACKGROUND + CELESTIAL VEIL (HARDWARE ACCELERATED)
+          LUMINOUS SKY THEME AMBIENT COLOR GRADIENTS (FAST CSS, ZERO LAG)
           ===================================================================== */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 overflow-hidden transform-gpu"
-        style={{ transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden', willChange: 'transform' }}
-        aria-hidden="true"
-      >
-        {/* Hardware-accelerated 30FPS Cloud Timelapse Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover opacity-75"
-          style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform' }}
-        >
-          <source src="/videos/clouds_4k.mp4" type="video/mp4" />
-          <source src="/videos/clouds_4k.webm" type="video/webm" />
-        </video>
-
-        {/* Multi-layered Celestial Veil Ensuring 100% Legibility (Fast GPU gradient, 0 blur lag) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-50/40 via-white/80 to-[#fafaf9]/98" />
-
-        {/* Ambient Chromatic Highlights */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {/* Sky Theme Color Atmosphere */}
         <div
-          className="absolute inset-0 opacity-50"
+          className="absolute inset-0"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 45%),
-              radial-gradient(circle at 85% 25%, rgba(217, 70, 239, 0.06) 0%, transparent 45%),
-              radial-gradient(circle at 50% 75%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-              radial-gradient(rgba(15, 23, 42, 0.025) 1px, transparent 1px)
+              radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.22) 0%, transparent 45%),
+              radial-gradient(circle at 90% 18%, rgba(129, 140, 248, 0.18) 0%, transparent 45%),
+              radial-gradient(circle at 50% 45%, rgba(14, 165, 233, 0.14) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(244, 114, 182, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 20% 85%, rgba(45, 212, 191, 0.14) 0%, transparent 45%),
+              radial-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px)
             `,
-            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 32px 32px',
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px',
           }}
         />
+        {/* Soft Celestial Veil */}
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-50/20 via-transparent to-[#fafaf9]/80" />
       </div>
 
       {/* =====================================================================
-          1. HERO SECTION WITH CURSOR-REACTIVE 3D WEBGL CANVAS
+          1. HERO SECTION WITH GLASSMORPHISM
           ===================================================================== */}
       <section className="relative w-full min-h-[96vh] pt-28 pb-16 px-5 md:px-12 max-w-7xl mx-auto flex flex-col justify-between z-10">
         
@@ -135,7 +118,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div
             data-reveal="scale"
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-slate-200/90 bg-white/95 shadow-sm"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.95)]"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-xs uppercase tracking-widest text-[#070b14] font-bold">
@@ -146,7 +129,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           {/* Quick Universe Switch Button */}
           <button
             onClick={onToggleTheme}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-slate-200/90 bg-white/95 text-xs font-mono font-bold text-[#070b14] hover:bg-black hover:text-white transition-all shadow-sm"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl text-xs font-mono font-bold text-[#070b14] hover:bg-black hover:text-white transition-all shadow-[0_4px_20px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.95)]"
             title="Switch back to Studio Dark Universe"
           >
             <span>Switch to Studio Dark Mode</span>
@@ -154,7 +137,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           </button>
         </div>
 
-        {/* Hero Grid: Left Copy + Right 3D Interactive Viewport */}
+        {/* Hero Grid: Left Copy + Right Glassmorphic Viewport */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-1 my-auto">
           {/* Left Column: Headline & Action */}
           <div className="lg:col-span-7 flex flex-col space-y-6">
@@ -169,10 +152,10 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               Autonomous IT.
             </h1>
 
-            {/* Solid Frosted Legibility Capsule */}
+            {/* Glassmorphic Legibility Capsule */}
             <div
               data-reveal="lines"
-              className="p-5 sm:p-6 rounded-2xl bg-white/95 border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] max-w-2xl"
+              className="p-5 sm:p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_1px_rgba(255,255,255,0.95)] max-w-2xl"
             >
               <p className="font-sans text-base sm:text-lg md:text-xl text-[#1e293b] leading-relaxed font-normal">
                 <strong className="text-[#070b14] font-bold">uperX</strong> architects high-velocity autonomous AI swarms, mission-critical cloud infrastructure, and 60FPS spatial web applications for enterprises scaling into the future.
@@ -193,17 +176,17 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                   const el = document.getElementById('solutions-matrix');
                   el?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 rounded-full border border-slate-300 bg-white/95 text-[#070b14] font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:border-black/30 transition-all duration-200 shadow-sm"
+                className="px-8 py-4 rounded-full border border-white/80 bg-white/70 backdrop-blur-xl text-[#070b14] font-mono font-bold text-xs uppercase tracking-wider hover:bg-white hover:border-black/20 transition-all duration-200 shadow-sm"
               >
                 Explore Enterprise Solutions ↓
               </button>
             </div>
           </div>
 
-          {/* Right Column: Live Enterprise Architecture & AI Swarm Telemetry Cockpit */}
+          {/* Right Column: Glassmorphic Enterprise Architecture & AI Swarm Telemetry Cockpit */}
           <div
             data-reveal="scale"
-            className="lg:col-span-5 w-full rounded-3xl overflow-hidden border border-slate-200/90 bg-white/95 shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col justify-between space-y-5"
+            className="lg:col-span-5 w-full rounded-3xl overflow-hidden border border-white/80 bg-white/75 backdrop-blur-xl shadow-[0_20px_50px_rgba(15,23,42,0.07),inset_0_1px_2px_rgba(255,255,255,0.95)] p-6 sm:p-7 flex flex-col justify-between space-y-5"
           >
             {/* Header: Live System Status */}
             <div className="flex items-center justify-between pb-4 border-b border-black/5">
@@ -226,7 +209,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
 
             {/* Architecture Node Grid */}
             <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
                 <span className="text-[10px] uppercase text-neutral-500 font-bold">Inference Speed</span>
                 <span className="text-xl font-black text-[#070b14]">142 tok/s</span>
                 <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
@@ -234,7 +217,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
                 <span className="text-[10px] uppercase text-neutral-500 font-bold">Network Latency</span>
                 <span className="text-xl font-black text-cyan-700">0.82 ms</span>
                 <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
@@ -242,7 +225,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
                 <span className="text-[10px] uppercase text-neutral-500 font-bold">Agent Density</span>
                 <span className="text-xl font-black text-[#070b14]">1,024 Nodes</span>
                 <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
@@ -250,7 +233,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-black/[0.02] border border-black/5 flex flex-col justify-between space-y-2">
+              <div className="p-3.5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm flex flex-col justify-between space-y-2">
                 <span className="text-[10px] uppercase text-neutral-500 font-bold">Zero-Trust Auth</span>
                 <span className="text-xl font-black text-emerald-700">100% mTLS</span>
                 <div className="w-full bg-black/5 h-1.5 rounded-full overflow-hidden">
@@ -260,7 +243,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
             </div>
 
             {/* Live Event Stream Terminal */}
-            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-[11px] space-y-2 shadow-inner">
+            <div className="p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md text-slate-100 font-mono text-[11px] space-y-2 shadow-inner border border-white/10">
               <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800 pb-1.5">
                 <span className="uppercase tracking-wider">Telemetry Event Log</span>
                 <span className="text-emerald-400 font-bold">LIVE STREAM</span>
@@ -284,7 +267,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
         {/* Live KPI Metric Pill Strip */}
         <div
           data-reveal="scale"
-          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.03)] font-mono text-xs"
+          className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_1px_rgba(255,255,255,0.95)] font-mono text-xs"
         >
           <div className="p-3 border-r border-black/5">
             <span className="text-neutral-600 font-semibold uppercase block text-[10px]">SLA Uptime</span>
@@ -306,7 +289,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
       </section>
 
       {/* =====================================================================
-          2. ENTERPRISE SOLUTIONS MATRIX (3D Interactive Tilt Cards)
+          2. ENTERPRISE SOLUTIONS MATRIX (Glassmorphic 3D Tilt Cards)
           ===================================================================== */}
       <section id="solutions-matrix" className="w-full max-w-7xl mx-auto px-5 md:px-12 py-28 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8" data-reveal>
@@ -330,16 +313,16 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               data-reveal
               data-reveal-delay={String((idx % 3) + 1)}
               onClick={() => onNavigate('/contact')}
-              className="tilt-card group relative p-8 rounded-3xl bg-white/95 border border-slate-200/90 hover:border-cyan-500/60 shadow-[0_12px_35px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300"
+              className="tilt-card group relative p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 hover:border-cyan-400/60 shadow-[0_15px_40px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
 
               <div>
                 <div className="flex items-center justify-between mb-6 tilt-badge">
-                  <div className="p-2.5 rounded-2xl bg-cyan-500/[0.06] border border-cyan-500/15 group-hover:border-cyan-500/40 transition-colors duration-300">
+                  <div className="p-2.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 group-hover:border-cyan-500/40 transition-colors duration-300 shadow-sm">
                     <Icon3D name={srv.id} size={54} />
                   </div>
-                  <span className="font-mono text-[10px] uppercase text-[#070b14] bg-black/[0.04] px-2.5 py-1 rounded-full font-bold tracking-wider">
+                  <span className="font-mono text-[10px] uppercase text-[#070b14] bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full font-bold tracking-wider">
                     {srv.tag}
                   </span>
                 </div>
@@ -370,7 +353,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           3. HIGH-PERFORMANCE CLOUD INFRASTRUCTURE & TELEMETRY SECTION
           ===================================================================== */}
       <section className="w-full max-w-7xl mx-auto px-5 md:px-12 py-24 relative z-10">
-        <div className="p-8 md:p-14 rounded-3xl bg-white/95 border border-slate-200/90 shadow-[0_15px_40px_rgba(0,0,0,0.04)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
+        <div className="p-8 md:p-14 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/80 shadow-[0_20px_60px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center" data-reveal>
           
           <div className="lg:col-span-6 flex flex-col space-y-6">
             <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold">
@@ -384,27 +367,27 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs">
-              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
                 <span className="text-neutral-600 font-bold uppercase block text-[10px]">Cluster Engine</span>
                 <span className="font-extrabold text-[#070b14] text-sm">Kubernetes 1.30+</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
                 <span className="text-neutral-600 font-bold uppercase block text-[10px]">Network Security</span>
                 <span className="font-extrabold text-cyan-700 text-sm">mTLS Zero-Trust</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
                 <span className="text-neutral-600 font-bold uppercase block text-[10px]">Failover Recovery</span>
                 <span className="font-extrabold text-[#070b14] text-sm">&lt; 250ms Auto</span>
               </div>
-              <div className="p-4 rounded-2xl bg-black/[0.03] border border-black/5">
+              <div className="p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 shadow-sm">
                 <span className="text-neutral-600 font-bold uppercase block text-[10px]">Global Throughput</span>
                 <span className="font-extrabold text-emerald-700 text-sm">180,000+ req/s</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Global Edge Regions Topology Card (No 3D Models) */}
-          <div className="lg:col-span-6 rounded-3xl p-6 sm:p-8 border border-slate-200/90 relative shadow-inner bg-gradient-to-br from-white/95 via-sky-50/50 to-slate-100/60 flex flex-col justify-between space-y-6">
+          {/* Right Column: Global Edge Regions Topology Card (Glassmorphic) */}
+          <div className="lg:col-span-6 rounded-3xl p-6 sm:p-8 border border-white/80 relative shadow-inner bg-white/60 backdrop-blur-xl flex flex-col justify-between space-y-6">
             <div className="flex items-center justify-between border-b border-black/5 pb-4">
               <div>
                 <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold block">
@@ -414,14 +397,14 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                   Active Edge Datacenters
                 </h4>
               </div>
-              <span className="font-mono text-[10px] uppercase font-bold text-neutral-600 bg-black/5 px-2.5 py-1 rounded-full">
+              <span className="font-mono text-[10px] uppercase font-bold text-neutral-600 bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full">
                 Active-Active Multi-Region
               </span>
             </div>
 
             {/* Region Health Cards */}
             <div className="space-y-3 font-mono text-xs">
-              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
                 <div className="flex items-center space-x-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <div>
@@ -435,7 +418,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
                 <div className="flex items-center space-x-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <div>
@@ -449,7 +432,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-white/90 border border-black/5 flex items-center justify-between shadow-sm">
+              <div className="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-between shadow-sm">
                 <div className="flex items-center space-x-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <div>
@@ -500,12 +483,12 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               key={idx}
               data-reveal
               data-reveal-delay={String(idx + 1)}
-              className="tilt-card p-8 rounded-3xl bg-white/95 border border-slate-200/90 hover:border-cyan-500/60 shadow-[0_12px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300"
+              className="tilt-card p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 hover:border-cyan-400/60 shadow-[0_15px_40px_rgba(15,23,42,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
               <div>
                 <div className="flex items-center justify-between mb-4 tilt-badge">
-                  <span className="font-mono text-[10px] uppercase text-cyan-800 bg-cyan-100/60 border border-cyan-200/80 px-2.5 py-1 rounded-full tracking-wider font-bold">
+                  <span className="font-mono text-[10px] uppercase text-cyan-800 bg-white/80 backdrop-blur-sm border border-white/90 px-2.5 py-1 rounded-full tracking-wider font-bold">
                     {cs.badge}
                   </span>
                   <span className="font-mono text-xs text-[#070b14] font-bold">{cs.client}</span>
@@ -549,7 +532,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
               key={idx}
               data-reveal
               data-reveal-delay={String((idx % 4) + 1)}
-              className="tilt-card p-6 rounded-2xl bg-white/95 border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300"
+              className="tilt-card p-6 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_12px_36px_rgba(15,23,42,0.05),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col justify-between transition-all duration-300"
             >
               <span className="tilt-shine" aria-hidden="true" />
               <div>
@@ -574,7 +557,7 @@ export const LightStudio: React.FC<LightStudioProps> = ({ onNavigate, onToggleTh
           6. EXECUTIVE CALL TO ACTION & CONSULTATION
           ===================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-5 my-28 text-center relative z-10" data-reveal>
-        <div className="p-12 md:p-20 rounded-3xl bg-white/95 border border-slate-200/90 shadow-[0_20px_60px_rgba(0,0,0,0.05)] flex flex-col items-center relative overflow-hidden">
+        <div className="p-12 md:p-20 rounded-3xl bg-white/75 backdrop-blur-xl border border-white/80 shadow-[0_25px_70px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.95)] flex flex-col items-center relative overflow-hidden">
           <span className="font-mono text-xs uppercase tracking-widest text-cyan-700 font-extrabold mb-3">
             Initiate Architecture Review
           </span>
