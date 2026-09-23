@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b ${isLight ? 'bg-white/90 border-black/10 text-black backdrop-blur-xl' : 'bg-black/90 border-white/10 text-white backdrop-blur-xl'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b ${isLight ? 'bg-white/70 border-white/80 text-[#070b14] backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]' : 'bg-black/90 border-white/10 text-white backdrop-blur-xl'}`}>
       <nav className="flex items-center justify-between px-5 md:px-10 py-3.5">
         {/* Left: Brand Logo */}
         <div
@@ -127,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
       {mobileMenuOpen && (
         <div
           className={`lg:hidden fixed inset-0 top-[65px] z-40 p-8 flex flex-col justify-start space-y-6 backdrop-blur-2xl ${
-            isLight ? 'bg-neutral-100/95 text-black' : 'bg-black/95 text-white'
+            isLight ? 'bg-white/95 text-[#070b14]' : 'bg-black/95 text-white'
           }`}
         >
           {navLinks.map((link) => (
@@ -138,7 +138,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
                 setMobileMenuOpen(false);
               }}
               className={`text-2xl font-bold font-sans cursor-pointer transition-colors ${
-                currentPath === link.path ? 'text-cyan-400' : 'text-neutral-300 hover:text-white'
+                currentPath === link.path
+                  ? isLight ? 'text-cyan-700' : 'text-cyan-400'
+                  : isLight ? 'text-neutral-600 hover:text-black' : 'text-neutral-300 hover:text-white'
               }`}
             >
               {link.name}
@@ -149,7 +151,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
               onNavigate('/contact');
               setMobileMenuOpen(false);
             }}
-            className="w-full py-4 rounded-2xl bg-cyan-400 text-black font-sans font-bold text-sm uppercase tracking-wider mt-4 shadow-lg shadow-cyan-500/20"
+            className={`w-full py-4 rounded-2xl font-sans font-bold text-sm uppercase tracking-wider mt-4 shadow-lg ${
+              isLight ? 'bg-neutral-900 text-white shadow-neutral-900/20' : 'bg-cyan-400 text-black shadow-cyan-500/20'
+            }`}
           >
             Contact Us Now →
           </button>

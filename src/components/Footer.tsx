@@ -29,7 +29,11 @@ export const Footer: React.FC<FooterProps> = ({
   }, []);
 
   return (
-    <footer className="w-full py-8 px-5 md:px-12 flex flex-col md:flex-row items-center justify-between text-xs tracking-tight select-none border-t border-white/10 transition-colors z-40 relative bg-neutral-950/90">
+    <footer className={`w-full py-8 px-5 md:px-12 flex flex-col md:flex-row items-center justify-between text-xs tracking-tight select-none border-t transition-colors z-40 relative ${
+      isLight
+        ? 'bg-white/70 backdrop-blur-xl border-white/80 text-[#070b14] shadow-[0_-4px_20px_rgba(0,0,0,0.03)]'
+        : 'bg-neutral-950/90 border-white/10 text-white backdrop-blur-xl'
+    }`}>
       {/* Left: Easter Egg / Interactive Splat Mode */}
       <div className="flex items-center space-x-4 mb-6 md:mb-0">
         <button
@@ -39,14 +43,14 @@ export const Footer: React.FC<FooterProps> = ({
             paintballActive
               ? 'bg-gradient-to-r from-pink-600 to-cyan-500 border-transparent text-white shadow-[0_0_20px_rgba(0,242,254,0.6)]'
               : isLight
-              ? 'bg-neutral-200 border-neutral-300 text-neutral-800 hover:border-black'
+              ? 'bg-white/80 border-black/10 text-neutral-800 hover:border-black shadow-sm'
               : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-cyan-400'
           }`}
           aria-label="Toggle Interactive Mode"
         >
           <div
             className={`w-3.5 h-3.5 rounded-full transition-colors duration-300 ${
-              paintballActive ? 'bg-white animate-ping' : isLight ? 'bg-black' : 'bg-cyan-400'
+              paintballActive ? 'bg-white animate-ping' : isLight ? 'bg-cyan-600' : 'bg-cyan-400'
             }`}
           />
           <span className="font-mono text-[11px] uppercase tracking-wider font-semibold">
@@ -60,10 +64,10 @@ export const Footer: React.FC<FooterProps> = ({
         <UperXLogo size={32} showText={false} />
 
         <div className="font-mono text-[11px] leading-tight space-y-0.5">
-          <p className="font-sans font-bold tracking-wider text-[12px] text-white">
-            uperX <span className="uppercase text-neutral-300">Global Engineering Studio</span>
+          <p className={`font-sans font-bold tracking-wider text-[12px] ${isLight ? 'text-[#070b14]' : 'text-white'}`}>
+            uperX <span className={`uppercase ${isLight ? 'text-neutral-500' : 'text-neutral-300'}`}>Global Engineering Studio</span>
           </p>
-          <p className="text-neutral-400">
+          <p className={isLight ? 'text-neutral-600' : 'text-neutral-400'}>
             Node: Active <span className="mx-1.5">•</span> UTC+5:30 <span className="mx-1.5">•</span> {localTime || '00:00:00'} <span className="mx-1.5">•</span> 99.99% Core Uptime
           </p>
         </div>
@@ -72,14 +76,14 @@ export const Footer: React.FC<FooterProps> = ({
       {/* Right: Quick Page Navigation Links & Theme Toggle */}
       <div className="flex items-center space-x-5 font-sans text-xs">
         {onNavigate && (
-          <div className="hidden lg:flex items-center space-x-4 text-neutral-400">
-            <button onClick={() => onNavigate('/')} className="hover:text-white transition-colors">Home</button>
+          <div className={`hidden lg:flex items-center space-x-4 ${isLight ? 'text-neutral-600' : 'text-neutral-400'}`}>
+            <button onClick={() => onNavigate('/')} className={`transition-colors ${isLight ? 'hover:text-black font-medium' : 'hover:text-white'}`}>Home</button>
             <span>•</span>
-            <button onClick={() => onNavigate('/dashboard')} className="hover:text-white transition-colors">Services & Work</button>
+            <button onClick={() => onNavigate('/dashboard')} className={`transition-colors ${isLight ? 'hover:text-black font-medium' : 'hover:text-white'}`}>Services & Work</button>
             <span>•</span>
-            <button onClick={() => onNavigate('/about')} className="hover:text-white transition-colors">About Us</button>
+            <button onClick={() => onNavigate('/about')} className={`transition-colors ${isLight ? 'hover:text-black font-medium' : 'hover:text-white'}`}>About Us</button>
             <span>•</span>
-            <button onClick={() => onNavigate('/contact')} className="hover:text-cyan-400 font-semibold transition-colors">Contact Us</button>
+            <button onClick={() => onNavigate('/contact')} className={`font-semibold transition-colors ${isLight ? 'text-cyan-700 hover:text-black' : 'hover:text-cyan-400'}`}>Contact Us</button>
           </div>
         )}
 
@@ -87,7 +91,11 @@ export const Footer: React.FC<FooterProps> = ({
         <button
           onClick={onToggleTheme}
           aria-label="Toggle Theme"
-          className="p-1.5 rounded-full border border-white/10 hover:border-white/40 transition-colors"
+          className={`p-1.5 rounded-full border transition-colors ${
+            isLight
+              ? 'border-black/10 hover:border-black/40 text-black bg-white/50'
+              : 'border-white/10 hover:border-white/40 text-cyan-400 bg-white/5'
+          }`}
         >
           {isLight ? (
             <svg className="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
