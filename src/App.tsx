@@ -31,10 +31,10 @@ export const App: React.FC = () => {
   // Initialize Lenis smooth inertial scrolling
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.1,
+      lerp: 0.14,
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.2,
       autoRaf: false,
     });
     lenisRef.current = lenis;

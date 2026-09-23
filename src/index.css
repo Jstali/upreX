@@ -102,6 +102,7 @@
 [data-reveal].is-in {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* Stagger delay steps */
@@ -122,6 +123,7 @@
 [data-reveal='scale'].is-in {
   opacity: 1;
   transform: scale(1);
+  will-change: auto;
 }
 
 /* Variant: plain fade */
@@ -143,11 +145,11 @@
   --my: 50%;
   transform: rotateY(calc(var(--tx) * 6deg)) rotateX(calc(var(--ty) * -6deg));
   transition: transform 0.45s var(--cap-ease-expo), box-shadow 0.4s var(--cap-ease-expo), border-color 0.3s ease;
-  will-change: transform;
 }
 
 .tilt-card.is-tilting {
   transition: transform 0.08s linear, box-shadow 0.3s var(--cap-ease-expo);
+  will-change: transform;
 }
 
 .tilt-card:hover {
@@ -156,7 +158,6 @@
 
 .tilt-card .tilt-badge {
   transform: translateZ(36px);
-  will-change: transform;
 }
 
 .tilt-card .tilt-head {
