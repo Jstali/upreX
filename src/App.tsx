@@ -8,7 +8,7 @@ import { PaintballGun } from './components/PaintballGun';
 import { PaintballSplats } from './components/PaintballSplats';
 import { PageTransition } from './components/PageTransition';
 import { Home } from './pages/Home';
-import { LightStudio } from './pages/LightStudio';
+import { FinseoLightHome } from './pages/FinseoLightHome';
 import { Dashboard } from './pages/Dashboard';
 import { About } from './pages/About';
 import { Hypeboard } from './pages/Hypeboard';
@@ -115,25 +115,27 @@ export const App: React.FC = () => {
       const next = !prev;
       if (next) {
         document.documentElement.classList.add('light-theme');
-        document.body.classList.add('bg-[#fafaf9]', 'text-[#0f172a]');
-        document.body.classList.remove('bg-black', 'text-white', 'bg-[#f5f5f5]', 'text-[#111]');
+        document.body.classList.add('bg-[#FAF9F5]', 'text-[#1A1A1A]');
+        document.body.classList.remove('bg-black', 'text-white');
       } else {
         document.documentElement.classList.remove('light-theme');
         document.body.classList.add('bg-black', 'text-white');
-        document.body.classList.remove('bg-[#fafaf9]', 'text-[#0f172a]', 'bg-[#f5f5f5]', 'text-[#111]');
+        document.body.classList.remove('bg-[#FAF9F5]', 'text-[#1A1A1A]');
       }
       return next;
     });
   };
 
   return (
-    <div className={`relative min-h-screen flex flex-col justify-between transition-colors duration-500 ${isLight ? 'bg-[#fafaf9] text-[#0f172a]' : 'bg-black text-white'}`}>
+    <div className={`relative min-h-screen flex flex-col justify-between transition-colors duration-500 ${
+      isLight ? 'bg-[#FAF9F5] text-[#1A1A1A]' : 'bg-black text-white'
+    }`}>
       {/* Intro Preloader */}
       {!introFinished && (
         <Intro onComplete={() => setIntroFinished(true)} />
       )}
 
-      {/* Global Navigation Header with Universe Switch (SEGESTA renders its own authentic header) */}
+      {/* Global Navigation Header (FinseoLightHome renders its own authentic header on home page) */}
       {!(isLight && currentPath === '/') && (
         <Header
           currentPath={currentPath}
@@ -143,10 +145,10 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* 3D Paintball Gun Model (Only active in dark creative studio mode) */}
+      {/* 3D Paintball Gun Model (Only active in dark studio mode) */}
       {!isLight && <PaintballGun isActive={paintballActive} />}
 
-      {/* Paintball Splats & Audio Effects */}
+      {/* Paintball Splats & Audio Effects (Only active in dark studio mode) */}
       {!isLight && <PaintballSplats isActive={paintballActive} />}
 
       {/* Main Content Area with Smooth Page Transition */}
@@ -154,9 +156,9 @@ export const App: React.FC = () => {
         <PageTransition routeKey={`${currentPath}-${isLight ? 'light' : 'dark'}`} onContentSwap={handleContentSwap}>
           {currentPath === '/' && (
             isLight ? (
-              <LightStudio onNavigate={navigate} onToggleTheme={toggleTheme} />
+              <FinseoLightHome onNavigate={navigate} onToggleTheme={toggleTheme} />
             ) : (
-              <Home onNavigate={navigate} isLight={isLight} />
+              <Home onNavigate={navigate} />
             )
           )}
           {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} />}
@@ -166,14 +168,16 @@ export const App: React.FC = () => {
         </PageTransition>
       </main>
 
-      {/* Global Footer */}
-      <Footer
-        paintballActive={paintballActive}
-        onTogglePaintball={() => setPaintballActive((prev) => !prev)}
-        isLight={isLight}
-        onToggleTheme={toggleTheme}
-        onNavigate={navigate}
-      />
+      {/* Global Footer (FinseoLightHome renders its own authentic footer on home page) */}
+      {!(isLight && currentPath === '/') && (
+        <Footer
+          paintballActive={paintballActive}
+          onTogglePaintball={() => setPaintballActive((prev) => !prev)}
+          isLight={isLight}
+          onToggleTheme={toggleTheme}
+          onNavigate={navigate}
+        />
+      )}
     </div>
   );
 };

@@ -4,11 +4,11 @@ import { UperXLogo } from './UperXLogo';
 interface HeaderProps {
   currentPath: string;
   onNavigate: (path: string) => void;
-  isLight: boolean;
+  isLight?: boolean;
   onToggleTheme?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight, onToggleTheme }) => {
+export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight = false, onToggleTheme }) => {
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -22,14 +22,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b ${isLight ? 'bg-white/70 border-white/80 text-[#070b14] backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]' : 'bg-black/90 border-white/10 text-white backdrop-blur-xl'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b ${
+      isLight
+        ? 'bg-[#FAF9F5]/90 border-black/10 text-[#1A1A1A] backdrop-blur-xl'
+        : 'bg-black/90 border-white/10 text-white backdrop-blur-xl'
+    }`}>
       <nav className="flex items-center justify-between px-5 md:px-10 py-3.5">
         {/* Left: Brand Logo */}
         <div
           onClick={() => onNavigate('/')}
           className="cursor-pointer transition-transform duration-300 hover:scale-105"
         >
-          <UperXLogo size={38} showText={true} />
+          <UperXLogo size={36} showText={true} isLight={isLight} />
         </div>
 
         {/* Center: Clear, Simple Navigation Links */}
@@ -69,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
                     <path
                       d="M 0 4 Q 25 1, 50 4 T 100 4"
                       fill="none"
-                      stroke={isLight ? '#0284c7' : '#00f2fe'}
+                      stroke={isLight ? '#EBB743' : '#00f2fe'}
                       strokeWidth="2.5"
                       strokeLinecap="round"
                     />
@@ -100,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
             onClick={() => onNavigate('/contact')}
             className={`hidden sm:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full font-sans font-bold text-xs uppercase tracking-wider hover:scale-105 transition-all duration-200 ${
               isLight
-                ? 'bg-neutral-900 text-white hover:bg-cyan-600 shadow-[0_4px_14px_rgba(0,0,0,0.15)]'
+                ? 'bg-[#1C1C1C] text-white hover:bg-black shadow-[0_4px_14px_rgba(0,0,0,0.15)]'
                 : 'bg-cyan-400 text-black hover:bg-cyan-300 shadow-[0_0_20px_rgba(0,242,254,0.3)]'
             }`}
           >
@@ -125,11 +129,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div
-          className={`lg:hidden fixed inset-0 top-[65px] z-40 p-8 flex flex-col justify-start space-y-6 backdrop-blur-2xl ${
-            isLight ? 'bg-white/95 text-[#070b14]' : 'bg-black/95 text-white'
-          }`}
-        >
+        <div className={`lg:hidden fixed inset-0 top-[65px] z-40 p-8 flex flex-col justify-start space-y-6 backdrop-blur-2xl ${
+          isLight ? 'bg-[#FAF9F5]/95 text-neutral-900' : 'bg-black/95 text-white'
+        }`}>
           {navLinks.map((link) => (
             <div
               key={link.path}
@@ -139,7 +141,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
               }}
               className={`text-2xl font-bold font-sans cursor-pointer transition-colors ${
                 currentPath === link.path
-                  ? isLight ? 'text-cyan-700' : 'text-cyan-400'
+                  ? isLight ? 'text-black' : 'text-cyan-400'
                   : isLight ? 'text-neutral-600 hover:text-black' : 'text-neutral-300 hover:text-white'
               }`}
             >
@@ -152,7 +154,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isLight
               setMobileMenuOpen(false);
             }}
             className={`w-full py-4 rounded-2xl font-sans font-bold text-sm uppercase tracking-wider mt-4 shadow-lg ${
-              isLight ? 'bg-neutral-900 text-white shadow-neutral-900/20' : 'bg-cyan-400 text-black shadow-cyan-500/20'
+              isLight ? 'bg-black text-white' : 'bg-cyan-400 text-black shadow-cyan-500/20'
             }`}
           >
             Contact Us Now →

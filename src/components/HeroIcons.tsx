@@ -9,11 +9,9 @@ interface HeroIconItem {
   darkImage: string;
 }
 
-interface HeroIconsProps {
-  isLight: boolean;
-}
+interface HeroIconsProps {}
 
-export const HeroIcons: React.FC<HeroIconsProps> = ({ isLight }) => {
+export const HeroIcons: React.FC<HeroIconsProps> = () => {
   const [allIcons, setAllIcons] = useState<HeroIconItem[]>([]);
   const [activeIcons, setActiveIcons] = useState<HeroIconItem[]>([]);
 
@@ -78,7 +76,7 @@ export const HeroIcons: React.FC<HeroIconsProps> = ({ isLight }) => {
         >
           <div className="w-24 h-24 md:w-36 md:h-36 relative group">
             <img
-              src={isLight ? icon.image : icon.darkImage}
+              src={icon.darkImage || icon.image}
               alt={icon.title || 'Damn Good Brands Icon'}
               className="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-transform duration-200 group-hover:scale-105"
               draggable={false}

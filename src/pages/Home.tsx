@@ -6,10 +6,9 @@ import { AiAgentSandbox } from '../components/AiAgentSandbox';
 
 interface HomeProps {
   onNavigate: (path: string) => void;
-  isLight: boolean;
 }
 
-export const Home: React.FC<HomeProps> = ({ onNavigate, isLight }) => {
+export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <div className="w-full flex flex-col items-center">
       {/* HERO SECTION */}
