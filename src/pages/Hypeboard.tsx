@@ -69,9 +69,10 @@ const UPERX_PULSE_CARDS: InsightCard[] = [
 
 interface HypeboardProps {
   onNavigate: (path: string) => void;
+  isLight?: boolean;
 }
 
-export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate }) => {
+export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate, isLight = false }) => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [activeCard, setActiveCard] = useState<InsightCard | null>(null);
 
@@ -83,21 +84,27 @@ export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate }) => {
       : UPERX_PULSE_CARDS.filter((c) => c.category === selectedCategory);
 
   return (
-    <div className="w-full min-h-screen pt-28 pb-24 px-5 md:px-12 max-w-7xl mx-auto flex flex-col space-y-12 select-none">
+    <div className={`w-full min-h-screen pt-28 pb-24 px-5 md:px-12 max-w-7xl mx-auto flex flex-col space-y-12 select-none ${
+      isLight ? 'text-[#1A1A1A]' : 'text-white'
+    }`}>
       {/* Header Banner */}
       <section className="text-center flex flex-col items-center space-y-4" data-reveal>
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10" data-reveal="scale">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="font-mono text-xs uppercase tracking-widest text-cyan-300">
+        <div className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border ${
+          isLight ? 'border-black/10 bg-white shadow-xs' : 'border-cyan-500/30 bg-cyan-500/10'
+        }`} data-reveal="scale">
+          <span className={`w-2 h-2 rounded-full ${isLight ? 'bg-emerald-500' : 'bg-cyan-400'} animate-ping`} />
+          <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-neutral-700 font-semibold' : 'text-cyan-300'}`}>
             Tech Pulse // Engineering Insights
           </span>
         </div>
 
-        <h1 data-reveal="chars" className="font-sans font-black text-5xl md:text-8xl tracking-tight text-white uppercase">
+        <h1 data-reveal="chars" className={`font-sans font-black text-5xl md:text-8xl tracking-tight uppercase ${
+          isLight ? 'text-[#1A1A1A]' : 'text-white'
+        }`}>
           Signals From The <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-300 font-serif italic font-light normal-case">Frontier.</span>
         </h1>
 
-        <p data-reveal="lines" className="max-w-xl font-sans text-sm md:text-base text-neutral-400">
+        <p data-reveal="lines" className={`max-w-xl font-sans text-sm md:text-base ${isLight ? 'text-neutral-600' : 'text-neutral-400'}`}>
           Curated paradigms, architectural laws, and strategic insights from the engineers and creators at uperX.
         </p>
 
@@ -109,7 +116,11 @@ export const Hypeboard: React.FC<HypeboardProps> = ({ onNavigate }) => {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 ${
                 selectedCategory === cat
-                  ? 'bg-cyan-400 text-black font-bold scale-105 shadow-[0_0_15px_rgba(0,242,254,0.4)]'
+                  ? isLight
+                    ? 'bg-black text-white font-bold scale-105 shadow-sm'
+                    : 'bg-cyan-400 text-black font-bold scale-105 shadow-[0_0_15px_rgba(0,242,254,0.4)]'
+                  : isLight
+                  ? 'bg-white border border-neutral-200 text-neutral-600 hover:text-black hover:border-black'
                   : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
               }`}
             >

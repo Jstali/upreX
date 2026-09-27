@@ -161,10 +161,10 @@ export const App: React.FC = () => {
               <Home onNavigate={navigate} />
             )
           )}
-          {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} />}
-          {currentPath === '/about' && <About onNavigate={navigate} />}
-          {currentPath === '/hypeboard' && <Hypeboard onNavigate={navigate} />}
-          {currentPath === '/contact' && <Contact />}
+          {currentPath === '/dashboard' && <Dashboard onNavigate={navigate} isLight={isLight} />}
+          {currentPath === '/about' && <About onNavigate={navigate} isLight={isLight} />}
+          {currentPath === '/hypeboard' && <Hypeboard onNavigate={navigate} isLight={isLight} />}
+          {currentPath === '/contact' && <Contact isLight={isLight} />}
         </PageTransition>
       </main>
 

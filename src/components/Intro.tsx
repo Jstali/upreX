@@ -33,12 +33,12 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
     if (progress === 100) {
       const timer1 = setTimeout(() => {
         setIsFading(true);
-      }, 400);
+      }, 350);
 
       const timer2 = setTimeout(() => {
         setIsHidden(true);
         onComplete();
-      }, 850);
+      }, 750);
 
       return () => {
         clearTimeout(timer1);
@@ -59,31 +59,36 @@ export const Intro: React.FC<IntroProps> = ({ onComplete }) => {
         setTimeout(() => {
           setIsHidden(true);
           onComplete();
-        }, 300);
+        }, 250);
       }}
     >
-      {/* Background Glow */}
-      <div className="absolute w-96 h-96 rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none" />
+      {/* Background Radial Glow */}
+      <div className="absolute w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[130px] pointer-events-none" />
 
-      {/* Video Loop from User Video */}
-      <div className="relative w-64 md:w-80 aspect-[400/440] flex items-center justify-center overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(0,242,254,0.3)] bg-black mb-6">
-        <video
-          src="/videos/uperx_logo.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-contain"
+      {/* New uperX Gold Logo Display */}
+      <div className="relative w-64 sm:w-80 h-36 flex items-center justify-center overflow-hidden rounded-3xl border border-white/15 shadow-[0_0_60px_rgba(235,183,67,0.3)] bg-neutral-950/80 backdrop-blur-xl mb-6 p-6">
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-cyan-500/10 to-amber-500/10 animate-pulse pointer-events-none" />
+        <img
+          src="/images/uperx_gold_logo.png"
+          alt="uperX"
+          className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(235,183,67,0.45)] transition-transform duration-500 scale-105"
         />
       </div>
 
       {/* Counter & System Status */}
       <div className="flex flex-col items-center space-y-2 z-10">
-        <span className="font-mono font-bold text-4xl md:text-5xl text-white tracking-widest tabular-nums">
+        <span className="font-mono font-bold text-4xl sm:text-5xl text-white tracking-widest tabular-nums">
           {progress}%
         </span>
-        <span className="font-mono text-xs text-cyan-400 tracking-[0.3em] animate-pulse">
-          uperX <span className="uppercase">// Initializing Autonomous Core</span>
+        {/* Progress Bar Line */}
+        <div className="w-48 h-1 bg-white/15 rounded-full overflow-hidden mt-1">
+          <div
+            className="h-full bg-gradient-to-r from-amber-400 to-cyan-400 transition-all duration-100 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <span className="font-mono text-xs text-amber-300 tracking-[0.25em] uppercase pt-2 animate-pulse">
+          uperX // Initializing Autonomous Core
         </span>
       </div>
 

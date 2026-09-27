@@ -4,6 +4,7 @@ import { Icon3D } from '../components/ThreeDIcons';
 
 interface DashboardProps {
   onNavigate: (path: string) => void;
+  isLight?: boolean;
 }
 
 const UPERX_FOLDERS = [
@@ -58,7 +59,7 @@ const UPERX_FOLDERS = [
   },
 ];
 
-export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, isLight = false }) => {
   const wallpapers = getWallpapers();
 
   const [activeFolderId, setActiveFolderId] = useState<string>(UPERX_FOLDERS[0].id);
@@ -77,11 +78,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
 
   return (
     <div
-      className="relative w-full min-h-[92vh] pt-24 px-6 pb-20 select-none overflow-hidden"
+      className={`relative w-full min-h-[92vh] pt-24 px-6 pb-20 select-none overflow-hidden ${
+        isLight ? 'text-[#1A1A1A]' : 'text-white'
+      }`}
       style={{
-        backgroundColor: '#050508',
+        backgroundColor: isLight ? '#FAF9F5' : '#050508',
         backgroundImage: activeWallpaper
           ? `url(${activeWallpaper})`
+          : isLight
+          ? 'radial-gradient(circle at 50% 15%, rgba(235, 183, 67, 0.08) 0%, transparent 60%), linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px)'
           : 'radial-gradient(circle at 50% 15%, rgba(0, 242, 254, 0.05) 0%, transparent 60%), linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
         backgroundSize: activeWallpaper ? 'cover' : '100% 100%, 40px 40px, 40px 40px',
         backgroundPosition: 'center',

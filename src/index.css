@@ -71,6 +71,93 @@
   --body-border-color: rgba(26, 26, 26, 0.12);
 }
 
+/* Global Light Theme Overrides (Finseo Aesthetic across all pages) */
+.light-theme body,
+.light-theme .min-h-screen {
+  background-color: #faf9f5 !important;
+  color: #1a1a1a !important;
+}
+
+.light-theme .text-white {
+  color: #1a1a1a !important;
+}
+
+.light-theme .text-neutral-200,
+.light-theme .text-neutral-300 {
+  color: #374151 !important;
+}
+
+.light-theme .text-neutral-400,
+.light-theme .text-neutral-500 {
+  color: #6b7280 !important;
+}
+
+.light-theme .bg-neutral-950\/80,
+.light-theme .bg-neutral-950\/90,
+.light-theme .bg-neutral-950\/70,
+.light-theme .bg-neutral-950,
+.light-theme .bg-neutral-900\/40,
+.light-theme .bg-neutral-900\/70,
+.light-theme .bg-neutral-900,
+.light-theme .tilt-card,
+.light-theme .pinned-module {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  color: #1a1a1a !important;
+}
+
+.light-theme .border-white\/10,
+.light-theme .border-white\/15,
+.light-theme .border-white\/20,
+.light-theme .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-theme .bg-black\/60,
+.light-theme .bg-black\/40 {
+  background-color: #f5f5f4 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-theme .bg-cyan-950\/20,
+.light-theme .bg-cyan-950\/40,
+.light-theme .bg-cyan-500\/10 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-theme input,
+.light-theme textarea {
+  background-color: #f5f5f4 !important;
+  color: #1a1a1a !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+.light-theme button.bg-cyan-400,
+.light-theme a.bg-cyan-400 {
+  background-color: #1c1c1c !important;
+  color: #ffffff !important;
+}
+
+.light-theme button.bg-cyan-400:hover,
+.light-theme a.bg-cyan-400:hover {
+  background-color: #000000 !important;
+}
+
+.light-theme .pinned-reveal__img {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+
 @media (min-width: 580px) {
   :root {
     --home-padding: 5vw;

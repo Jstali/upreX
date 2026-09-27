@@ -2,9 +2,10 @@ import React from 'react';
 
 interface AboutProps {
   onNavigate: (path: string) => void;
+  isLight?: boolean;
 }
 
-export const About: React.FC<AboutProps> = ({ onNavigate }) => {
+export const About: React.FC<AboutProps> = ({ onNavigate, isLight = false }) => {
   const techStack = [
     {
       category: 'AI & Autonomous Swarms',
@@ -29,7 +30,9 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="w-full min-h-screen pt-28 pb-32 px-5 md:px-12 max-w-7xl mx-auto flex flex-col space-y-32 select-none">
+    <div className={`w-full min-h-screen pt-28 pb-32 px-5 md:px-12 max-w-7xl mx-auto flex flex-col space-y-32 select-none ${
+      isLight ? 'text-[#1A1A1A]' : 'text-white'
+    }`}>
 
       {/* =====================================================================
           1. HERO SECTION (Canvas Glow + Cappella Revealed Headline)
